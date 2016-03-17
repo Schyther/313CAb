@@ -1,11 +1,23 @@
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdio>
 
 using namespace std;
 
-int main() {
 
-	cout << "Hello world!\n";
-	cout << 2<<3;
+int main() {
+	
+	string s;
+
+	ifstream f("bonuri.csv");
+
+
+	getline(f, s, ',');
+	
+	cout << s <<'\n';
+
+	
 
 	return 0;
 }

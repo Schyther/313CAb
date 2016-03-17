@@ -19,4 +19,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bonuri.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="categorii.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="magazine.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="paleti.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="produse.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
