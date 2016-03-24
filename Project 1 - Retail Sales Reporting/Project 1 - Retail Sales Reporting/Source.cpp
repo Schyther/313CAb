@@ -1,23 +1,12 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdio>
-
-using namespace std;
+#include "Classes.h"
 
 
 int main() {
 	
-	string s;
 
-	ifstream f("bonuri.csv");
+	Read r;
 
-
-	getline(f, s, ',');
-	
-	cout << s <<'\n';
-
-	
+	r.Bonuri();
 
 	return 0;
 }
