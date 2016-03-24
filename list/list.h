@@ -39,9 +39,9 @@ public:
 			end = NULL;
 		}
 		else {
-			current = begin;
+			current = other.begin;
 			while (current != NULL) {
-				this.push_back(current->value);
+				this->push_back(current->value);
 				current = current->next;
 			}
 		}
@@ -58,15 +58,8 @@ public:
 	void erase(int pos);
 
 	void printList();
-	friend ostream& operator<<(ostream& out, const List<T> &list) {
-		Node<T> *current = list.begin;
-		while (current) {
-			out << current->value << " ";
-			current = current->next;
-		}
-		out << "\n";
-		return out;
-	}
+	template<class Y>
+	friend ostream& operator<<(ostream& out, const List<Y> &list);
 
 };
 
@@ -170,3 +163,14 @@ void List <T>::erase(int pos) {
 		poscrt++;
 	}
 }
+
+template<class T>
+ostream& operator<<(ostream& out, const List<T>& list) {
+		Node<T> *current = list.begin;
+		while (current) {
+			out << current->value << " ";
+			current = current->next;
+		}
+		out << "\n";
+		return out;
+	}
