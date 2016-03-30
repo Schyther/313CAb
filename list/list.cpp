@@ -55,18 +55,26 @@ List<T> List<T>::operator=(const List<T> &other) {
 
 template <class T>
 bool List<T>::empty() {
-	if (begin == NULL) return 1;
-	else return 0;
+	if (begin == NULL) return true;
+	else return false;
 }
 
+/*
+	presupun ca tipul de date T primit are un constructor default
+	daca T ar fi pointer, ar trebui returnat NULL
+	dar echivalentul lui NULL nu exista pentru tipuri de date
+	primitive, cum ar fi int
+*/
 template <class T>
 T List<T>::front() {
-	return begin->value;
+	if (begin) return begin->value;
+	else return T();
 }
 
 template <class T>
 T List<T>::back() {
-	return end->value;
+	if (end) return end->value;
+	else return T();
 }
 
 template <class T>
@@ -114,16 +122,6 @@ void List<T>::insert(int pos, T value) {
 	if (newNode->next == NULL) {
 		end = newNode;
 	}
-}
-
-template <class T>
-void List<T>::printList() {
-	Node<T> *current = begin;
-	while (current) {
-		cout << current->value << " ";
-		current = current->next;
-	}
-	cout << "\n";
 }
 
 template <class T>

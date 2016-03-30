@@ -1,6 +1,8 @@
-#include <iostream>
+#ifndef LIST_H
+#define LIST_H
+//#include <iostream>
 
-using namespace std;
+//using namespace std;
 
 template<class T>
 struct Node{
