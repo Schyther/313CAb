@@ -1,5 +1,8 @@
-
+#ifndef __IOSTREAM__
+#define __IOSTREAM__
 #include <iostream>
+#endif
+
 #include "list.h"
 
 using namespace std;
@@ -16,7 +19,6 @@ int main()
 	l.erase(1);
 	l.insert(0, 3);
 	cout << l.empty() << "\n";
-	l.printList();
 	cout << l;
 	cout << l.back() << "\n";
 	List<int> l2(l); //copy-constructor

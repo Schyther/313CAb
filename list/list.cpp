@@ -1,5 +1,9 @@
-#include "list.h"
+#ifndef __IOSTREAM__
+#define __IOSTREAM__
 #include <iostream>
+#endif
+
+#include "list.h"
 
 using namespace std;
 
@@ -26,7 +30,7 @@ List<T>::~List() {
 
 template <class T>
 List<T>::List(List<T> &other) {
-	Node<T> *newNode, *current;
+	Node<T> *current;
 	begin = NULL;
 	end = NULL;
 	current = other.begin;
@@ -40,7 +44,7 @@ List<T>::List(List<T> &other) {
 
 template <class T>
 List<T> List<T>::operator=(const List<T> &other) {
-	Node<T> *newNode, *current;
+	Node<T> *current;
 	begin = NULL;
 	end = NULL;
 	current = other.begin;
@@ -75,6 +79,21 @@ template <class T>
 T List<T>::back() {
 	if (end) return end->value;
 	else return T();
+}
+
+template <class T>
+int List<T>::getpos(T value) {
+	if(empty()) return -1;
+	Node<T> *current = begin;
+	int pos = 0;
+	while (current) {
+		if (value == current -> value) {
+			return pos;
+		}
+		pos++;
+		current = current -> next;
+	}
+	return -1;
 }
 
 template <class T>
@@ -150,6 +169,60 @@ void List <T>::erase(int pos) {
 		current = current->next;
 		poscrt++;
 	}
+}
+
+template <class T>
+void List<T>::remove(T value) {
+	if(empty()) return;
+	Node<T> *current = begin, *elemToRemove;
+	if(value == begin -> value)
+	{
+	    elemToRemove = begin;
+	    begin = begin -> next;
+	    delete elemToRemove;
+	}
+	while (current -> next) {
+		if (value == current -> next -> value) { //delete elem
+			elemToRemove = current -> next;
+			current -> next = current -> next -> next;
+			if (elemToRemove == end) {
+				end = current;
+			}
+			delete elemToRemove;
+			return;
+		}
+		current = current->next;
+	}
+}
+
+template <class T>
+void List<T>::remove_next(Node<T> *node)
+{
+    if(!node -> next) return;
+    Node<T> *elemToRemove = node -> next;
+    if(elemToRemove == end) end = node;
+    node -> next = node -> next -> next;
+    delete elemToRemove;
+}
+
+template <class T>
+void List<T>::pop() {
+    if(empty()) return;
+    Node<T> *elemToRemove = begin;
+    begin = begin->next;
+    delete elemToRemove;
+}
+
+template <class T>
+int List<T>::length() {
+    Node<T> *current = begin;
+    int nr_elem = 0;
+    while(current)
+    {
+        nr_elem++;
+        current = current->next;
+    }
+    return nr_elem;
 }
 
 template<class T>
