@@ -17,7 +17,11 @@ private:
 
 public:
 
-	void Read::Bonuri();
+	void Bonuri(const char* name);
+	void Produse(const char* fileName);
+	void Paleti(const char* fileName);
+	void Magazine(const char* fileName);
+	void Categorii(const char* fileName);
 
 	~Read();
 
