@@ -1,4 +1,4 @@
-#include<iostream>
+#include<iostream> //nu e versiunea buna, nu lucrati pe vesiunea asta
 #include<string>
 
 using namespace std;
