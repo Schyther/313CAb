@@ -1,5 +1,5 @@
-template<class T1, class T2>
-int binarysearch(T1 <T2> vector, int pinitial, int pfinal, T2 cautat)
+template<class T2>
+int binarysearch(ResizeableArray <T2> vector, int pinitial, int pfinal, T2 cautat)
 {
 	int medie;
 	medie=(pinitial+pfinal) >> 1; // >> 1 = impartire la 2
