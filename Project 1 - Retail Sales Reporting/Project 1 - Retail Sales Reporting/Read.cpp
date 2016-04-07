@@ -89,7 +89,7 @@ void Read::Produse(const char *fileName) {
 void Read::Paleti(const char* fileName) {
 
 	string line = "";
-	short pos, length;
+	int pos, length;
 	paleti.open(fileName);
 
 	string paletId = "";
@@ -196,6 +196,65 @@ void Read::Categorii(const char *fileName) {
 			}
 
 			// TODO: adaugare date la structuri
+
+		}
+	}
+
+
+}
+
+void Read::Tranzactii(const char *fileName) {
+
+	tranzactii.open(fileName);
+
+	int id;
+	char timestamp[30];
+	string id_bon, id_magazin, line;
+	int i, n;
+
+	// Sar peste headerele tabelului
+	getline(tranzactii, line, '\r');
+
+	while (!tranzactii.eof()) {
+
+		getline(tranzactii, line, '\r');
+		id = 0;
+		id_bon = "";
+		id_magazin = "";
+		
+		if (line != "") {
+
+			// Fac split caracter cu caracter la linia citita
+			i = 0;
+			while (line[i] != ',') {
+				id = id * 10 + line[i++] - '0';
+			}
+
+			i++; n = 0;
+			while (line[i] != ',') {
+
+				timestamp[n++] = line[i++];
+
+			}
+
+			timestamp[n] = '\0';
+
+			i++;
+
+			while (line[i] != ',') {
+				
+				id_bon += line[i++];
+			}
+
+			i++;
+
+			while (i < (int)line.length()) {
+
+				id_magazin += line[i++];
+			}
+
+			// TODO: adaugare date la structuri
+			cout << id << '\n' << timestamp << '\n' << id_bon << '\n' << id_magazin;
 
 		}
 	}

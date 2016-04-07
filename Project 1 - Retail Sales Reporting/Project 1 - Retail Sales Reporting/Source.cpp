@@ -5,9 +5,7 @@ int main() {
 	
 
 	Read r;
-
-	//r.Bonuri("bonuri.csv");
-	r.Categorii("categorii.csv");
+	r.Tranzactii("tranzactii.csv");
 
 	return 0;
 }

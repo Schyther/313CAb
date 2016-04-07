@@ -21,6 +21,15 @@
     <ClCompile Include="Read.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="list.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="produs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="bonuri.csv">
@@ -36,6 +45,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="produse.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="tranzactii.csv">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
