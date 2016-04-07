@@ -15,6 +15,9 @@
 
 using namespace std;
 
+class Produs;
+class Bon;
+
 class Magazin {
     int id;
     string locatie;
@@ -53,7 +56,6 @@ public:
     void remove_produs(string, int);
 
     void add_bon(Bon*);
-    void remove_bon(string);
 };
 
 int Magazin::getId()
@@ -125,29 +127,9 @@ void Magazin::remove_produs(string id)
     }
 }
 
-void Magazin::add_tranzactie(Tranzactie* tranzactie)
+void Magazin::add_bon(Bon* bon)
 {
-    tranzactii.push_back(tranzactie);
-}
-
-void Magazin::erase_tranzactie(int pos)
-{
-    tranzactii.erase(pos);
-}
-
-template class<T>
-void Magazin::remove_tranzactie(string id)
-{
-    List<tranzactie*> aux = tranzactii;
-    if(aux.front() -> id == id)
-    {
-        tranzactii.pop();
-        return;
-    }
-    while(!aux.empty())
-    {
-        aux.pop
-    }
+    bonuri.push_back(bon);
 }
 
 int main()
