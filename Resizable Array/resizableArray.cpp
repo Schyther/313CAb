@@ -36,5 +36,8 @@ int main() {
 
     a.erase(1);
     cout << a.size() << ' ' << a.capacity() << '\n';
+
+    vector < int > s2;
+    cout << a.find(s2) << '\n';
     return 0;  
 }
