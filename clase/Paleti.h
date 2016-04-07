@@ -42,7 +42,7 @@ public:
 		this->id_palet = '\0';
 		this->nr_itemi = 0;
 		this->id_slot = 0;
-		delete[] produs;
+		delete produs;
 	}
 
 	Palet& operator=(const Palet& x) {
