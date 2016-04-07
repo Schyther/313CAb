@@ -15,6 +15,7 @@ private:
 	ifstream magazine;
 	ifstream paleti;
 	ifstream produse;
+	ifstream tranzactii;
 
 public:
 
@@ -23,6 +24,7 @@ public:
 	void Paleti(const char* fileName);
 	void Magazine(const char* fileName);
 	void Categorii(const char* fileName);
+	void Tranzactii(const char* fileName);
 
 	~Read();
 
