@@ -239,7 +239,7 @@ void ResizableArray<T>::erase(const int position) {
 class Produs {
 
 private:
-	string id;
+	int id;
 	string nume;
 	string categorie;
 	int pret;
@@ -247,10 +247,10 @@ private:
 public:
 
 	Produs();
-	Produs(string id, string nume, string categorie, int pret);
+	Produs(int id, string nume, string categorie, int pret);
 	~Produs();
 
-	string getId();
+	int getId();
 	string getNume();
 	string getCategorie();
 	int getPret();
@@ -273,10 +273,11 @@ class Bon {
 private:
 
 	string id;
-	ResizableArray <Produs> produse;
-	int nr_produse;
-	string timestamp;
-	string id_magazin;
+	ResizableArray <Produs> *produse;
+	int *FcvProdus;    // Vector cu frecventa fiecarui prrodus 
+	int nrProduse;
+	long long utcTime;
+	string idMagazin;
 	Magazin *magazin;
 
 
@@ -288,11 +289,14 @@ public:
 
 	//Getteri
 	string getId();
-	ResizableArray <Produs>* getProduse();
+	int* getFcvProduse();
 	int getNrProduse();
-	string GetTime();
+	long long GetTime();
 	string getIdMagazin();
 	Magazin* getMagazin();
+
+	//Metode
+	void AddProdus(int id);
 	
 };
 

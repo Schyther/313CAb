@@ -7,6 +7,7 @@ ostream &operator<<(ostream &out, Produs p) {
 	out << "nume produs: " << p.nume << '\n';
 	out << "categorie produs: " << p.categorie << '\n';
 	out << "pret produs: " << p.pret << '\n';
+	return out;
 }
 
 Produs& Produs:: operator= (const Produs &p) {
@@ -14,19 +15,20 @@ Produs& Produs:: operator= (const Produs &p) {
 	this->nume = p.nume;
 	this->categorie = p.categorie;
 	this->pret = p.pret;
+	return *this;
 }
 
 //Constructori / Destructor
 
 Produs::Produs()
 {
-	this->id = "0";
+	this->id = 0;
 	this->nume = "0";
 	this->categorie = "0";
 	this->pret = 0;
 };
 
-Produs::Produs(string id, string nume, string categorie, int pret)
+Produs::Produs(int id, string nume, string categorie, int pret)
 {
 	this->id = id;
 	this->nume = nume;
@@ -40,7 +42,7 @@ Produs::~Produs() {
 
 //Getteri
 
-string Produs::getId()
+int Produs::getId()
 {
 	return id;
 }
