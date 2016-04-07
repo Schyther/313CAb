@@ -1,0 +1,51 @@
+<!-- 
+  source: https://developers.google.com/chart/interactive/docs/gallery/columnchart#creating-material-column-charts
+-->
+
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Magazin', 'Vanzari totale' ],
+['Magazinul1', 100]
+,
+['Magazinul2', 200]
+,
+['Magazinul3', 210]
+,
+['Magazinul4', 300]
+,
+['Magazinul5', 400]
+,
+['Magazinul6', 500]
+,
+['Magazinul7', 600]
+,
+['Magazinul8', 700]
+,
+['Magazinul9', 800]
+,
+  ]);
+
+        var options = {
+          chart: {
+            title: 'Vanzari Magazine',
+            subtitle: 'vanzari totale companie',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="columnchart_material" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
