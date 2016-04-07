@@ -1,5 +1,16 @@
+#ifndef __DEPOZIT_MAGAZIN__
+#define __DEPOZIT_MAGAZIN__
+
+#ifndef __IOSTREAM__
+#define __IOSTREAM__
 #include <iostream>
-#include <fstream>
+#endif
+
+#ifndef __STRING__
+#define __STRING__
+#include <string>
+#endif
+
 #include "ResizableArray.h"
 
 class Depozit_Magazin {
@@ -30,3 +41,4 @@ int findProdus(string id)
 	}
 	return -1;
 }
+#endif

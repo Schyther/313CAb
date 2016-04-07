@@ -1,5 +1,6 @@
 #ifndef __MAGAZIN__
 #define __MAGAZIN__
+
 #ifndef __IOSTREAM__
 #define __IOSTREAM__
 #include <iostream>
@@ -45,6 +46,9 @@ public:
     {
         delete depozit;
     }
+    void setId(int);
+    void setLocatie(string);
+
     int getId();
     string getLocatie();
     int findProdus(string);
@@ -57,6 +61,17 @@ public:
 
     void add_bon(Bon*);
 };
+
+void Magazin::setId(int id)
+{
+    this -> id = id;
+}
+
+void Magazin::setLocatie(string locatie)
+{
+    this -> locatie = locatie;
+}
+
 
 int Magazin::getId()
 {
