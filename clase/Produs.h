@@ -29,8 +29,16 @@ public:
         this -> nume = nume;
         this -> categorie = categorie;
         this -> pret = pret;
-    };
+    }
     
+    Produs(const Produs& other)
+    {
+        this -> id = other.id;
+        this -> nume = other.nume;
+        this -> categorie = other.nume;
+        this -> pret = other.pret;
+    }
+
     ~Produs();
 
     void setId(string);
@@ -65,7 +73,7 @@ void Produs::setId(string id)
 	this -> id = id;
 }
 
-void Produs::setNume(strig nume)
+void Produs::setNume(string nume)
 {
 	this -> nume = nume;
 }
