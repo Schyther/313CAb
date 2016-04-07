@@ -76,7 +76,7 @@ public:
     // Metoda care returneaza primul indice pe care se afla un element cu
     // valoarea "value" si returneaza -1 daca elementul cautat nu se afla in
     // array
-    unsigned int find(T value);
+    int find(T value);
 };
 
 template <typename T>
@@ -157,7 +157,7 @@ void ResizableArray<T>::erase(const int position) {
 }
 
 template <typename T>
-unsigned int ResizableArray<T>::find(T value) {
+int ResizableArray<T>::find(T value) {
     for (unsigned int i = 0; i < _size; ++i) {
         if (array[i] == value) {
             return i;
