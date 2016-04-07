@@ -1,4 +1,4 @@
-template<class T>
+template<class T2>
 void quicksort(ResizableArray <T2> vector, int pinitial, int pfinal)
 {
     int m = (pinitial+pfinal) >> 1;
