@@ -1,5 +1,8 @@
 #pragma once
 
+#define MOD 100003
+#define BASE 1867
+
 template <typename Tkey, typename Tvalue>
 struct Pair {
     Tkey first;
@@ -27,6 +30,7 @@ public:
     int hashFunction(Tkey key);
     void insert(Tkey key, Tvalue value);
 
+    // Metoda care returneaza continutul pentru cheia "key"
     ResizableArray < Tvalue > getValue(Tkey key); 
 
     // Metoda pentru a supaincarca "Subscripting operator" 
@@ -43,15 +47,6 @@ Hash < Tkey, Tvalue >::Hash(int Hmax) {
 // Destructor
 template <typename Tkey, typename Tvalue>
 Hash < Tkey, Tvalue >::~Hash() {
-    for (int i = 0; i < Hmax; ++i) {
-        for (int j = H[i].size() - 1; j >= 0; --j) {
-            for (; H[i][j].second.size(); ) {
-                H[i][j].second.pop_back();
-            }
-
-            H[i].pop_back();
-        }
-    }
     delete[] H;
 }
 
