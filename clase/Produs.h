@@ -1,3 +1,6 @@
+#ifndef __PRODUS__
+#define __PRODUS__
+
 #ifndef __IOSTREAM__
 #define __IOSTREAM__
 #include <iostream>
@@ -18,13 +21,7 @@ class Produs {
     string categorie;
     int pret;
 public:
-    Produs()
-    {
-        this -> id = "0";
-        this -> nume = "0";
-        this -> categorie = "0";
-        this -> pret = 0;
-    };
+    Produs();
 
     Produs(string id, string nume, string categorie, int pret)
     {
@@ -32,10 +29,22 @@ public:
         this -> nume = nume;
         this -> categorie = categorie;
         this -> pret = pret;
-    };
-    
-    ~Produs(){
     }
+    
+    Produs(const Produs& other)
+    {
+        this -> id = other.id;
+        this -> nume = other.nume;
+        this -> categorie = other.nume;
+        this -> pret = other.pret;
+    }
+
+    ~Produs();
+
+    void setId(string);
+    void setNume(string);
+    void setCategorie(string);
+    void setPret(int);
 
     string getId();
     string getNume();
@@ -59,6 +68,26 @@ ostream &operator<<(ostream &out, Produs p) {
     out << "pret produs: " << p.pret << '\n';
 }
 
+void Produs::setId(string id)
+{
+	this -> id = id;
+}
+
+void Produs::setNume(string nume)
+{
+	this -> nume = nume;
+}
+
+void Produs::setCategorie(string categorie)
+{
+	this -> categorie = categorie;
+}
+
+void Produs::setPret(int pret)
+{
+	this -> pret = pret;
+}
+
 string Produs::getId()
 {
     return id;
@@ -78,6 +107,4 @@ int Produs::getPret()
 {
     return pret;
 }
-
-
-
+#endif

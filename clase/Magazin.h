@@ -1,5 +1,8 @@
 #ifndef __MAGAZIN__
 #define __MAGAZIN__
+
+using namespace std;
+
 #ifndef __IOSTREAM__
 #define __IOSTREAM__
 #include <iostream>
@@ -10,12 +13,10 @@
 #include <string>
 #endif
 
-#include "ResizableArray.h"
+#include "resizablearray.h"
 #include "Depozit_Magazin.h"
+#include "Produs.h"
 
-using namespace std;
-
-class Produs;
 class Bon;
 
 class Magazin {
@@ -27,7 +28,7 @@ public:
     Magazin()
     {
         this -> depozit = new Depozit_Magazin;
-    };
+    }
     Magazin(int id, string locatie)
     {
         this -> id = id;
@@ -41,10 +42,21 @@ public:
         this -> bonuri = bonuri;
         this -> depozit = depozit;
     }
+    Magazin(const Magazin& other)
+    {
+        this -> id = other.id;
+        this -> locatie = other.locatie;
+        this -> bonuri = other.bonuri;
+        this -> depozit = other.depozit;
+    }
     ~Magazin()
     {
         delete depozit;
     }
+
+    void setId(int);
+    void setLocatie(string);
+
     int getId();
     string getLocatie();
     int findProdus(string);
@@ -57,6 +69,17 @@ public:
 
     void add_bon(Bon*);
 };
+
+void Magazin::setId(int id)
+{
+    this -> id = id;
+}
+
+void Magazin::setLocatie(string locatie)
+{
+    this -> locatie = locatie;
+}
+
 
 int Magazin::getId()
 {
@@ -75,12 +98,7 @@ int Magazin::findProdus(string id)
 
 int Magazin::getNProdus(string id)
 {
-    int pos = depozit -> findProdus(id);
-    if(pos == -1)
-    {
-        return -1;
-    }
-    return depozit -> nr_produse[pos];
+    return depozit -> getNProdus(id);
 }
 
 ResizableArray<Bon*> Magazin::getBonuri()
@@ -88,53 +106,46 @@ ResizableArray<Bon*> Magazin::getBonuri()
     return bonuri;
 }
 
-Depozit_Magazin* Magazin::getdepozit()
+Depozit_Magazin* Magazin::getDepozit()
 {
     return depozit;
 }
 
 void Magazin::add_produs(Produs* produs, int cantitate)
 {
-    pos = findProdus(produs -> id);
+    int pos = findProdus(produs -> getId());
     if(pos == -1)
     {
-        depozit -> produse.push_back(produs);
-        depozit -> nr_produse.push_back(cantitate);
+        depozit -> addProdus(produs, cantitate);
     }
     else
     {
-        depozit -> nr_produse[pos] += cantitate;
+        depozit -> addProdus(pos, cantitate);
     }
 }
 
-void Magazin::remove_produs(string id)
+void Magazin::remove_produs(string id, int cantitate)
 {
-    pos = findProdus(id);
+    int pos = findProdus(id);
     if(pos)
     {
-        if(depozit -> nr_produse[pos] < cantitate)
+        if(depozit -> getNProdus(pos) < cantitate)
         {
-            cout << "Nu sunt suficiente produse\n";
+            cerr << "Nu sunt suficiente produse\n";
         }
         else
         {
-            depozit -> nr_produse[pos] -= cantitate;
+            depozit -> addProdus(pos, -cantitate);
         }
     }
     else
     {
-        cout << "Produsul nu exista in depozitul magazinului\n";
+        cerr << "Produsul nu exista in depozitul magazinului\n";
     }
 }
 
 void Magazin::add_bon(Bon* bon)
 {
     bonuri.push_back(bon);
-}
-
-int main()
-{
-    cout << "Hello world!" << endl;
-    return 0;
 }
 #endif
