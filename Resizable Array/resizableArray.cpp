@@ -1,10 +1,12 @@
 #include <iostream>
+#include <fstream>
 #include <cstdio>
 #include <string>
 #include <vector>
-#include "resizablearray.h"
 
 using namespace std;
+
+#include "resizablearray.h"
 
 int main() {
     // Am folosit std::vector doar pentru testare, stiu ca nu avem voie sa-l
@@ -39,5 +41,22 @@ int main() {
 
     vector < int > s2;
     cout << a.find(s2) << '\n';
+
+    cout << a.size() << ' ' << a.capacity() << '\n';
+    a.pop_back();
+    cout << a.size() << ' ' << a.capacity() << '\n';
+
+    a.push_back(x);
+    a.push_back(x);
+    a.push_back(x);
+    a.push_back(x);
+
+    cout << a.size() << ' ' << a.capacity() << '\n';
+    a.pop_back();
+    a.pop_back();
+    a.pop_back();
+    a.pop_back();
+
+    cout << a.size() << ' ' << a.capacity() << '\n';
     return 0;  
 }
