@@ -254,7 +254,7 @@ void Read::Tranzactii(const char *fileName) {
 			}
 
 			// TODO: adaugare date la structuri
-			cout << id << '\n' << timestamp << '\n' << id_bon << '\n' << id_magazin;
+			
 
 		}
 	}
