@@ -55,13 +55,6 @@ public:
 	friend ostream& operator<<(ostream& out, const List<Y> &list);
 };
 
-// FUNCTIILE IMPLEMENTATE IN HEADER. ASA MERGE
-//  ||
-//  ||
-//  \/
-
-/*
-
 //CONSTRUCTOR
 
 template <class T>
@@ -116,7 +109,7 @@ template <class T>
 bool List<T>::empty() {
 	if (begin == NULL) return true;
 	else return false;
-}*/
+}
 
 /*
 	presupun ca tipul de date T primit are un constructor default
@@ -124,7 +117,7 @@ bool List<T>::empty() {
 	dar echivalentul lui NULL nu exista pentru tipuri de date
 	primitive, cum ar fi int
 */
-/*template <class T>
+template <class T>
 T List<T>::front() {
 	if (begin) return begin->value;
 	else return T();
@@ -290,4 +283,3 @@ ostream& operator<<(ostream& out, const List<T>& list) {
 	out << "\n";
 	return out;
 }
-*/
