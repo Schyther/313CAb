@@ -16,16 +16,14 @@
 using namespace std;
 
 class Produs {
-    string id;
     string nume;
     string categorie;
     int pret;
 public:
     Produs();
 
-    Produs(string id, string nume, string categorie, int pret)
+    Produs( string nume, string categorie, int pret)
     {
-        this -> id = id;
         this -> nume = nume;
         this -> categorie = categorie;
         this -> pret = pret;
@@ -33,7 +31,6 @@ public:
     
     Produs(const Produs& other)
     {
-        this -> id = other.id;
         this -> nume = other.nume;
         this -> categorie = other.nume;
         this -> pret = other.pret;
@@ -41,18 +38,15 @@ public:
 
     ~Produs();
 
-    void setId(string);
     void setNume(string);
     void setCategorie(string);
     void setPret(int);
 
-    string getId();
     string getNume();
     string getCategorie();
     int getPret();
 
     Produs &operator= (const Produs &p){
-        this -> id = p.id;
         this -> nume = p.nume; 
         this -> categorie = p.categorie; 
         this -> pret = p.pret;     
@@ -62,15 +56,9 @@ public:
 };
 
 ostream &operator<<(ostream &out, Produs p) {
-    out << "id produs: " << p.id << '\n';
     out << "nume produs: " << p.nume << '\n';
     out << "categorie produs: " << p.categorie << '\n';
     out << "pret produs: " << p.pret << '\n';
-}
-
-void Produs::setId(string id)
-{
-	this -> id = id;
 }
 
 void Produs::setNume(string nume)
@@ -86,11 +74,6 @@ void Produs::setCategorie(string categorie)
 void Produs::setPret(int pret)
 {
 	this -> pret = pret;
-}
-
-string Produs::getId()
-{
-    return id;
 }
 
 string Produs::getNume()
