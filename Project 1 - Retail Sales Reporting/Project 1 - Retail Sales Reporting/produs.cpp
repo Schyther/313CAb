@@ -3,7 +3,6 @@
 // Supraincarcare operatori
 
 ostream &operator<<(ostream &out, Produs p) {
-	out << "id produs: " << p.id << '\n';
 	out << "nume produs: " << p.nume << '\n';
 	out << "categorie produs: " << p.categorie << '\n';
 	out << "pret produs: " << p.pret << '\n';
@@ -11,7 +10,6 @@ ostream &operator<<(ostream &out, Produs p) {
 }
 
 Produs& Produs:: operator= (const Produs &p) {
-	this->id = p.id;
 	this->nume = p.nume;
 	this->categorie = p.categorie;
 	this->pret = p.pret;
@@ -22,15 +20,13 @@ Produs& Produs:: operator= (const Produs &p) {
 
 Produs::Produs()
 {
-	this->id = 0;
 	this->nume = "0";
 	this->categorie = "0";
 	this->pret = 0;
 };
 
-Produs::Produs(int id, string nume, string categorie, int pret)
+Produs::Produs( string nume, string categorie, int pret)
 {
-	this->id = id;
 	this->nume = nume;
 	this->categorie = categorie;
 	this->pret = pret;
@@ -39,13 +35,16 @@ Produs::Produs(int id, string nume, string categorie, int pret)
 Produs::~Produs() {
 }
 
+void Produs::AddData(string nume, string categorie, int pret) 
+{
+	this->nume = nume;
+	this->categorie = categorie;
+	this->pret = pret;
+
+}
 
 //Getteri
 
-int Produs::getId()
-{
-	return id;
-}
 
 string Produs::getNume()
 {
