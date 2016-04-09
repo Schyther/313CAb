@@ -25,8 +25,9 @@ Produs::Produs()
 	this->pret = 0;
 };
 
-Produs::Produs( string nume, string categorie, int pret)
+Produs::Produs(int id, string nume, string categorie, int pret)
 {
+	this->id = id;
 	this->nume = nume;
 	this->categorie = categorie;
 	this->pret = pret;
@@ -35,8 +36,9 @@ Produs::Produs( string nume, string categorie, int pret)
 Produs::~Produs() {
 }
 
-void Produs::AddData(string nume, string categorie, int pret) 
+void Produs::AddData(int id, string nume, string categorie, int pret) 
 {
+	this->id = id;
 	this->nume = nume;
 	this->categorie = categorie;
 	this->pret = pret;
@@ -45,6 +47,10 @@ void Produs::AddData(string nume, string categorie, int pret)
 
 //Getteri
 
+int Produs::getId() {
+
+	return this->id;
+}
 
 string Produs::getNume()
 {

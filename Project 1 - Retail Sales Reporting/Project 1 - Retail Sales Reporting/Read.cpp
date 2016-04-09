@@ -84,7 +84,7 @@ void Read::ProduseRead(const char *fileName, Produs *produse, Categorii& cat) {
 				prodPrice = 10 * prodPrice + short(line[pos++] - '0');
 			}
 
-			produse[prodId].AddData(prodName, cat.Get(prodCategory), prodPrice);
+			produse[prodId].AddData(prodId, prodName, cat.Get(prodCategory), prodPrice);
 
 		}
 	}

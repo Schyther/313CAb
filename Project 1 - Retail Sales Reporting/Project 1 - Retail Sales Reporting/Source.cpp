@@ -6,7 +6,7 @@ int main() {
 	Read r;
 	
 	Categorii categorii;
-	Produs produse[100];  // produse[i] - produsul cu id-ul i.
+	Produs produse[NumarProduse];  // produse[i] - produsul cu id-ul i.
 	
 	// Citire date
 	r.CategoriiRead("categorii.csv", categorii);

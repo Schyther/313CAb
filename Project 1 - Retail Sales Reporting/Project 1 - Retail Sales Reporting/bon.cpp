@@ -41,11 +41,6 @@ string Bon::getIdMagazin() {
 
 }
 
-Magazin* Bon::getMagazin() {
-
-	return magazin;
-
-}
 
 
 //Metode

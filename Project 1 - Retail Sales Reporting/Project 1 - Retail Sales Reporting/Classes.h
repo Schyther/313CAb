@@ -8,7 +8,7 @@ using namespace std;
 
 #define MOD 100003
 #define BASE 1867
-
+#define NumarProduse 200
 
 
 //Clasa pentru Resizable Array
@@ -54,7 +54,7 @@ public:
 			_capacity = other.capacity();
 			T *tmp = new T[other.capacity()];
 
-			for (int i = 0; i < other.size(); ++i) {
+			for (int i = 0; i < (int)other.size(); ++i) {
 				tmp[i] = other.array[i];
 			}
 
@@ -333,9 +333,6 @@ public:
 
 
 
-
-
-
 //Clasa pentru categorii
 
 struct Categorie
@@ -369,6 +366,7 @@ public:
 class Produs {
 
 private:
+	int id;
 	string nume;
 	string categorie;
 	int pret;
@@ -376,25 +374,77 @@ private:
 public:
 
 	Produs();
-	Produs(string nume, string categorie, int pret);
+	Produs(int id, string nume, string categorie, int pret);
 	~Produs();
 
+	int getId();
 	string getNume();
 	string getCategorie();
 	int getPret();
-
 	Produs &operator= (const Produs &p);
 
 	friend ostream &operator<<(ostream &, Produs);
 
-	void Produs::AddData(string nume, string categorie, int pret);
+	void Produs::AddData(int id,string nume, string categorie, int pret);
 };
 
-//Clasa pentru magazin
-class Magazin {
+
+// CLasa pentru depozit magazin
+
+class Depozit_Magazin {
+
+	int nrProduse[NumarProduse];
+
+public:
+
+	Depozit_Magazin() {
+
+	}
 
 
+	Depozit_Magazin(const Depozit_Magazin& other)
+	{
+		int i;
+		for (i = 0; i < NumarProduse; i++)
+			nrProduse[i] = other.nrProduse[i];
+	}
+
+	~Depozit_Magazin() {
+
+	}
+
+	int findProdus(int);
+	int getNProdus(int);
+
+	void addProdus(int, int);
+	void removeProdus(int, int);
 };
+
+int Depozit_Magazin::findProdus(int id)
+{
+	if (nrProduse[id] > 0) return 1;
+	else return -1;
+}
+
+int Depozit_Magazin::getNProdus(int pos)
+{
+	return nrProduse[pos];
+}
+
+
+void Depozit_Magazin::addProdus(int id, int cantitate)
+{
+	nrProduse[id] += cantitate;
+}
+
+void Depozit_Magazin::removeProdus(int id, int cantitate) {
+
+	nrProduse[id]-= cantitate;
+
+}
+
+
+
 
 //Clasa pentru bonuri
 
@@ -408,7 +458,6 @@ private:
 	int nrProduse;
 	long long utcTime;
 	string idMagazin;
-	Magazin *magazin;
 
 
 public:
@@ -423,12 +472,120 @@ public:
 	int getNrProduse();
 	long long GetTime();
 	string getIdMagazin();
-	Magazin* getMagazin();
 
 	//Metode
 	void AddProdus(int id);
-	
+
 };
+
+
+//Clasa pentru magazin
+class Magazin {
+	int id;
+	string locatie;
+	ResizableArray<Bon> bonuri;
+	Depozit_Magazin *depozit;
+public:
+	Magazin()
+	{
+		this->depozit = new Depozit_Magazin;
+	}
+	Magazin(int id, string locatie)
+	{
+		this->id = id;
+		this->locatie = locatie;
+		this->depozit = new Depozit_Magazin;
+	}
+	Magazin(int id, string locatie, ResizableArray<Bon> bonuri, Depozit_Magazin* depozit)
+	{
+		this->id = id;
+		this->locatie = locatie;
+		this->bonuri = bonuri;
+		this->depozit = depozit;
+	}
+	Magazin(const Magazin& other)
+	{
+		this->id = other.id;
+		this->locatie = other.locatie;
+		this->bonuri = other.bonuri;
+		this->depozit = other.depozit;
+	}
+	~Magazin()
+	{
+		delete depozit;
+	}
+
+	void setId(int);
+	void setLocatie(string);
+
+	int getId();
+	string getLocatie();
+	int findProdus(int);
+	int getNProdus(int);
+	ResizableArray<Bon> getBonuri();
+	Depozit_Magazin* getDepozit();
+
+	void add_produs(Produs&, int);
+	void remove_produs(int, int);
+
+	void add_bon(Bon&);
+};
+
+void Magazin::setId(int id)
+{
+	this->id = id;
+}
+
+void Magazin::setLocatie(string locatie)
+{
+	this->locatie = locatie;
+}
+
+
+int Magazin::getId()
+{
+	return id;
+}
+
+string Magazin::getLocatie()
+{
+	return locatie;
+}
+
+int Magazin::findProdus(int id)
+{
+	return depozit->findProdus(id);
+}
+
+int Magazin::getNProdus(int id)
+{
+	return depozit->getNProdus(id);
+}
+
+ResizableArray<Bon> Magazin::getBonuri()
+{
+	return bonuri;
+}
+
+Depozit_Magazin* Magazin::getDepozit()
+{
+	return depozit;
+}
+
+void Magazin::add_produs(Produs& produs, int cantitate)
+{
+	depozit->addProdus(produs.getId(), cantitate);
+}
+
+void Magazin::remove_produs(int id, int cantitate)
+{
+	depozit->removeProdus(id, cantitate);
+}
+
+void Magazin::add_bon(Bon& bon)
+{
+	bonuri.push_back(bon);
+}
 
 
 // Clasa de citire
