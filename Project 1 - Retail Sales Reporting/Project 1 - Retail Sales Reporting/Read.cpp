@@ -118,7 +118,7 @@ void Read::ProduseRead(const char *fileName, Produs *produse, Categorii& cat) {
 	}
 }
 
-void Read::PaletiRead(const char* fileName) {
+void Read::PaletiRead(const char* fileName, DepozitGlobal &d) {
 
 	string line = "";
 	int pos, length;
@@ -153,8 +153,11 @@ void Read::PaletiRead(const char* fileName) {
 			slot = 10 * slot + short(line[pos++] - '0');
 		}
 
-		// TODO: adaugare date la structuri
+		// Adaugare date la structuri
 
+		Palet p(paletId, nItems, slot, prodType);
+		d.GetSloturi()[slot].push(p);
+		
 	}
 
 }

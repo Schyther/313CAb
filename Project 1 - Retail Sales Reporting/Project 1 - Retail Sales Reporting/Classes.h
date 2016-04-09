@@ -12,6 +12,7 @@
 using namespace std;
 
 #define NumarProduse 200
+#define NumarSloturi 200
 
 //Clasa pentru categorii
 
@@ -83,11 +84,11 @@ public:
 
 	}
 
-	Palet(string idPalet, int nrItemi, int idSlot, Produs produs) {
+	Palet(string idPalet, int nrItemi, int idSlot, int produs) {
 		this->idPalet = idPalet;
 		this->nrItemi = nrItemi;
 		this->idSlot = idSlot;
-		this->idProdus = produs.getId();
+		this->idProdus = produs;
 	}
 
 	Palet(const Palet& x) {
@@ -334,14 +335,14 @@ class DepozitGlobal {
 
 private:
 
-	ResizableArray<Stack<Palet>> paleti;
+	Stack<Palet> sloturi[NumarSloturi];
 
 public:
 	DepozitGlobal();
 	DepozitGlobal(const DepozitGlobal& other);
 	~DepozitGlobal();
 
-	ResizableArray<Stack<Palet>>& GetPaleti();
+	Stack<Palet>* GetSloturi();
 
 };
 
@@ -363,7 +364,7 @@ public:
 
 	void BonuriRead(const char* name, HashGen <string, Bon*>& hBonuri);
 	void ProduseRead(const char* fileName, Produs *produse, Categorii& cat);
-	void PaletiRead(const char* fileName);
+	void PaletiRead(const char* fileName, DepozitGlobal& d);
 	void MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine);
 	void CategoriiRead(const char* fileName, Categorii& cat);
 	void TranzactiiRead(const char* fileName, ResizableArray<Magazin> &magazine, HashGen <string, Bon*>& hBonuri);

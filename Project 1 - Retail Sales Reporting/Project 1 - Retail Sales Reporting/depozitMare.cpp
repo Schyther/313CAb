@@ -7,7 +7,9 @@ DepozitGlobal::DepozitGlobal() {
 
 DepozitGlobal::DepozitGlobal(const DepozitGlobal& other) {
 
-	paleti = other.paleti;
+	for (int i = 0; i < NumarSloturi; i++) {
+		sloturi[i] = other.sloturi[i];
+	}
 }
 
 DepozitGlobal::~DepozitGlobal() {
@@ -15,8 +17,8 @@ DepozitGlobal::~DepozitGlobal() {
 	
 }
 
-ResizableArray<Stack<Palet>>& DepozitGlobal::GetPaleti() {
+Stack<Palet>*  DepozitGlobal::GetSloturi() {
 
-	return paleti;
+	return sloturi;
 
 }

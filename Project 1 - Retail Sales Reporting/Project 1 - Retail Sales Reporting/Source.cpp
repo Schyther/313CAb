@@ -12,6 +12,7 @@ int main() {
 
 	HashGen <string, Bon*> hBonuri(MOD);
 	
+	DepozitGlobal depozit;
 
 	// Citire date
 	r.CategoriiRead("categorii.csv", categorii);
@@ -19,10 +20,8 @@ int main() {
 	r.MagazineRead("magazine.csv", magazine);
 	r.TranzactiiRead("tranzactii.csv", magazine, hBonuri);
 	r.BonuriRead("bonuri.csv", hBonuri);
-	
-	//for (int i = 0; i < (int)magazine.size(); i++)
-	//	cout << magazine[0].getBonuri().peek().getNrProduse() << '\n';
-	
+	r.PaletiRead("paleti.csv", depozit);
+
 
 	return 0;
 }
