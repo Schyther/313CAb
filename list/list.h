@@ -57,6 +57,7 @@ public:
 	friend ostream& operator<<(ostream& out, const List<Y> &list);
 };
 
+<<<<<<< HEAD
 // FUNCTIILE IMPLEMENTATE IN HEADER. ASA MERGE
 //  ||
 //  ||
@@ -64,6 +65,8 @@ public:
 
 
 
+=======
+>>>>>>> 914ee90fc9e393643e22851b965cc86d96be1470
 //CONSTRUCTOR
 
 template <class T>
@@ -126,7 +129,10 @@ bool List<T>::empty() {
 	dar echivalentul lui NULL nu exista pentru tipuri de date
 	primitive, cum ar fi int
 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 914ee90fc9e393643e22851b965cc86d96be1470
 template <class T>
 T List<T>::front() {
 	if (begin) return begin->value;
@@ -306,6 +312,10 @@ ostream& operator<<(ostream& out, const List<T>& list) {
 	}
 	out << "\n";
 	return out;
+<<<<<<< HEAD
 }
 
 #endif
+=======
+}
+>>>>>>> 914ee90fc9e393643e22851b965cc86d96be1470

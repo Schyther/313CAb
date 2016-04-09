@@ -1,23 +1,17 @@
-#include<iostream>
-#include<string>
-
 using namespace std;
 
-class Produs { //clasa de test (ca sa nu mai dea erori)
-private:
-	int test;
+#ifndef __IOSTREAM__
+#define __IOSTREAM__
+#include <iostream>
+#endif
 
-public:
-	Produs() {
+#ifndef __STRING__
+#define __STRING__
+#include <string>
+#endif
 
-	}
+#include "Produs.h"
 
-	Produs& operator=(const Produs& x) {
-		this->test = x.test;
-	}
-}; //clasa de test
-
-class Palet {
 private:
 	string id_palet;
 	Produs *produs;
@@ -48,7 +42,7 @@ public:
 		this->id_palet = '\0';
 		this->nr_itemi = 0;
 		this->id_slot = 0;
-		delete[] produs;
+		delete produs;
 	}
 
 	Palet& operator=(const Palet& x) {
