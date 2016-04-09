@@ -1,38 +1,25 @@
 //Clasa list
 
-template<class T>
-struct Node {
-	T value;
-	Node<T> *next;
-	Node(T value) {
-		this->value = value;
-		next = NULL;
-	}
-	Node() {
-		next = NULL;
-	}
-};
-
 template <class T>
 class List {
-
 private:
-
 	Node<T> *begin, *end;
-
 public:
 	List();
 	~List();
-	List(List &other);
+	List(const List &other);
 
-	List<T> operator=(const List<T> &other);
+	List<T> &operator=(const List<T> &other);
 
-	bool empty();
+	bool empty() const;
 
-	T front();
-	T back();
+	T front() const;
+	T back() const;
 
-	int getpos(T value);
+	Node <T> *first() const;
+	Node <T> *last() const;
+
+	int getpos(T value) const;
 
 	void push_back(T value);
 	void push_front(T value);
@@ -43,12 +30,11 @@ public:
 	void remove(T value);
 	void remove_next(Node<T> *);
 
-	int length();
+	int length() const;
 
 	template<class Y>
 	friend ostream& operator<<(ostream& out, const List<Y> &list);
 };
-
 
 //CONSTRUCTOR
 
@@ -72,7 +58,7 @@ List<T>::~List() {
 //COPY-CONSTRUCTOR
 
 template <class T>
-List<T>::List(List<T> &other) {
+List<T>::List(const List<T> &other) {
 	Node<T> *current;
 	begin = NULL;
 	end = NULL;
@@ -86,7 +72,7 @@ List<T>::List(List<T> &other) {
 //COPY-ASSIGNMENT
 
 template <class T>
-List<T> List<T>::operator=(const List<T> &other) {
+List<T> & List<T>::operator=(const List<T> &other) {
 	Node<T> *current;
 	begin = NULL;
 	end = NULL;
@@ -101,7 +87,7 @@ List<T> List<T>::operator=(const List<T> &other) {
 //functions
 
 template <class T>
-bool List<T>::empty() {
+bool List<T>::empty() const {
 	if (begin == NULL) return true;
 	else return false;
 }
@@ -113,19 +99,29 @@ dar echivalentul lui NULL nu exista pentru tipuri de date
 primitive, cum ar fi int
 */
 template <class T>
-T List<T>::front() {
+T List<T>::front() const {
 	if (begin) return begin->value;
 	else return T();
 }
 
 template <class T>
-T List<T>::back() {
+T List<T>::back() const {
 	if (end) return end->value;
 	else return T();
 }
 
 template <class T>
-int List<T>::getpos(T value) {
+Node <T> * List<T>::first() const {
+	return begin;
+}
+
+template <class T>
+Node <T> * List<T>::last() const {
+	return end;
+}
+
+template <class T>
+int List<T>::getpos(T value) const {
 	if (empty()) return -1;
 	Node<T> *current = begin;
 	int pos = 0;
@@ -257,7 +253,7 @@ void List<T>::pop() {
 }
 
 template <class T>
-int List<T>::length() {
+int List<T>::length() const {
 	Node<T> *current = begin;
 	int nr_elem = 0;
 	while (current)

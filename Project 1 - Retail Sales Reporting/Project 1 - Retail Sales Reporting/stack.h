@@ -1,12 +1,3 @@
-#ifndef __STACK__
-#define __STACK__
-
-#ifndef __IOSTREAM__
-#define __IOSTREAM__
-#include <iostream>
-#endif
-
-#include "DLL.h"
 
 template <class T>
 class Stack {
@@ -119,4 +110,3 @@ ostream& operator<<(ostream& out, const Stack<T>& stack) {
 	return out;
 }
 
-#endif

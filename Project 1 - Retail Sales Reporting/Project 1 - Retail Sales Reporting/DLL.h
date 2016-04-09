@@ -1,10 +1,3 @@
-#ifndef __LIST__
-#define __LIST__
-
-#ifndef __IOSTREAM__
-#define __IOSTREAM__
-#include <iostream>
-#endif
 
 using namespace std;
 
@@ -327,5 +320,3 @@ ostream& operator<<(ostream& out, const DLL<T>& DLL) {
 	out << "\n";
 	return out;
 }
-
-#endif

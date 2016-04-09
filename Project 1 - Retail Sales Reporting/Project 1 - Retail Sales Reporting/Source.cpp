@@ -9,6 +9,7 @@ int main() {
 	Produs produse[NumarProduse];  // produse[i] - produsul cu id-ul i
 	
 	ResizableArray <Magazin> magazine;
+
 	HashGen <string, Bon*> hBonuri(MOD);
 	
 

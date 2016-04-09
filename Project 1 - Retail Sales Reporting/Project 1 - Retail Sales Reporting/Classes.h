@@ -4,6 +4,7 @@
 #include <ctime>
 
 #include "DLL.h"
+#include "List.h"
 #include "stack.h"
 #include "ResizableArray.h"
 #include "HashTable.h"
