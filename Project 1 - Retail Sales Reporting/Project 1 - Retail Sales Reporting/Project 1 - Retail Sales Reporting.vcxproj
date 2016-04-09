@@ -115,6 +115,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bon.cpp" />
+    <ClCompile Include="categorie.cpp" />
+    <ClCompile Include="hash.cpp" />
     <ClCompile Include="list.cpp" />
     <ClCompile Include="produs.cpp" />
     <ClCompile Include="Read.cpp" />

@@ -41,16 +41,11 @@ string Bon::getIdMagazin() {
 
 }
 
-Magazin* Bon::getMagazin() {
-
-	return magazin;
-
-}
 
 
 //Metode
 
-void AddProdus(int id) {
+void Bon::AddProdus(int id) {
 
 
 

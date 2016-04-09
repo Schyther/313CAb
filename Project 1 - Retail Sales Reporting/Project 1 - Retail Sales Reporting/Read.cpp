@@ -1,20 +1,20 @@
 #include "Classes.h"
 
-void Read::Bonuri(const char* name) {
+void Read::BonuriRead(const char* name) {
 
-	bonuri.open(name);
+	bonurif.open(name);
 
 	string line;
 	string id_bon, id_produs;
 	int i;
 
 	// Sar peste headerele tabelului
-	getline(bonuri, line, '\r');
+	getline(bonurif, line, '\r');
 
 	
-	while (!bonuri.eof()) {
+	while (!bonurif.eof()) {
 
-		getline(bonuri, line, '\r');
+		getline(bonurif, line, '\r');
 
 		id_bon = "";
 		id_produs = "";
@@ -40,63 +40,67 @@ void Read::Bonuri(const char* name) {
 
 }
 
-void Read::Produse(const char *fileName) {
+void Read::ProduseRead(const char *fileName, Produs *produse, Categorii& cat) {
 
 	string line = "";
-	produse.open(fileName);
+	produsef.open(fileName);
 
-	string prodId;
+	int prodId;
 	string prodName;
 	int prodCategory;
 	int prodPrice;
 	int pos, length;
 
 
-	getline(produse, line);
-	while (getline(produse, line)) {
-		prodName = "";
-		prodId = "";
-		prodCategory = 0;
-		prodPrice = 0;
-		length = line.size();
-		pos = 0;
+	getline(produsef, line);
+	while (getline(produsef, line)) {
 
-	
-		while (line[pos] != ',') {
-			prodId += line[pos++];
+		if (line != "") {
+
+			prodName = "";
+			prodId = 0;
+			prodCategory = 0;
+			prodPrice = 0;
+			length = line.size();
+			pos = 0;
+
+
+			while (line[pos] != ',') {
+				prodId = prodId * 10 + line[pos++] - '0';
+			}
+
+			++pos;
+			while (line[pos] != ',') {
+				prodName += line[pos++];
+			}
+
+			++pos;
+			while (line[pos] != ',') {
+				prodCategory = 10 * prodCategory + short(line[pos++] - '0');
+			}
+
+			++pos;
+			while (pos < length) {
+				prodPrice = 10 * prodPrice + short(line[pos++] - '0');
+			}
+
+			produse[prodId].AddData(prodId, prodName, cat.Get(prodCategory), prodPrice);
+
 		}
-
-		++pos;
-		while (line[pos] != ',') {
-			prodName += line[pos++];
-		}
-
-		++pos;
-		while (line[pos] != ',') {
-			prodCategory = 10 * prodCategory + short(line[pos++] - '0');
-		}
-
-		++pos;
-		while (pos < length) {
-			prodPrice = 10 * prodPrice + short(line[pos++] - '0');
-		}
-
-		// TODO: adaugare date la structuri
-
 	}
 }
 
-void Read::Paleti(const char* fileName) {
+void Read::PaletiRead(const char* fileName) {
 
 	string line = "";
 	int pos, length;
-	paleti.open(fileName);
+	paletif.open(fileName);
 
 	string paletId = "";
 	short prodType = 0, nItems = 0, slot = 0;
 
-	paleti >> line;
-	while (paleti >> line) {
+	paletif >> line;
+	while (paletif >> line) {
 		paletId = "";
 		prodType = nItems = slot = 0;
 		pos = 0;
@@ -127,21 +131,21 @@ void Read::Paleti(const char* fileName) {
 
 }
 
-void Read::Magazine(const char* fileName) {
+void Read::MagazineRead(const char* fileName) {
 
-	magazine.open(fileName);
+	magazinef.open(fileName);
 	
 	string line;
 	string id_magazin, locatie;
 	int i;
 
 	// Sar peste headerele tabelului
-	getline(magazine, line);
+	getline(magazinef, line);
 
 
-	while (!magazine.eof()) {
+	while (!magazinef.eof()) {
 
-		getline(magazine, line);
+		getline(magazinef, line);
 		id_magazin = "";
 		locatie = "";
 		if (line != "") {
@@ -163,21 +167,22 @@ void Read::Magazine(const char* fileName) {
 	}
 }
 
-void Read::Categorii(const char *fileName) {
+void Read::CategoriiRead(const char *fileName, Categorii& cat) {
 
-	categorii.open(fileName);
+	categoriif.open(fileName);
 
 	string line;
-	string id_categorie, categorie;
+	string categorie;
+	int id_categorie;
 	int i;
 
 	// Sar peste headerele tabelului
-	getline(categorii, line);
+	getline(categoriif, line);
 
-	while (!categorii.eof()) {
+	while (!categoriif.eof()) {
 
-		getline(categorii, line);
-		id_categorie = "";
+		getline(categoriif, line);
+		id_categorie = 0;
 		categorie = "";
 
 		if (line != "") {
@@ -185,7 +190,7 @@ void Read::Categorii(const char *fileName) {
 			// Fac split caracter cu caracter la linia citita
 			i = 0;
 			while (line[i] != ',') {
-				id_categorie += line[i++];
+				id_categorie = id_categorie*10 + line[i++]-'0';
 			}
 
 			i++;
@@ -195,7 +200,7 @@ void Read::Categorii(const char *fileName) {
 
 			}
 
-			// TODO: adaugare date la structuri
+			cat.Add(id_categorie, categorie);
 
 		}
 	}
@@ -203,9 +208,9 @@ void Read::Categorii(const char *fileName) {
 
 }
 
-void Read::Tranzactii(const char *fileName) {
+void Read::TranzactiiRead(const char *fileName) {
 
-	tranzactii.open(fileName);
+	tranzactiif.open(fileName);
 
 	int id;
 	char timestamp[30];
@@ -213,11 +218,11 @@ void Read::Tranzactii(const char *fileName) {
 	int i, n;
 
 	// Sar peste headerele tabelului
-	getline(tranzactii, line, '\r');
+	getline(tranzactiif, line, '\r');
 
-	while (!tranzactii.eof()) {
+	while (!tranzactiif.eof()) {
 
-		getline(tranzactii, line, '\r');
+		getline(tranzactiif, line, '\r');
 		id = 0;
 		id_bon = "";
 		id_magazin = "";
@@ -264,10 +269,10 @@ void Read::Tranzactii(const char *fileName) {
 
 Read::~Read() {
 
-	bonuri.close();
-	categorii.close();
-	magazine.close();
-	paleti.close();
-	produse.close();
+	bonurif.close();
+	categoriif.close();
+	magazinef.close();
+	paletif.close();
+	produsef.close();
 
 }
