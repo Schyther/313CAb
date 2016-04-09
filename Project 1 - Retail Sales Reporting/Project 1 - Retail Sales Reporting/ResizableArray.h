@@ -61,7 +61,7 @@ public:
 	// Getter pentru capacity
 	unsigned int capacity() const;
 
-	// Metoda care redimensioneaza array-ul la dimensiunea "newDim"
+	// Metoda care redimensioneaza array-ul la dimensiunea "newSize"
 	void resize(int newSize);
 
 	// Metoda care adauga un element nou
@@ -84,7 +84,7 @@ public:
 	T peek();
 
 	void QuickSort(int pinitial, int pfinal);
-	int BinarySearch(int pinitial, int pfinal, T cautat);
+	int binarySearch(T value);
 };
 
 template <typename T>
@@ -150,7 +150,7 @@ T& ResizableArray<T>::operator[](int position) {
 	return array[position];
 }
 
-template < typename T>
+template <typename T>
 void ResizableArray<T>::erase(const int position) {
 	if (position >= _size || _size == 0) {
 		cerr << "Pozitie invalida!\n";
@@ -179,24 +179,20 @@ int ResizableArray<T>::find(T value) {
 	return -1;
 }
 
-
-template<class T>
-void ResizableArray<T>::QuickSort(int pinitial, int pfinal)
-{
+template <typename T>
+void ResizableArray<T>::QuickSort(int pinitial, int pfinal) {
 	int m = (pinitial + pfinal) >> 1;
 	int i = pinitial;
 	int j = pfinal;
 	T pivot = array[m];
 
-	while (i <= j)
-	{
-		while (array[i]<pivot)
+	while (i <= j) {
+		while (array[i] < pivot)
 			i++;
-		while (pivot<array[j])
+		while (pivot < array[j])
 			j--;
 
-		if (i <= j)
-		{
+		if (i <= j) {
 			T temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
@@ -204,29 +200,26 @@ void ResizableArray<T>::QuickSort(int pinitial, int pfinal)
 			j--;
 		}
 	}
-	if (pinitial<j)
-	{
-		quicksort(array, pinitial, j);
+	if (pinitial<j) {
+		QuickSort(pinitial, j);
 	}
-	if (i<pfinal)
-	{
-		quicksort(array, i, pfinal);
+	if (i<pfinal) {
+		QuickSort(i, pfinal);
 	}
 }
 
-template<class T>
-int ResizableArray<T>::BinarySearch(int pinitial, int pfinal, T cautat)
-{
-	int medie;
-	medie = (pinitial + pfinal) >> 1; // >> 1 = impartire la 2
-	if (array[medie] == cautat) return medie;
-	if (array[medie] < cautat)
-	{
-		return binarysearch(array, medie + 1, pfinal, cautat);
-	}
-	else
-	{
-		return binarysearch(array, pinitial, medie - 1, cautat);
+template < typename T >
+int ResizableArray<T>::binarySearch(T value) {
+	int position = 0, step = (1 << 30);
+	for (; step > 0; step >>= 1) {
+		if (position + step < _size && array[position + step] <= value) {
+			position += step;
+		}
 	}
 
+	if (array[position] != value) {
+		return -1;
+	}
+
+	return position;
 }

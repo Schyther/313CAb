@@ -327,7 +327,22 @@ public:
 
 };
 
+// Depozitul mare
 
+class DepozitGlobal {
+
+private:
+
+	ResizableArray<Stack<Palet>> paleti;
+
+public:
+	DepozitGlobal();
+	DepozitGlobal(const DepozitGlobal& other);
+	~DepozitGlobal();
+
+	ResizableArray<Stack<Palet>>& GetPaleti();
+
+};
 
 
 // Clasa de citire
