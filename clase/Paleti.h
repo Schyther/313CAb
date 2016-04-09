@@ -84,23 +84,4 @@ public:
 
 };
 
-int main() {
 
-	//test
-	static Produs *produse = new Produs[100];
-
-	Palet* DEMON=new Palet("1",40,55,1,produse);
-	cout << DEMON->getIdPalet() << " " << DEMON->getIdSlot() << " " << DEMON->getNrItems() << endl;
-
-	Palet *aux = new Palet("-1", -1, -1,2,produse);
-	DEMON = aux;
-	cout << DEMON->getIdPalet() << " " << DEMON->getIdSlot() << " " << DEMON->getNrItems() << endl;
-	
-	DEMON->setIdPalet("10");
-	cout << DEMON->getIdPalet() << endl;
-
-	//l-am numit demon pentru ca facea ca posedatu la inceput..
-	//test
-
-	return 0;
-}
