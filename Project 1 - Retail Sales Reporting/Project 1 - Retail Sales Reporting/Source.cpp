@@ -19,7 +19,7 @@ int main() {
 	r.BonuriRead("bonuri.csv", hBonuri);
 	
 	for (int i = 0; i < magazine.size(); i++)
-		cout << magazine[0].getBonuri()->peek().getNrProduse() << '\n';
+		cout << magazine[0].getBonuri().peek().getNrProduse() << '\n';
 
 	return 0;
 }

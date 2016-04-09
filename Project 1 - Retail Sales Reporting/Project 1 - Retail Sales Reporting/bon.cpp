@@ -10,13 +10,14 @@ Bon::Bon() {
 
 }
 
-Bon::Bon(string id, long long utcTime) {
+Bon::Bon(string id, long long utcTime, int idMagazin) {
 
 	nrProduse = 0;
 	for (int i = 0; i < NumarProduse; i++)
 		fcvProdus[i] = 0;
 	this->id = id;
 	this->utcTime = utcTime;
+	this->idMagazin = idMagazin;
 
 }
 

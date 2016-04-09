@@ -297,10 +297,11 @@ void Read::TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazin
 
 			}
 
-			Bon b(id_bon, ConvertTime(timestamp));
+			Bon b(id_bon, ConvertTime(timestamp), id_magazin);
 			
 			magazine[i].add_bon(b);
-			hBonuri.insert(id_bon, &magazine[i].getBonuri()->peek());
+			Bon b1 = magazine[i].getBonuri().peek();
+			hBonuri.insert(id_bon, &magazine[i].getBonuri().peek());
 
 		}
 	}

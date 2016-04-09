@@ -603,7 +603,7 @@ public:
 
 	//Constructori/Destructori
 	Bon();
-	Bon(string id, long long utcTime);
+	Bon(string id, long long utcTime, int idMagazin);
 	~Bon();
 	Bon(const Bon& other);
 
@@ -686,9 +686,9 @@ public:
 		return depozit.getNProdus(id);
 	}
 
-	ResizableArray<Bon>*getBonuri()
+	ResizableArray<Bon>& getBonuri()
 	{
-		return &bonuri;
+		return bonuri;
 	}
 
 	Depozit_Magazin* getDepozit()
