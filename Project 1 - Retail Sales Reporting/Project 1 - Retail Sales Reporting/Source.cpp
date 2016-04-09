@@ -10,6 +10,7 @@ int main() {
 	
 	ResizableArray <Magazin> magazine;
 	HashGen <string, Bon*> hBonuri(MOD);
+	
 
 	// Citire date
 	r.CategoriiRead("categorii.csv", categorii);
@@ -18,8 +19,8 @@ int main() {
 	r.TranzactiiRead("tranzactii.csv", magazine, hBonuri);
 	r.BonuriRead("bonuri.csv", hBonuri);
 	
-	for (int i = 0; i < (int)magazine.size(); i++)
-		cout << magazine[0].getBonuri().peek().getNrProduse() << '\n';
+	//for (int i = 0; i < (int)magazine.size(); i++)
+	//	cout << magazine[0].getBonuri().peek().getNrProduse() << '\n';
 	
 
 	return 0;

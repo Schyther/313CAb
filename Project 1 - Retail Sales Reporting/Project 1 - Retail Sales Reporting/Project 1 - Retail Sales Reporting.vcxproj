@@ -116,7 +116,6 @@
   <ItemGroup>
     <ClCompile Include="bon.cpp" />
     <ClCompile Include="categorie.cpp" />
-    <ClCompile Include="list.cpp" />
     <ClCompile Include="produs.cpp" />
     <ClCompile Include="Read.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -131,6 +130,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes.h" />
+    <ClInclude Include="DLL.h" />
+    <ClInclude Include="HashTable.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="ResizableArray.h" />
+    <ClInclude Include="stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

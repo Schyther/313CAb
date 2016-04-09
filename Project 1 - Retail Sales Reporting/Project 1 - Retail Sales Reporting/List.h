@@ -1,4 +1,53 @@
-#include "Classes.h"
+//Clasa list
+
+template<class T>
+struct Node {
+	T value;
+	Node<T> *next;
+	Node(T value) {
+		this->value = value;
+		next = NULL;
+	}
+	Node() {
+		next = NULL;
+	}
+};
+
+template <class T>
+class List {
+
+private:
+
+	Node<T> *begin, *end;
+
+public:
+	List();
+	~List();
+	List(List &other);
+
+	List<T> operator=(const List<T> &other);
+
+	bool empty();
+
+	T front();
+	T back();
+
+	int getpos(T value);
+
+	void push_back(T value);
+	void push_front(T value);
+	void insert(int pos, T value);
+
+	void pop();
+	void erase(int pos);
+	void remove(T value);
+	void remove_next(Node<T> *);
+
+	int length();
+
+	template<class Y>
+	friend ostream& operator<<(ostream& out, const List<Y> &list);
+};
 
 
 //CONSTRUCTOR
