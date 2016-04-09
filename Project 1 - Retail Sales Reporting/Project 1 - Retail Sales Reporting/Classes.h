@@ -413,35 +413,34 @@ public:
 
 	}
 
-	int findProdus(int);
-	int getNProdus(int);
 
-	void addProdus(int, int);
-	void removeProdus(int, int);
+	int findProdus(int id)
+	{
+		if (nrProduse[id] > 0) return 1;
+		else return -1;
+	}
+
+	int getNProdus(int pos)
+	{
+		return nrProduse[pos];
+	}
+
+
+	void addProdus(int id, int cantitate)
+	{
+		nrProduse[id] += cantitate;
+	}
+
+	void removeProdus(int id, int cantitate) {
+
+		nrProduse[id] -= cantitate;
+
+	}
+
+
 };
 
-int Depozit_Magazin::findProdus(int id)
-{
-	if (nrProduse[id] > 0) return 1;
-	else return -1;
-}
 
-int Depozit_Magazin::getNProdus(int pos)
-{
-	return nrProduse[pos];
-}
-
-
-void Depozit_Magazin::addProdus(int id, int cantitate)
-{
-	nrProduse[id] += cantitate;
-}
-
-void Depozit_Magazin::removeProdus(int id, int cantitate) {
-
-	nrProduse[id]-= cantitate;
-
-}
 
 
 
@@ -515,77 +514,65 @@ public:
 		delete depozit;
 	}
 
-	void setId(int);
-	void setLocatie(string);
+	void setId(int id)
+	{
+		this->id = id;
+	}
 
-	int getId();
-	string getLocatie();
-	int findProdus(int);
-	int getNProdus(int);
-	ResizableArray<Bon> getBonuri();
-	Depozit_Magazin* getDepozit();
+	void setLocatie(string locatie)
+	{
+		this->locatie = locatie;
+	}
 
-	void add_produs(Produs&, int);
-	void remove_produs(int, int);
 
-	void add_bon(Bon&);
+	int getId()
+	{
+		return id;
+	}
+
+	string getLocatie()
+	{
+		return locatie;
+	}
+
+	int findProdus(int id)
+	{
+		return depozit->findProdus(id);
+	}
+
+	int getNProdus(int id)
+	{
+		return depozit->getNProdus(id);
+	}
+
+	ResizableArray<Bon>getBonuri()
+	{
+		return bonuri;
+	}
+
+	Depozit_Magazin* getDepozit()
+	{
+		return depozit;
+	}
+
+	void add_produs(Produs& produs, int cantitate)
+	{
+		depozit->addProdus(produs.getId(), cantitate);
+	}
+
+	void remove_produs(int id, int cantitate)
+	{
+		depozit->removeProdus(id, cantitate);
+	}
+
+	void add_bon(Bon& bon)
+	{
+		bonuri.push_back(bon);
+	}
+
 };
 
-void Magazin::setId(int id)
-{
-	this->id = id;
-}
 
-void Magazin::setLocatie(string locatie)
-{
-	this->locatie = locatie;
-}
-
-
-int Magazin::getId()
-{
-	return id;
-}
-
-string Magazin::getLocatie()
-{
-	return locatie;
-}
-
-int Magazin::findProdus(int id)
-{
-	return depozit->findProdus(id);
-}
-
-int Magazin::getNProdus(int id)
-{
-	return depozit->getNProdus(id);
-}
-
-ResizableArray<Bon> Magazin::getBonuri()
-{
-	return bonuri;
-}
-
-Depozit_Magazin* Magazin::getDepozit()
-{
-	return depozit;
-}
-
-void Magazin::add_produs(Produs& produs, int cantitate)
-{
-	depozit->addProdus(produs.getId(), cantitate);
-}
-
-void Magazin::remove_produs(int id, int cantitate)
-{
-	depozit->removeProdus(id, cantitate);
-}
-
-void Magazin::add_bon(Bon& bon)
-{
-	bonuri.push_back(bon);
-}
 
 
 // Clasa de citire

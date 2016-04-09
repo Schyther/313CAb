@@ -45,7 +45,7 @@ string Bon::getIdMagazin() {
 
 //Metode
 
-void AddProdus(int id) {
+void Bon::AddProdus(int id) {
 
 
 
