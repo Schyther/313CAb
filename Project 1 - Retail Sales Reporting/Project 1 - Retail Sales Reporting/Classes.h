@@ -492,7 +492,7 @@ public:
 		this->idPalet = idPalet;
 		this->nrItemi = nrItemi;
 		this->idSlot = idSlot;
-		this->idProdus = produs.id;
+		this->idProdus = produs.getId();
 	}
 	
 	Palet(const Palet& x) {
