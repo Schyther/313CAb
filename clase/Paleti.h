@@ -12,6 +12,7 @@ using namespace std;
 
 #include "Produs.h"
 
+class Palet {
 private:
 	string id_palet;
 	Produs *produs;
