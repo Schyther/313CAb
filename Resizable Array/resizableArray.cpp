@@ -11,7 +11,7 @@ using namespace std;
 int main() {
     // Am folosit std::vector doar pentru testare, stiu ca nu avem voie sa-l
     // folosim la proiect.
-    ResizableArray < vector<int> > a;
+    /*ResizableArray < vector<int> > a;
     vector < int > x; 
     x.push_back(3);
     x.push_back(3);
@@ -57,6 +57,22 @@ int main() {
     a.pop_back();
     a.pop_back();
 
-    cout << a.size() << ' ' << a.capacity() << '\n';
+    cout << a.size() << ' ' << a.capacity() << '\n';*/
+
+    ResizableArray < int > a;
+    a.push_back(6);
+    a.push_back(1);
+    a.push_back(2);
+    a.push_back(5);
+    a.push_back(0);
+    a.push_back(10);
+
+    a.QuickSort(0, a.size() - 1);
+
+    for (int i = 0; i < a.size(); ++i) {
+        cout << a[i] << ' ';
+    } cout << '\n';
+
+    cout << a.binarySearch(5) << '\n';
     return 0;  
 }

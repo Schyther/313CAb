@@ -7,7 +7,7 @@ private:
     T *array;
     unsigned int _capacity;
     unsigned int _size;
-public: 
+public:
     // Constructor default
     ResizableArray() {
         _size = 0;
@@ -26,7 +26,7 @@ public:
     ResizableArray(const ResizableArray &other) {
         if (other.size() > 0) {
             _capacity = other.capacity();
-            _size = other.size(); 
+            _size = other.size();
             array = new T[_capacity];
 
             for (unsigned int i = 0; i < other.size(); ++i) {
@@ -42,7 +42,7 @@ public:
             _capacity = other.capacity();
             T *tmp = new T[other.capacity()];
 
-            for (int i = 0; i < other.size(); ++i) {
+            for (int i = 0; i < (int)other.size(); ++i) {
                 tmp[i] = other.array[i];
             }
 
@@ -64,7 +64,7 @@ public:
     // Getter pentru capacity
     unsigned int capacity() const;
 
-    // Metoda care redimensioneaza array-ul la dimensiunea "newDim"
+    // Metoda care redimensioneaza array-ul la dimensiunea "newSize"
     void resize(int newSize);
 
     // Metoda care adauga un element nou
@@ -83,15 +83,25 @@ public:
     // valoarea "value" si returneaza -1 daca elementul cautat nu se afla in
     // array
     int find(T value);
+
+    T peek();
+
+    void QuickSort(int pinitial, int pfinal);
+    int binarySearch(T value);
 };
 
 template <typename T>
-unsigned int ResizableArray<T>::size() const{
+T ResizableArray<T>::peek() {
+    return array[_size - 1];
+}
+
+template <typename T>
+unsigned int ResizableArray<T>::size() const {
     return _size;
 }
 
 template <typename T>
-unsigned int ResizableArray<T>::capacity() const{
+unsigned int ResizableArray<T>::capacity() const {
     return _capacity;
 }
 
@@ -99,7 +109,7 @@ template <typename T>
 void ResizableArray<T>::resize(int newSize) {
     T *tmp = new T[newSize];
 
-    int limit = (newSize < _size) ? newSize : _size;
+    int limit = (newSize < (int)_size) ? newSize : _size;
     for (int i = 0; i < limit; ++i) {
         tmp[i] = array[i];
     }
@@ -135,7 +145,7 @@ void ResizableArray<T>::pop_back() {
 
 template <typename T>
 T& ResizableArray<T>::operator[](int position) {
-    if (position > _size) {
+    if (position > (int)_size) {
         cerr << "Pozitie invalida!\n";
         return array[0];
     }
@@ -143,7 +153,7 @@ T& ResizableArray<T>::operator[](int position) {
     return array[position];
 }
 
-template < typename T>
+template <typename T>
 void ResizableArray<T>::erase(const int position) {
     if (position >= _size || _size == 0) {
         cerr << "Pozitie invalida!\n";
@@ -170,6 +180,51 @@ int ResizableArray<T>::find(T value) {
         }
     }
     return -1;
+}
+
+template <typename T>
+void ResizableArray<T>::QuickSort(int pinitial, int pfinal) {
+    int m = (pinitial + pfinal) >> 1;
+    int i = pinitial;
+    int j = pfinal;
+    T pivot = array[m];
+
+    while (i <= j) {
+        while (array[i] < pivot)
+            i++;
+        while (pivot < array[j])
+            j--;
+
+        if (i <= j) {
+            T temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+            i++;
+            j--;
+        }
+    }
+    if (pinitial<j) {
+        QuickSort(pinitial, j);
+    }
+    if (i<pfinal) {
+        QuickSort(i, pfinal);
+    }
+}
+
+template < typename T > 
+int ResizableArray<T>::binarySearch(T value) {
+    int position = 0, step = (1 << 30);
+    for (; step > 0; step >>= 1) {
+        if (position + step < _size && array[position + step] <= value) {
+            position += step;
+        }
+    }
+
+    if (array[position] != value) {
+        return -1;
+    }
+
+    return position;
 }
 
 #endif
