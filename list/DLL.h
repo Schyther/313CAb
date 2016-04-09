@@ -1,44 +1,46 @@
+#ifndef __LIST__
+#define __LIST__
+#endif
+
 #ifndef __IOSTREAM__
 #define __IOSTREAM__
 #include <iostream>
 #endif
-
-#ifndef __LIST__
-#define __LIST__
 
 using namespace std;
 
 template<class T>
 struct Node{
 	T value;
-	Node<T> *next;
+	Node<T> *next, *prev;
 	Node(T value) {
 		this->value = value;
 		next = NULL;
+		prev = NULL;
 	}
 	Node() {
 		next = NULL;
+		prev = NULL;
 	}
 };
 
+// DOUBLY LINKED DLL = DLL
+
 template <class T>
-class List {
+class DLL {
 private:
 	Node<T> *begin, *end;
 public:
-	List();
-	~List();
-	List(List &other);
+	DLL();
+	~DLL();
+	DLL(DLL &other);
 
-	List<T> &operator=(const List<T> &other);
+	DLL<T> operator=(const DLL<T> &other);
 
 	bool empty();
 
 	T front();
 	T back();
-
-	Node<T> *first();
-	Node<T> *last();
 
 	int getpos(T value);
 
@@ -54,7 +56,7 @@ public:
 	int length();
 
 	template<class Y>
-	friend ostream& operator<<(ostream& out, const List<Y> &list);
+	friend ostream& operator<<(ostream& out, const DLL<Y> &DLL);
 };
 
 // FUNCTIILE IMPLEMENTATE IN HEADER. ASA MERGE
@@ -67,14 +69,14 @@ public:
 //CONSTRUCTOR
 
 template <class T>
-List<T>::List() {
+DLL<T>::DLL() {
 	begin = end = NULL;
 }
 
 //DESTRUCTOR
 
 template<class T>
-List<T>::~List() {
+DLL<T>::~DLL() {
 	end = begin;
 	while(end != NULL) {
 		begin = end;
@@ -86,7 +88,7 @@ List<T>::~List() {
 //COPY-CONSTRUCTOR
 
 template <class T>
-List<T>::List(List<T> &other) {
+DLL<T>::DLL(DLL<T> &other) {
 	Node<T> *current;
 	begin = NULL;
 	end = NULL;
@@ -100,7 +102,7 @@ List<T>::List(List<T> &other) {
 //COPY-ASSIGNMENT
 
 template <class T>
-List<T>& List<T>::operator=(const List<T> &other) {
+DLL<T> DLL<T>::operator=(const DLL<T> &other) {
 	Node<T> *current;
 	begin = NULL;
 	end = NULL;
@@ -115,7 +117,7 @@ List<T>& List<T>::operator=(const List<T> &other) {
 //functions
 
 template <class T>
-bool List<T>::empty() {
+bool DLL<T>::empty() {
 	if (begin == NULL) return true;
 	else return false;
 }
@@ -126,40 +128,25 @@ bool List<T>::empty() {
 	dar echivalentul lui NULL nu exista pentru tipuri de date
 	primitive, cum ar fi int
 */
-
 template <class T>
-T List<T>::front() {
+T DLL<T>::front() {
 	if (begin) return begin->value;
 	else return T();
 }
 
 template <class T>
-T List<T>::back() {
+T DLL<T>::back() {
 	if (end) return end->value;
 	else return T();
 }
 
-//GETTER PENTRU BEGIN
-
 template <class T>
-Node<T> * List<T>::first(){
-	return begin;
-}
-
-//GETTER PENTRU END
-
-template <class T>
-Node<T> * List<T>::last(){
-	return end;
-}
-
-template <class T>
-int List<T>::getpos(T value) {
+int DLL<T>::getpos(T value) {
 	if(empty()) return -1;
 	Node<T> *current = begin;
 	int pos = 0;
 	while (current) {
-		if (value == current -> value) {
+	h	if (value == current -> value) {
 			return pos;
 		}
 		pos++;
@@ -169,10 +156,11 @@ int List<T>::getpos(T value) {
 }
 
 template <class T>
-void List<T>::push_back(T value) {
+void DLL<T>::push_back(T value) {
 	Node<T> *newNode = new Node<T>;
 	newNode->value = value;
 	newNode->next = NULL;
+	newNode->prev = end;
 	if (!begin) {
 		begin = end = newNode;
 	}
@@ -182,10 +170,11 @@ void List<T>::push_back(T value) {
 	}
 }
 template <class T>
-void List<T>::push(T value) {
+void DLL<T>::push_front(T value) {
 	Node<T> *newNode = new Node<T>;
 	newNode->value = value;
-	newNode->next = NULL;
+	newNode->next = begin;
+	newNode->prev = NULL;
 	if (!end) {
 		begin = end = newNode;
 	} 
@@ -196,14 +185,18 @@ void List<T>::push(T value) {
 }
 
 template <class T>
-void List<T>::insert(int pos, T value) {
+void DLL<T>::insert(int pos, T value) {
 	Node<T> *newNode, *current;
 	current = begin;
 	int poscrt;
 	newNode = new Node<T>(value);
 	while (current) {
 		if (pos == poscrt) {
+			//GOGO e smecher
+			//noul nod se insereaza dupa curentul
 			newNode->next = current->next;
+			newNode->prev = current;
+			if (current->next) current->next->prev = newNode; // + Gogo
 			current->next = newNode;
 			break;
 		}
@@ -216,7 +209,7 @@ void List<T>::insert(int pos, T value) {
 }
 
 template <class T>
-void List <T>::erase(int pos) {
+void DLL <T>::erase(int pos) {
 	Node<T> *current = begin, *elemToRemove;
 	int poscrt = 0;
 	if (!current) return;
@@ -231,7 +224,10 @@ void List <T>::erase(int pos) {
 	while (current->next) {
 		if (poscrt == pos - 1) { //delete elem
 			elemToRemove = current->next;
+
+			current->next->prev = current; // + Armand
 			current->next = current->next->next;
+
 			if (elemToRemove == end) {
 				end = current;
 			}
@@ -241,14 +237,17 @@ void List <T>::erase(int pos) {
 		current = current->next;
 		poscrt++;
 	}
+	//---- Armand
 }
 
+// + Teodora
+
 template <class T>
-void List<T>::remove(T value) {
+void DLL<T>::remove(T value) {
 	if(empty()) return;
 	Node<T> *current = begin, *elemToRemove;
-	if(value == begin -> value)
-	{
+	// ---- GOGO
+	if(value == begin -> value) {
 	    elemToRemove = begin;
 	    begin = begin -> next;
 	    delete elemToRemove;
@@ -256,41 +255,49 @@ void List<T>::remove(T value) {
 	while (current -> next) {
 		if (value == current -> next -> value) { //delete elem
 			elemToRemove = current -> next;
-			current -> next = current -> next -> next;
+
+			current->next->prev = current; // + Armand
+			current->next = current->next->next;
+
 			if (elemToRemove == end) {
 				end = current;
 			}
 			delete elemToRemove;
-			return;
+			break;
 		}
 		current = current->next;
 	}
 }
 
 template <class T>
-void List<T>::remove_next(Node<T> *node)
-{
+void DLL<T>::remove_next(Node<T> *node) {
     if(!node -> next) return;
-    Node<T> *elemToRemove = node -> next;
+    Node<T> *elemToRemove = node->next;
     if(elemToRemove == end) end = node;
-    node -> next = node -> next -> next;
+    if (elemToRemove->next) { // elementul urmator dupa cel care trebuie sters
+    	elemToRemove->next->prev = node;
+    }
+    node->next = elemToRemove->next;
     delete elemToRemove;
 }
 
+
+//avem nevoie de functia asta?
 template <class T>
-void List<T>::pop_front() {
+void DLL<T>::pop_front() {
     if(empty()) return;
     Node<T> *elemToRemove = begin;
     begin = begin->next;
+    //nu mai are niciun element in stanga
+    begin->prev = NULL;
     delete elemToRemove;
 }
 
 template <class T>
-int List<T>::length() {
+int DLL<T>::length() {
     Node<T> *current = begin;
     int nr_elem = 0;
-    while(current)
-    {
+    while(current) {
         nr_elem++;
         current = current->next;
     }
@@ -298,8 +305,8 @@ int List<T>::length() {
 }
 
 template<class T>
-ostream& operator<<(ostream& out, const List<T>& list) {
-	Node<T> *current = list.begin;
+ostream& operator<<(ostream& out, const DLL<T>& DLL) {
+	Node<T> *current = DLL.begin;
 	while (current) {
 		out << current->value << " ";
 		current = current->next;
@@ -307,5 +314,4 @@ ostream& operator<<(ostream& out, const List<T>& list) {
 	out << "\n";
 	return out;
 }
-
-#endif
+*/

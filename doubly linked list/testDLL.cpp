@@ -10,6 +10,7 @@ using namespace std;
 int main()
 {
 	DLL<int> l;
+	cout << l.front() << "\n";
 	cout << l.empty() << "\n";
 	l.push_back(3);
 	cout << l.front() << "\n";
@@ -42,5 +43,7 @@ int main()
 	cout << l.first()<< "\n";
 	l.remove_next(l.first());
 	cout << l;
+	DLL< double > l4;
+	cout << l4.front() << "\n";
 	return 0;
 }

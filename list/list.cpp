@@ -206,7 +206,7 @@ void List<T>::remove_next(Node<T> *node)
 }
 
 template <class T>
-void List<T>::pop() {
+void List<T>::pop_front() {
     if(empty()) return;
     Node<T> *elemToRemove = begin;
     begin = begin->next;

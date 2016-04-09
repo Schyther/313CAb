@@ -1,6 +1,5 @@
-#ifndef __DLL__
-#define __DLL__
-#endif
+#ifndef __LIST__
+#define __LIST__
 
 #ifndef __IOSTREAM__
 #define __IOSTREAM__
@@ -33,42 +32,36 @@ private:
 public:
 	DLL();
 	~DLL();
-	DLL(DLL &other);
+	DLL(const DLL &other);
 
-	DLL<T> operator=(const DLL<T> &other);
+	DLL<T> &operator=(const DLL<T> &other);
 
-	bool empty();
+	bool empty() const;
 
-	T front();
-	T back();
+	T front() const;
+	T back() const;
 
-	Node<T> *first();
-	Node<T> *last();
+	Node<T> *first() const;
+	Node<T> *last() const;	
 
-	int getPos(T value);
+	int getpos(T value) const;
 
 	void push_back(T value);
 	void push_front(T value);
 	void insert(int pos, T value);
 
-	void pop_front();
-	void pop_back();
+	void pop();
 	void erase(int pos);
 	void remove(T value);
-	void remove_next(Node<T> *);
+	void remove_next(Node<T> *node);
 
-	int length();
+	int length() const;
+
+	void clear();
 
 	template<class Y>
 	friend ostream& operator<<(ostream& out, const DLL<Y> &DLL);
 };
-
-// FUNCTIILE IMPLEMENTATE IN HEADER. ASA MERGE
-//  ||
-//  ||
-//  \/
-
-
 
 //CONSTRUCTOR
 
@@ -81,18 +74,13 @@ DLL<T>::DLL() {
 
 template<class T>
 DLL<T>::~DLL() {
-	end = begin;
-	while(end != NULL) {
-		begin = end;
-		end = end->next;
-		delete begin;
-	}
+	clear();
 }
 
 //COPY-CONSTRUCTOR
 
 template <class T>
-DLL<T>::DLL(DLL<T> &other) {
+DLL<T>::DLL(const DLL<T> &other) {
 	Node<T> *current;
 	begin = NULL;
 	end = NULL;
@@ -106,7 +94,7 @@ DLL<T>::DLL(DLL<T> &other) {
 //COPY-ASSIGNMENT
 
 template <class T>
-DLL<T> DLL<T>::operator=(const DLL<T> &other) {
+DLL<T>& DLL<T>::operator=(const DLL<T> &other) {
 	Node<T> *current;
 	begin = NULL;
 	end = NULL;
@@ -121,7 +109,7 @@ DLL<T> DLL<T>::operator=(const DLL<T> &other) {
 //functions
 
 template <class T>
-bool DLL<T>::empty() {
+bool DLL<T>::empty() const{
 	if (begin == NULL) return true;
 	else return false;
 }
@@ -132,14 +120,15 @@ bool DLL<T>::empty() {
 	dar echivalentul lui NULL nu exista pentru tipuri de date
 	primitive, cum ar fi int
 */
+
 template <class T>
-T DLL<T>::front() {
+T DLL<T>::front() const {
 	if (begin) return begin->value;
 	else return T();
 }
 
 template <class T>
-T DLL<T>::back() {
+T DLL<T>::back() const {
 	if (end) return end->value;
 	else return T();
 }
@@ -147,20 +136,19 @@ T DLL<T>::back() {
 //GETTER PENTRU BEGIN
 
 template <class T>
-Node<T> * DLL<T>::first(){
+Node<T> * DLL<T>::first() const{
 	return begin;
 }
 
 //GETTER PENTRU END
 
 template <class T>
-Node<T> * DLL<T>::last(){
+Node<T> * DLL<T>::last() const{
 	return end;
 }
 
-
 template <class T>
-int DLL<T>::getPos(T value) {
+int DLL<T>::getpos(T value) const{
 	if(empty()) return -1;
 	Node<T> *current = begin;
 	int pos = 0;
@@ -211,11 +199,10 @@ void DLL<T>::insert(int pos, T value) {
 	newNode = new Node<T>(value);
 	while (current) {
 		if (pos == poscrt) {
-			//GOGO e smecher
 			//noul nod se insereaza dupa curentul
 			newNode->next = current->next;
 			newNode->prev = current;
-			if (current->next) current->next->prev = newNode; // + Gogo
+			if (current->next) current->next->prev = newNode;
 			current->next = newNode;
 			break;
 		}
@@ -244,7 +231,7 @@ void DLL <T>::erase(int pos) {
 		if (poscrt == pos - 1) { //delete elem
 			elemToRemove = current->next;
 
-			current->next->prev = current; // + Armand
+			current->next->prev = current;
 			current->next = current->next->next;
 
 			if (elemToRemove == end) {
@@ -256,16 +243,12 @@ void DLL <T>::erase(int pos) {
 		current = current->next;
 		poscrt++;
 	}
-	//---- Armand
 }
-
-// + Teodora
 
 template <class T>
 void DLL<T>::remove(T value) {
 	if(empty()) return;
 	Node<T> *current = begin, *elemToRemove;
-	// ---- GOGO
 	if(value == begin -> value) {
 	    elemToRemove = begin;
 	    begin = begin -> next;
@@ -275,7 +258,7 @@ void DLL<T>::remove(T value) {
 		if (value == current -> next -> value) { //delete elem
 			elemToRemove = current -> next;
 
-			current->next->prev = current; // + Armand
+			current->next->prev = current;
 			current->next = current->next->next;
 
 			if (elemToRemove == end) {
@@ -300,11 +283,12 @@ void DLL<T>::remove_next(Node<T> *node) {
     delete elemToRemove;
 }
 
-
-//avem nevoie de functia asta?
 template <class T>
-void DLL<T>::pop_front() {
-    if(empty()) return;
+void DLL<T>::pop() {
+    if(empty()) {
+    	cerr << "error : Could not pop first value of doubly linked list. Empty list\n";
+    	return;
+    }
     Node<T> *elemToRemove = begin;
     begin = begin->next;
     //nu mai are niciun element in stanga
@@ -312,19 +296,8 @@ void DLL<T>::pop_front() {
     delete elemToRemove;
 }
 
-//avem nevoie de functia asta?
 template <class T>
-void DLL<T>::pop_back() {
-    if(empty()) return;
-    Node<T> *elemToRemove = end;
-    end = end->prev;
-    //nu mai are niciun element in dreapta
-    end->next = NULL;
-    delete elemToRemove;
-}
-
-template <class T>
-int DLL<T>::length() {
+int DLL<T>::length() const {
     Node<T> *current = begin;
     int nr_elem = 0;
     while(current) {
@@ -332,6 +305,16 @@ int DLL<T>::length() {
         current = current->next;
     }
     return nr_elem;
+}
+
+template <class T>
+void DLL<T>::clear() {
+	end = begin;
+	while(end != NULL) {
+		begin = end;
+		end = end->next;
+		delete begin;
+	}
 }
 
 template<class T>
@@ -344,3 +327,5 @@ ostream& operator<<(ostream& out, const DLL<T>& DLL) {
 	out << "\n";
 	return out;
 }
+
+#endif
