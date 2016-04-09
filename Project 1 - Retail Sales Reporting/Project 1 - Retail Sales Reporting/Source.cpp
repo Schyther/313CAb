@@ -18,8 +18,9 @@ int main() {
 	r.TranzactiiRead("tranzactii.csv", magazine, hBonuri);
 	r.BonuriRead("bonuri.csv", hBonuri);
 	
-	for (int i = 0; i < magazine.size(); i++)
+	for (int i = 0; i < (int)magazine.size(); i++)
 		cout << magazine[0].getBonuri().peek().getNrProduse() << '\n';
+	
 
 	return 0;
 }
