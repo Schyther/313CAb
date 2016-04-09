@@ -4,11 +4,34 @@
 
 Bon::Bon() {
 
+	nrProduse = 0;
+	for (int i = 0; i < NumarProduse; i++)
+		fcvProdus[i] = 0;
+
+}
+
+Bon::Bon(string id, long long utcTime) {
+
+	nrProduse = 0;
+	for (int i = 0; i < NumarProduse; i++)
+		fcvProdus[i] = 0;
+	this->id = id;
+	this->utcTime = utcTime;
+
 }
 
 Bon::~Bon() {
 
-	delete[] FcvProdus;
+}
+
+Bon::Bon(const Bon& other) {
+
+	this->id = other.id;
+	this->nrProduse = other.nrProduse;
+	for (int i = 0; i < NumarProduse; i++)
+		this->fcvProdus[i] = other.fcvProdus[i];
+	this->utcTime = other.utcTime;
+	this->idMagazin = other.idMagazin;
 
 }
 
@@ -20,7 +43,7 @@ string Bon::getId() {
 
 int* Bon::getFcvProduse() {
 
-	return FcvProdus;
+	return fcvProdus;
 
 }
 
@@ -45,8 +68,17 @@ string Bon::getIdMagazin() {
 
 //Metode
 
+void Bon::AddData(string id, long long utcTime, string idMagazin) {
+
+	this->id = id;
+	this->utcTime = utcTime;
+	this->idMagazin = idMagazin;
+
+}
+
 void Bon::AddProdus(int id) {
 
-
+	nrProduse++;
+	fcvProdus[id] ++;
 
 }

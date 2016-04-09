@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <ctime>
 
 using namespace std;
 
@@ -96,9 +97,16 @@ public:
 	// array
 	int find(T value);
 
+	T peek();
+
 	void QuickSort(int pinitial, int pfinal);
 	int BinarySearch(int pinitial, int pfinal, T cautat);
 };
+
+template <typename T>
+T ResizableArray<T>::peek() {
+	return array[_size - 1];
+}
 
 template <typename T>
 unsigned int ResizableArray<T>::size() const {
@@ -241,7 +249,7 @@ int ResizableArray<T>::BinarySearch(int pinitial, int pfinal, T cautat)
 
 
 
-// Hash
+// Hash pentru bonuri
 
 template <typename Tkey, typename Tvalue>
 struct Pair {
@@ -250,31 +258,165 @@ struct Pair {
 };
 
 template <typename Tkey, typename Tvalue>
-class Hash {
+class HashBon {
 private:
 	ResizableArray < Pair < Tkey, ResizableArray < Tvalue > > > *H;
 	int Hmax;
 public:
-	// Constructor default
-	Hash() {
+	HashBon() {
+
 	}
 
+	HashBon(int Hmax) {
+		this->Hmax = Hmax;
+		H = new ResizableArray < Pair < Tkey, ResizableArray < Tvalue > > >[Hmax];
+	}
+
+	~HashBon() {
+		delete[] H;
+	}
+
+
+	int logPow(int base, int exponent) {
+		int res = 1;
+		while (exponent > 0) {
+			if (exponent & 1) {
+				res = (1LL * res * base) % MOD;
+			}
+
+			base = (1LL * base * base) % MOD;
+			exponent >>= 1;
+		}
+		return res;
+	}
+
+	int hashFunction(Tkey key) {
+		int sum = 0, sz = key.size();
+		for (int i = 0; i < sz; ++i) {
+			sum = (sum + (logPow(BASE, sz - i - 1) * (int)(key[i])) % MOD) % MOD;
+		}
+		return sum;
+	}
+
+
+	void insert(Tkey key, Tvalue value) {
+		Pair < Tkey, ResizableArray < Tvalue > > data;
+
+		int hashKey = hashFunction(key);
+		int ok = 0;
+
+		if (H[hashKey].size() > 0) {
+			int sz = H[hashKey].size();
+			for (int i = 0; i < sz && !ok; ++i) {
+				if (H[hashKey][i].first == key) {
+					H[hashKey][i].second.push_back(value);
+					return;
+				}
+			}
+		}
+
+		data.first = key;
+		data.second.push_back(value);
+		H[hashKey].push_back(data);
+	}
+
+
+	int getValue(Tkey key) {
+		int hashKey = hashFunction(key);
+		int sz = H[hashKey].size();
+
+		for (int i = 0; i < sz; ++i) {
+			if (H[hashKey][i].first == key) {
+				return H[hashKey][i].second;
+			}
+		}
+
+		return ResizableArray < Tvalue >();
+	}
+
+	ResizableArray < Pair < Tkey, ResizableArray < Tvalue > > >& operator[](int position) {
+		if (position >= Hmax) {
+			cerr << "Pozitie invalida!\n";
+			return H[0];
+		}
+
+		return H[position];
+	}
+
+};
+
+
+// Hash generic
+
+template <typename Tkey, typename Tvalue>
+class HashGen {
+private:
+	ResizableArray < Pair < Tkey, Tvalue > > *H;
+	int Hmax;
+public:
 	// Constructor
-	Hash(int Hmax);
+	HashGen(int Hmax) {
+		this->Hmax = Hmax;
+		H = new ResizableArray < Pair < Tkey, Tvalue > >[Hmax];
+	}
 
 	// Destructor
-	~Hash();
+	~HashGen() {
+		delete[] H;
+	}
 
-	// Ridicare la putere in timp logaritmic. Returneaza (base^exponent) % MOD
-	int logPow(int base, int exponent);
-	int hashFunction(Tkey key);
-	void insert(Tkey key, Tvalue value);
 
-	// Metoda care returneaza continutul pentru cheia "key"
-	ResizableArray < Tvalue > getValue(Tkey key);
+	int logPow(int base, int exponent) {
+		int res = 1;
+		while (exponent > 0) {
+			if (exponent & 1) {
+				res = (1LL * res * base) % MOD;
+			}
 
-	// Metoda pentru a supaincarca "Subscripting operator" 
-	ResizableArray < Pair < Tkey, ResizableArray < Tvalue > > > &operator[](int position);
+			base = (1LL * base * base) % MOD;
+			exponent >>= 1;
+		}
+		return res;
+	}
+
+	int hashFunction(Tkey key) {
+		int sum = 0, sz = key.size();
+		for (int i = 0; i < sz; ++i) {
+			sum = (sum + (logPow(BASE, sz - i - 1) * (int)(key[i])) % MOD) % MOD;
+		}
+		return sum;
+	}
+
+	void insert(Tkey key, Tvalue value) {
+		Pair < Tkey, Tvalue > data;
+		int hashKey = hashFunction(key);
+
+		data.first = key;
+		data.second = value;
+		H[hashKey].push_back(data);
+	}
+
+	Tvalue getValue(Tkey key) {
+		int hashKey = hashFunction(key);
+		int sz = H[hashKey].size();
+
+		for (int i = 0; i < sz; ++i) {
+			if (H[hashKey][i].first == key) {
+				return H[hashKey][i].second;
+			}
+		}
+
+		return Tvalue();
+	}
+
+	ResizableArray<Tvalue> operator[](int position) {
+		if (position >= Hmax) {
+			cerr << "Pozitie invalida!\n";
+			return H[0];
+		}
+
+		return H[position];
+	}
 };
 
 
@@ -399,6 +541,9 @@ public:
 
 	Depozit_Magazin() {
 
+		for (int i = 0; i < NumarProduse; i++) {
+			nrProduse[i] = 0;
+		}
 	}
 
 
@@ -441,10 +586,6 @@ public:
 };
 
 
-
-
-
-
 //Clasa pentru bonuri
 
 class Bon {
@@ -452,8 +593,7 @@ class Bon {
 private:
 
 	string id;
-	ResizableArray <Produs> *produse;
-	int *FcvProdus;    // Vector cu frecventa fiecarui prrodus 
+	int fcvProdus[NumarProduse];    // Vector cu frecventa fiecarui prrodus 
 	int nrProduse;
 	long long utcTime;
 	string idMagazin;
@@ -463,7 +603,9 @@ public:
 
 	//Constructori/Destructori
 	Bon();
+	Bon(string id, long long utcTime);
 	~Bon();
+	Bon(const Bon& other);
 
 	//Getteri
 	string getId();
@@ -473,6 +615,7 @@ public:
 	string getIdMagazin();
 
 	//Metode
+	void AddData(string id, long long utcTime, string idMagazin);
 	void AddProdus(int id);
 
 };
@@ -483,24 +626,23 @@ class Magazin {
 	int id;
 	string locatie;
 	ResizableArray<Bon> bonuri;
-	Depozit_Magazin *depozit;
+	Depozit_Magazin depozit;
 public:
 	Magazin()
 	{
-		this->depozit = new Depozit_Magazin;
 	}
 	Magazin(int id, string locatie)
 	{
 		this->id = id;
 		this->locatie = locatie;
-		this->depozit = new Depozit_Magazin;
+
 	}
 	Magazin(int id, string locatie, ResizableArray<Bon> bonuri, Depozit_Magazin* depozit)
 	{
 		this->id = id;
 		this->locatie = locatie;
 		this->bonuri = bonuri;
-		this->depozit = depozit;
+		this->depozit = *depozit;
 	}
 	Magazin(const Magazin& other)
 	{
@@ -511,7 +653,6 @@ public:
 	}
 	~Magazin()
 	{
-		delete depozit;
 	}
 
 	void setId(int id)
@@ -537,32 +678,32 @@ public:
 
 	int findProdus(int id)
 	{
-		return depozit->findProdus(id);
+		return depozit.findProdus(id);
 	}
 
 	int getNProdus(int id)
 	{
-		return depozit->getNProdus(id);
+		return depozit.getNProdus(id);
 	}
 
-	ResizableArray<Bon>getBonuri()
+	ResizableArray<Bon>*getBonuri()
 	{
-		return bonuri;
+		return &bonuri;
 	}
 
 	Depozit_Magazin* getDepozit()
 	{
-		return depozit;
+		return &depozit;
 	}
 
 	void add_produs(Produs& produs, int cantitate)
 	{
-		depozit->addProdus(produs.getId(), cantitate);
+		depozit.addProdus(produs.getId(), cantitate);
 	}
 
 	void remove_produs(int id, int cantitate)
 	{
-		depozit->removeProdus(id, cantitate);
+		depozit.removeProdus(id, cantitate);
 	}
 
 	void add_bon(Bon& bon)
@@ -590,12 +731,13 @@ private:
 
 public:
 
-	void BonuriRead(const char* name);
+	void BonuriRead(const char* name, HashGen <string, Bon*>& hBonuri);
 	void ProduseRead(const char* fileName, Produs *produse, Categorii& cat);
 	void PaletiRead(const char* fileName);
-	void MagazineRead(const char* fileName);
+	void MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine);
 	void CategoriiRead(const char* fileName, Categorii& cat);
-	void TranzactiiRead(const char* fileName);
+	void TranzactiiRead(const char* fileName, ResizableArray<Magazin> &magazine, HashGen <string, Bon*>& hBonuri);
+	time_t Read::ConvertTime(char *timeToConvert);
 
 	~Read();
 

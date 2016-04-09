@@ -1,11 +1,12 @@
 #include "Classes.h"
 
-void Read::BonuriRead(const char* name) {
+void Read::BonuriRead(const char* name, HashGen <string, Bon*>& hBonuri) {
 
 	bonurif.open(name);
 
 	string line;
-	string id_bon, id_produs;
+	string id_bon;
+	int id_produs;
 	int i;
 
 	// Sar peste headerele tabelului
@@ -17,7 +18,7 @@ void Read::BonuriRead(const char* name) {
 		getline(bonurif, line, '\r');
 
 		id_bon = "";
-		id_produs = "";
+		id_produs = 0;
 
 		// Fac split caracter cu caracter la linia citita
 		i = 0;
@@ -28,16 +29,43 @@ void Read::BonuriRead(const char* name) {
 		i++;
 		while (i < (int)line.length()) {
 		
-			id_produs+= line[i++];
+			id_produs= id_produs*10 + line[i++]- '0';
 		}
 		
+		
+		Bon *b = hBonuri.getValue(id_bon);
 
-		cout << id_bon << '\n' << id_produs<<'\n';
-		// TODO: adaugare date la structuri
+		b->AddProdus(id_produs);
 
 	}
 	
 
+}
+
+time_t Read::ConvertTime(char *timeToConvert) {
+	struct tm newTime = { 0 };
+	char *dates[7];
+	char *p;
+	int nr = 0;
+
+	timeToConvert[strlen(timeToConvert)] = '\0';
+	p = strtok(timeToConvert, "- : ");
+	while (p != NULL) {
+		dates[nr++] = p;
+		p = strtok(NULL, "- : ");
+	}
+
+	newTime.tm_year = atoi(dates[0]) - 1900;
+	newTime.tm_mon = atoi(dates[1]) - 1;
+	newTime.tm_mday = atoi(dates[2]);
+	newTime.tm_hour = atoi(dates[3]);
+	newTime.tm_min = atoi(dates[4]);
+	newTime.tm_sec = atoi(dates[5]);
+
+	time_t temp = mktime(&newTime);
+
+
+	return temp;
 }
 
 void Read::ProduseRead(const char *fileName, Produs *produse, Categorii& cat) {
@@ -131,12 +159,13 @@ void Read::PaletiRead(const char* fileName) {
 
 }
 
-void Read::MagazineRead(const char* fileName) {
+void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine) {
 
 	magazinef.open(fileName);
 	
 	string line;
-	string id_magazin, locatie;
+	int id_magazin;
+	string locatie;
 	int i;
 
 	// Sar peste headerele tabelului
@@ -146,13 +175,13 @@ void Read::MagazineRead(const char* fileName) {
 	while (!magazinef.eof()) {
 
 		getline(magazinef, line);
-		id_magazin = "";
+		id_magazin = 0;
 		locatie = "";
 		if (line != "") {
 			// Fac split caracter cu caracter la linia citita
 			i = 0;
 			while (line[i] != ',') {
-				id_magazin += line[i++];
+				id_magazin = id_magazin * 10 + line[i++] - '0';
 			}
 
 			i++;
@@ -162,7 +191,9 @@ void Read::MagazineRead(const char* fileName) {
 
 			}
 
-			// TODO: adaugare date la structuri
+			Magazin m(id_magazin, locatie);
+
+			magazine.push_back(m);
 		}
 	}
 }
@@ -208,13 +239,14 @@ void Read::CategoriiRead(const char *fileName, Categorii& cat) {
 
 }
 
-void Read::TranzactiiRead(const char *fileName) {
+void Read::TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazine, HashGen <string, Bon*>& hBonuri) {
 
 	tranzactiif.open(fileName);
 
 	int id;
 	char timestamp[30];
-	string id_bon, id_magazin, line;
+	int id_magazin;
+	string id_bon, line;
 	int i, n;
 
 	// Sar peste headerele tabelului
@@ -225,7 +257,7 @@ void Read::TranzactiiRead(const char *fileName) {
 		getline(tranzactiif, line, '\r');
 		id = 0;
 		id_bon = "";
-		id_magazin = "";
+		id_magazin = 0;
 		
 		if (line != "") {
 
@@ -255,17 +287,29 @@ void Read::TranzactiiRead(const char *fileName) {
 
 			while (i < (int)line.length()) {
 
-				id_magazin += line[i++];
+				id_magazin = id_magazin*10 + line[i++] - '0';
 			}
 
-			// TODO: adaugare date la structuri
+			for (i = 0; i <= (int)magazine.size(); i++) {
+
+				if (magazine[i].getId() == id_magazin)
+					break;
+
+			}
+
+			Bon b(id_bon, ConvertTime(timestamp));
 			
+			magazine[i].add_bon(b);
+			hBonuri.insert(id_bon, &magazine[i].getBonuri()->peek());
 
 		}
 	}
 
 
 }
+
+
+
 
 Read::~Read() {
 
