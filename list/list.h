@@ -1,10 +1,11 @@
+#ifndef __LIST__
+#define __LIST__
+#endif
+
 #ifndef __IOSTREAM__
 #define __IOSTREAM__
 #include <iostream>
 #endif
-
-#ifndef __LIST__
-#define __LIST__
 
 using namespace std;
 
@@ -30,15 +31,12 @@ public:
 	~List();
 	List(List &other);
 
-	List<T> &operator=(const List<T> &other);
+	List<T> operator=(const List<T> &other);
 
 	bool empty();
 
 	T front();
 	T back();
-
-	Node<T> *first();
-	Node<T> *last();
 
 	int getpos(T value);
 
@@ -57,16 +55,6 @@ public:
 	friend ostream& operator<<(ostream& out, const List<Y> &list);
 };
 
-<<<<<<< HEAD
-// FUNCTIILE IMPLEMENTATE IN HEADER. ASA MERGE
-//  ||
-//  ||
-//  \/
-
-
-
-=======
->>>>>>> 914ee90fc9e393643e22851b965cc86d96be1470
 //CONSTRUCTOR
 
 template <class T>
@@ -103,7 +91,7 @@ List<T>::List(List<T> &other) {
 //COPY-ASSIGNMENT
 
 template <class T>
-List<T>& List<T>::operator=(const List<T> &other) {
+List<T> List<T>::operator=(const List<T> &other) {
 	Node<T> *current;
 	begin = NULL;
 	end = NULL;
@@ -129,10 +117,6 @@ bool List<T>::empty() {
 	dar echivalentul lui NULL nu exista pentru tipuri de date
 	primitive, cum ar fi int
 */
-<<<<<<< HEAD
-
-=======
->>>>>>> 914ee90fc9e393643e22851b965cc86d96be1470
 template <class T>
 T List<T>::front() {
 	if (begin) return begin->value;
@@ -143,20 +127,6 @@ template <class T>
 T List<T>::back() {
 	if (end) return end->value;
 	else return T();
-}
-
-//GETTER PENTRU BEGIN
-
-template <class T>
-Node<T> * List<T>::first(){
-	return begin;
-}
-
-//GETTER PENTRU END
-
-template <class T>
-Node<T> * List<T>::last(){
-	return end;
 }
 
 template <class T>
@@ -188,7 +158,7 @@ void List<T>::push_back(T value) {
 	}
 }
 template <class T>
-void List<T>::push(T value) {
+void List<T>::push_front(T value) {
 	Node<T> *newNode = new Node<T>;
 	newNode->value = value;
 	newNode->next = NULL;
@@ -284,7 +254,7 @@ void List<T>::remove_next(Node<T> *node)
 }
 
 template <class T>
-void List<T>::pop_front() {
+void List<T>::pop() {
     if(empty()) return;
     Node<T> *elemToRemove = begin;
     begin = begin->next;
@@ -312,10 +282,4 @@ ostream& operator<<(ostream& out, const List<T>& list) {
 	}
 	out << "\n";
 	return out;
-<<<<<<< HEAD
 }
-
-#endif
-=======
-}
->>>>>>> 914ee90fc9e393643e22851b965cc86d96be1470
