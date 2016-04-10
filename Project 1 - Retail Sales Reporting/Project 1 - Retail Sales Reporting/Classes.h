@@ -62,8 +62,8 @@ public:
 	string getNume();
 	string getCategorie();
 	int getPret();
-	Produs &operator= (const Produs &p);
 
+	Produs &operator= (const Produs &p);
 	friend ostream &operator<<(ostream &, Produs);
 
 	void Produs::AddData(int id,string nume, string categorie, int pret);
@@ -80,68 +80,21 @@ private:
 
 public:
 
-	Palet() {
+	Palet();
+	Palet(string idPalet, int nrItemi, int idSlot, int produs);
+	Palet(const Palet& x);
+	~Palet();
 
-	}
+	Palet& operator=(const Palet& x);
 
-	Palet(string idPalet, int nrItemi, int idSlot, int produs) {
-		this->idPalet = idPalet;
-		this->nrItemi = nrItemi;
-		this->idSlot = idSlot;
-		this->idProdus = produs;
-	}
+	string getIdPalet();
+	int getNrItems();
+	int getIdSlot();
+	int getIdProdus();
 
-	Palet(const Palet& x) {
-		this->idPalet = x.idPalet;
-		this->nrItemi = x.nrItemi;
-		this->idSlot = x.nrItemi;
-		this->idProdus = x.idProdus;
-	}
-
-	~Palet() {
-		this->idPalet = '\0';
-		this->nrItemi = 0;
-		this->idSlot = 0;
-		this->idProdus = 0;
-	}
-
-	Palet& operator=(const Palet& x) {
-		this->idPalet = x.idPalet;
-		this->nrItemi = x.nrItemi;
-		this->idSlot = x.idSlot;
-		this->idProdus = x.idProdus;
-		return *this;
-	}
-
-
-	string getIdPalet() {
-		return idPalet;
-	}
-
-
-	int getNrItems() {
-		return nrItemi;
-	}
-
-	int getIdSlot() {
-		return idSlot;
-	}
-
-	int getIdProdus() {
-		return idProdus;
-	}
-
-	void setIdPalet(string id_nou) {
-		this->idPalet = id_nou;
-	}
-
-	void setNrItems(int nr_nou) {
-		this->nrItemi = nr_nou;
-	}
-
-	void setIdSlot(int id_nou) {
-		this->idSlot = id_nou;
-	}
+	void setIdPalet(string id_nou);
+	void setNrItems(int nr_nou);
+	void setIdSlot(int id_nou);
 
 };
 
@@ -155,48 +108,14 @@ class Depozit_Magazin {
 
 public:
 
-	Depozit_Magazin() {
+	Depozit_Magazin();
+	Depozit_Magazin(const Depozit_Magazin& other);
+	~Depozit_Magazin();
 
-		for (int i = 0; i < NumarProduse; i++) {
-			nrProduse[i] = 0;
-		}
-	}
-
-
-	Depozit_Magazin(const Depozit_Magazin& other)
-	{
-		int i;
-		for (i = 0; i < NumarProduse; i++)
-			nrProduse[i] = other.nrProduse[i];
-	}
-
-	~Depozit_Magazin() {
-
-	}
-
-
-	int findProdus(int id)
-	{
-		if (nrProduse[id] > 0) return 1;
-		else return -1;
-	}
-
-	int getNProdus(int pos)
-	{
-		return nrProduse[pos];
-	}
-
-
-	void addProdus(int id, int cantitate)
-	{
-		nrProduse[id] += cantitate;
-	}
-
-	void removeProdus(int id, int cantitate) {
-
-		nrProduse[id] -= cantitate;
-
-	}
+	int findProdus(int id);
+	int getNProdus(int pos);
+	void addProdus(int id, int cantitate);
+	void removeProdus(int id, int cantitate);
 
 
 };
@@ -244,88 +163,25 @@ class Magazin {
 	ResizableArray<Bon> bonuri;
 	Depozit_Magazin depozit;
 public:
-	Magazin()
-	{
-	}
-	Magazin(int id, string locatie)
-	{
-		this->id = id;
-		this->locatie = locatie;
 
-	}
-	Magazin(int id, string locatie, ResizableArray<Bon> bonuri, Depozit_Magazin* depozit)
-	{
-		this->id = id;
-		this->locatie = locatie;
-		this->bonuri = bonuri;
-		this->depozit = *depozit;
-	}
-	Magazin(const Magazin& other)
-	{
-		this->id = other.id;
-		this->locatie = other.locatie;
-		this->bonuri = other.bonuri;
-		this->depozit = other.depozit;
-	}
-	~Magazin()
-	{
-	}
+	Magazin();
+	Magazin(int id, string locatie);
+	Magazin(int id, string locatie, ResizableArray<Bon> bonuri, Depozit_Magazin* depozit);
+	Magazin(const Magazin& other);
+	~Magazin();
 
-	void setId(int id)
-	{
-		this->id = id;
-	}
+	int getId();
+	string getLocatie();
+	int findProdus(int id);
+	int getNProdus(int id);
+	ResizableArray<Bon>& getBonuri();
+	Depozit_Magazin* getDepozit();
 
-	void setLocatie(string locatie)
-	{
-		this->locatie = locatie;
-	}
-
-
-	int getId()
-	{
-		return id;
-	}
-
-	string getLocatie()
-	{
-		return locatie;
-	}
-
-	int findProdus(int id)
-	{
-		return depozit.findProdus(id);
-	}
-
-	int getNProdus(int id)
-	{
-		return depozit.getNProdus(id);
-	}
-
-	ResizableArray<Bon>& getBonuri()
-	{
-		return bonuri;
-	}
-
-	Depozit_Magazin* getDepozit()
-	{
-		return &depozit;
-	}
-
-	void add_produs(Produs& produs, int cantitate)
-	{
-		depozit.addProdus(produs.getId(), cantitate);
-	}
-
-	void remove_produs(int id, int cantitate)
-	{
-		depozit.removeProdus(id, cantitate);
-	}
-
-	void add_bon(Bon& bon)
-	{
-		bonuri.push_back(bon);
-	}
+	void setId(int id);
+	void setLocatie(string locatie);
+	void add_produs(Produs& produs, int cantitate);
+	void remove_produs(int id, int cantitate);
+	void add_bon(Bon& bon);
 
 };
 
