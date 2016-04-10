@@ -11,16 +11,16 @@
 
 class Magazin {
 	string locatie;
-	Depozit_Magazin *depozit;
+	Depozit_Magazin depozit;
 public:
 	ResizableArray < string > zi[367]; // zi[ i ] contine bonurile vandute in ziua i
 	Magazin() {
-	    depozit = new Depozit_Magazin;
+	    //depozit = new Depozit_Magazin;
 	}
 
 	Magazin(string locatie) {
 		this->locatie = locatie;
-        depozit = new Depozit_Magazin;
+        //depozit = new Depozit_Magazin;
 	}
 
 	Magazin(const Magazin& other) {
@@ -31,7 +31,9 @@ public:
 	}
 
 	~Magazin() {
-	    // delete depozit;
+        // cout << depozit <<'\n';
+        // cout << depozit -> getNProdus(1) << '\n';
+        // delete depozit;
 	}
 
 	void setLocatie(string locatie) {
@@ -43,29 +45,29 @@ public:
 	}
 
 	int findProdus(int id) {
-		return depozit->findProdus(id);
+		return depozit.findProdus(id);
 	}
 
 	int getNProdus(int id) {
-		return depozit->getNProdus(id);
+		return depozit.getNProdus(id);
 	}
 
-	Depozit_Magazin* getDepozit() {
+/*	Depozit_Magazin& getDepozit() {
 		return depozit;
-	}
+	}*/
 
 	void add_produs(Produs& produs, int cantitate) {
-        int pos = depozit->findProdus(produs.getId());
+        int pos = depozit.findProdus(produs.getId());
         if(pos == -1) {
-            depozit->addProdus(produs.getId(), cantitate);
+            depozit.addProdus(&produs, cantitate);
         }
         else {
-            depozit->addProdus(pos, cantitate);
+            depozit.addProdus(pos, cantitate);
         }
 	}
 
 	void remove_produs(int id, int cantitate) {
-		depozit->addProdus(id, -cantitate);
+		depozit.addProdus(id, -cantitate);
 	}
 
 	void add_bon(string id_bon, int zi) {

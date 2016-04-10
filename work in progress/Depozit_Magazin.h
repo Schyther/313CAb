@@ -10,7 +10,6 @@
 #include "Produs.h"
 
 class Depozit_Magazin {
-
 	ResizableArray<Produs*> produse;
 	ResizableArray<int> nr_produse;
 
@@ -36,6 +35,13 @@ class Depozit_Magazin {
 
 	void addProdus(Produs*, int);
 	void addProdus(int, int);
+
+	Depozit_Magazin& operator= (const Depozit_Magazin& other)
+	{
+		this -> produse = other.produse;
+		this -> nr_produse = other.nr_produse;
+		return *this;
+	}
 
 };
 

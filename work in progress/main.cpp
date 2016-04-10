@@ -102,5 +102,9 @@ int main()
     for (int i = 0; i < bonuri.size(); ++i) {
         cout << bonuri[i].first << '\n';
     }*/
+
+    magazine[1].add_produs(produse[1], 3);
+
+    cout << magazine[1].getNProdus(1) << '\n';
     return 0;
 }
