@@ -53,7 +53,7 @@ void Solve::Task1b(Hash < string, int > &H, Produs *produse) {
 
 	for (int i = 0; i < NumarProduse; ++i) {
 		if (fcvProduse[i] > 0) {
-			g << produse[i].getNume() << ',' << fcvProduse[i] << '\n';
+			g << produse[i].getNume() << ',' << fcvProduse[i] * produse[i].getPret() << '\n';
 		}
 	}
 	g.close();
