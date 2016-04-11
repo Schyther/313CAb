@@ -261,7 +261,7 @@ int List<T>::length() const {
 	return nr_elem;
 }
 
-void List<T>::length() {
+void List<T>::clear() {
 	end = begin;
 	while (end != NULL) {
 		begin = end;
