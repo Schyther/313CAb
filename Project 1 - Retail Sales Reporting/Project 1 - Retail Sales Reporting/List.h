@@ -32,6 +32,8 @@ public:
 
 	int length() const;
 
+	void clear();
+
 	template<class Y>
 	friend ostream& operator<<(ostream& out, const List<Y> &list);
 };
@@ -47,12 +49,7 @@ List<T>::List() {
 
 template<class T>
 List<T>::~List() {
-	end = begin;
-	while (end != NULL) {
-		begin = end;
-		end = end->next;
-		delete begin;
-	}
+	clear();
 }
 
 //COPY-CONSTRUCTOR
@@ -262,6 +259,16 @@ int List<T>::length() const {
 		current = current->next;
 	}
 	return nr_elem;
+}
+
+void List<T>::length() {
+	end = begin;
+	while (end != NULL) {
+		begin = end;
+		end = end->next;
+		delete begin;
+	}
+	begin = end = NULL;
 }
 
 template<class T>
