@@ -21,17 +21,25 @@ Stack<Palet>*  DepozitGlobal::GetSloturi() {
 
 	return sloturi;
 }
-/*
-int DepozitGlobal::findSlot(string id_produs) {
+
+int DepozitGlobal::FindSlot(int id_produs) {
+
+	int min = INT_MAX, slot, poz;
+
 	for (int i = 0; i < NumarSloturi; ++i) {
 		ResizableArray <Palet> temp; //pastreaza paletii in timp ce efectuam cautarea
 		
-		Palet palet_crt = sloturi[i].top();
+		Palet palet_crt;
+		poz = 0;
 
-		while (!sloturi[i].empty && palet_crt.getIdPalet != id_produs) {
-			temp.push_back(palet_crt);
-			sloturi[i].pop();
+		while (!sloturi[i].empty()) {
+			poz++;
 			palet_crt = sloturi[i].top();
+			sloturi[i].pop();
+			temp.push_back(palet_crt);
+			
+			if (palet_crt.getIdProdus() == id_produs)
+				break;
 		}
 
 		//pune paletii la loc in slotul i dupa ce a efectuat cautarea
@@ -40,19 +48,22 @@ int DepozitGlobal::findSlot(string id_produs) {
 		}
 
 		//verifica daca a gasit produsul cautat in slotul i
-		if (palet_crt.getIdProdus == id_produs && palet_crt.getNrItems > 0) {
-			return i;
+		if (palet_crt.getIdProdus() == id_produs && palet_crt.getNrItems() > 0) {
+			if (poz < min) {
+				min = poz;
+				slot = i;
+			}
 		}
 	}
 
+	if (min != INT_MAX) 
+		return slot;
+	 
 	return -1; //produsul cautat nu se afla in depozit
 
-
-		 TODO: in loc sa returneze primul slot unde gaseste produsul,
-		sa returneze slotul unde care produsul se gaseste cat mai aproape
-		de varful stivei 
 }
 
+/*
 bool DepozitGlobal::Comanda(string id_produs) {
 	int slotProdus = findSlot(id_produs);
 	int slotAuxiliar; //slotul in care se depoziteaza paletii de deasupra paletului cautat

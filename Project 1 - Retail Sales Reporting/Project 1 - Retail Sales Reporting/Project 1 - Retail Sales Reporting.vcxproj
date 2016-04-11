@@ -122,6 +122,7 @@
     <ClCompile Include="paleti.cpp" />
     <ClCompile Include="produs.cpp" />
     <ClCompile Include="Read.cpp" />
+    <ClCompile Include="solve.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>

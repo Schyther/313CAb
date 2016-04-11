@@ -285,7 +285,7 @@ void DLL<T>::pop() {
     Node<T> *elemToRemove = begin;
     begin = begin->next;
     //nu mai are niciun element in stanga
-    begin->prev = NULL;
+    if (begin) begin->prev = NULL;
     delete elemToRemove;
 }
 

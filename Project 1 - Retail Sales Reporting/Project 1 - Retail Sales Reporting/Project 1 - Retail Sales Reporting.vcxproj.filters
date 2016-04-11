@@ -42,6 +42,9 @@
     <ClCompile Include="magazin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="solve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="bonuri.csv">

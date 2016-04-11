@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <ctime>
+#include <climits>
 
 #include "DLL.h"
 #include "List.h"
@@ -76,12 +77,11 @@ private:
 	string idPalet;
 	int idProdus;
 	int nrItemi;
-	int idSlot;
 
 public:
 
 	Palet();
-	Palet(string idPalet, int nrItemi, int idSlot, int produs);
+	Palet(string idPalet, int nrItemi, int produs);
 	Palet(const Palet& x);
 	~Palet();
 
@@ -89,12 +89,10 @@ public:
 
 	string getIdPalet();
 	int getNrItems();
-	int getIdSlot();
 	int getIdProdus();
 
 	void setIdPalet(string id_nou);
 	void setNrItems(int nr_nou);
-	void setIdSlot(int id_nou);
 
 };
 
@@ -195,6 +193,8 @@ public:
 
 	Stack<Palet>* GetSloturi();
 
+	int FindSlot(int id_produs);
+
 };
 
 
@@ -213,7 +213,7 @@ private:
 
 public:
 
-	void BonuriRead(const char* name, HashBon <string, int>& hBonuri);
+	void BonuriRead(const char* name, Hash <string, int>& hBonuri);
 	void ProduseRead(const char* fileName, Produs *produse, Categorii& cat);
 	void PaletiRead(const char* fileName, DepozitGlobal& d);
 	void MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine);
@@ -223,4 +223,22 @@ public:
 
 	~Read();
 
+};
+
+//Clasa Solve
+class Solve 
+{
+
+private:
+
+public:
+	Solve();
+	~Solve();
+
+	void Task1a(ResizableArray < Magazin > &magazine, Produs *produse, Hash < string, int > &H);
+	void Task1b(Hash < string, int > &H, Produs *produse);
+	double Task1c(Hash < string, int > &H, Produs *produse);
+	void Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri);
+	void Task2c(string idBon, Hash < string, int > &H, Produs *produse);
+	void Task3a(int idProdus, DepozitGlobal& depozit);
 };

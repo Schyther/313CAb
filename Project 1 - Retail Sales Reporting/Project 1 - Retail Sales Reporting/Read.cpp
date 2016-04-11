@@ -1,6 +1,6 @@
 #include "Classes.h"
 
-void Read::BonuriRead(const char* name, HashBon <string, int>& hBonuri) {
+void Read::BonuriRead(const char* name, Hash <string, int>& hBonuri) {
 	bonurif.open(name);
 
 	string line;
@@ -145,7 +145,7 @@ void Read::PaletiRead(const char* fileName, DepozitGlobal &d) {
 
 		// Adaugare date la structuri
 
-		Palet p(paletId, nItems, slot, prodType);
+		Palet p(paletId, nItems, prodType);
 		d.GetSloturi()[slot].push(p);
 		
 	}

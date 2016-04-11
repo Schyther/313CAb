@@ -4,12 +4,13 @@
 int main() {
 	
 	Read r;
+	Solve s;
 	
 	Categorii categorii;
 	Produs produse[NumarProduse];  // produse[i] - produsul cu id-ul i
 	ResizableArray < Pair < string, time_t > > bonuri;
 	ResizableArray< Magazin > magazine; //magazinele vor fi tinute in RA si indexate dupa id - 1
-	HashBon < string, int > hBonuri(MOD);
+	Hash < string, int > hBonuri(MOD);
 	DepozitGlobal depozit;
 
 	// Citire date
@@ -21,5 +22,7 @@ int main() {
 	r.PaletiRead("paleti.csv", depozit);
 
 
+	s.Task3a(3, depozit);
+	
 	return 0;
 }
