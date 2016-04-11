@@ -4,6 +4,7 @@
 #include <ctime>
 #include <climits>
 
+#include "utils.h"
 #include "DLL.h"
 #include "List.h"
 #include "stack.h"
