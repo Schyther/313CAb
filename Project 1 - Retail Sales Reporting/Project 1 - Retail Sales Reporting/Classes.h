@@ -239,7 +239,8 @@ public:
 	~Solve();
 
 	void Task1a(ResizableArray < Magazin > &magazine, Produs *produse, Hash < string, int > &H);
-	void Task1b(Hash < string, int > &H, Produs *produse);
+	void Task1b(Hash < string, int > &H, Produs *produse,
+    ResizableArray < Bon < int, string, time_t > > &bonuri);
 	void Task1c(Hash < string, int > &H, Produs *produse,
     ResizableArray < Bon < int, string, time_t > > &bonuri);
 	void Task1e(Hash < string, int > &H, Produs *produse);

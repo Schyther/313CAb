@@ -34,29 +34,28 @@ void Solve::Task1a(ResizableArray < Magazin > &magazine, Produs *produse, Hash <
 	g.close();
 }
 
-void Solve::Task1b(Hash < string, int > &H, Produs *produse) {
-	ofstream g("task1b.txt");
+void Solve::Task1b(Hash < string, int > &H, Produs *produse,
+    ResizableArray < Bon < int, string, time_t > > &bonuri) {
+    ofstream g("task1b.txt");
 
-	int fcvProduse[NumarProduse] = { 0 }; // fcvProduse[i] = de cate ori am vandut produsul cu id-ul i
+    int szBonuri = bonuri.size();
+    int fcvProduse[NumarProduse] = {0}; // fcvProduse[i] = de cate ori am vandut produsul cu id-ul i
 
-	int szBucket, szBon;
-	for (int i = 0; i < MOD; ++i) {
-		szBucket = H[i].size();
-		for (int j = 0; j < szBucket; ++j) {
-			szBon = H[i][j].second.size();
+    for (int i = 0; i < szBonuri; ++i) {
+        ResizableArray < int > continutBon = H.getValue(bonuri[i].idBon);
+        int szContinut = continutBon.size();
 
-			for (int k = 0; k < szBon; ++k) {
-				++fcvProduse[H[i][j].second[k]];
-			}
-		}
-	}
+        for (int j = 0; j < szContinut; ++j) {
+            ++fcvProduse[continutBon[j]];
+        }
+    }
 
-	for (int i = 0; i < NumarProduse; ++i) {
-		if (fcvProduse[i] > 0) {
-			g << produse[i].getNume() << ',' << fcvProduse[i] * produse[i].getPret() << '\n';
-		}
-	}
-	g.close();
+    for (int i = 0; i < NumarProduse; ++i) {
+        if (fcvProduse[i] > 0) {
+            g << produse[i].getNume() << ',' << fcvProduse[i] * produse[i].getPret() << '\n';
+        }
+    }
+    g.close();
 }
 
 void Solve::Task1c(Hash < string, int > &H, Produs *produse) {
