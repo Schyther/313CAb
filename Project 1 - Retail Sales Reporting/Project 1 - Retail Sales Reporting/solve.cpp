@@ -165,3 +165,10 @@ void Solve::Task3a(int idProdus, DepozitGlobal& depozit) {
 
 
 }
+
+void Solve::Task3b(int idProdus,DepozitGlobal& depozit) {
+
+	if (depozit.Comanda(idProdus)) cout << "Comanda onorata" << '\n';
+	else cout << "Comanda nu a putut fi onorata" << "\n";
+
+}

@@ -63,41 +63,43 @@ int DepozitGlobal::FindSlot(int id_produs) {
 
 }
 
-/*
-bool DepozitGlobal::Comanda(string id_produs) {
-	int slotProdus = findSlot(id_produs);
-	int slotAuxiliar; //slotul in care se depoziteaza paletii de deasupra paletului cautat
 
-	if (slotProdus < NumarProduse - 1) {
-		slotAuxiliar = slotProdus + 1;
+bool DepozitGlobal::Comanda(int id_produs) {
+	int slotProdus = FindSlot(id_produs);
+	int i=slotProdus-1, j=slotProdus+1;
+	ResizableArray <Palet> temp;
+	
+	while (i >= 0 && j < NumarSloturi) { // Verific care este primul slot cel mai apropiat fie la stanga fie la dreapta pe care se poate realiza o mutare
+		if (!sloturi[i].empty()) { j = i; break; }
+		if (!sloturi[j].empty()) { i = j; break; }
+		i--; j++;
 	}
-	else {
-		slotAuxiliar = 0;
-	}
+	
 
 	if (slotProdus == -1) {
-		cout << "Comana nu poate fi onorata";
 		return false;
 	}
 
-	Palet palet_crt = sloturi[slotProdus].top();
+	Palet palet_crt;
 
-	while (!sloturi[slotProdus].empty && palet_crt.getIdPalet != id_produs) {
-		//transfer palet dintr-o stiva in alta
-		sloturi[slotAuxiliar].push(palet_crt);
-		sloturi[slotProdus].pop();
+	while (!sloturi[slotProdus].empty()) {
 		palet_crt = sloturi[slotProdus].top();
+		if (palet_crt.getIdProdus() == id_produs) break;
+		else {
+			cout << "Paletul de pe slotul " << slotProdus << " cu ID " << palet_crt.getIdPalet() << " ,numar de produse " << palet_crt.getNrItems() << " si ID-PRODUS " << palet_crt.getIdProdus() << " se muta pe slotul " << i << '\n';
+		}
+		sloturi[i].push(palet_crt);
+		sloturi[slotProdus].pop();
+		temp.push_back(palet_crt);
 
-		//afisare mutare
-		cout << "MOVE PALET " << palet_crt.getIdPalet;
-		cout << " FROM SLOT " << slotProdus << " TO SLOT " << slotAuxiliar << '\n';
 	}
 
-	//actualizare numar produse in paletul cautat
-	sloturi[slotProdus].top().setNrItems(0);
-	ar trebuie sa dau pop() paletului si sa uitam ca a existat vreodata?
-	in felul asta nu mai avem history, dar e ceva mai eficient
+	cout << "Extrag paletul cu ID-PRODUS " << id_produs << '\n';
+
+	for (int j = temp.size() - 1; j >= 0; --j) {
+		cout << "Mut inapoi paletul de pe slotul " << i << " cu ID " << temp[j].getIdPalet() << " ,numar de produse " << temp[j].getNrItems() << " si ID-PRODUS " << temp[j].getIdProdus() << " pe slotul " << slotProdus << '\n';
+		sloturi[slotProdus].push(temp[j]);
+	}
 
 	return true; //Comanda a fost onorata!
 }
-*/
