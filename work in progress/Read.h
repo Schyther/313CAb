@@ -246,7 +246,7 @@ void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine)
 	string line;
 	int id_magazin;
 	string locatie;
-	int i;
+	int i, sz;
 
 	// Sar peste headerele tabelului
 	getline(magazinef, line);
@@ -254,6 +254,7 @@ void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine)
 		getline(magazinef, line);
 		id_magazin = 0;
 		locatie = "";
+		sz = line.size() - 1;
 		if (line != "") {
 			// Fac split caracter cu caracter la linia citita
 			i = 0;
@@ -262,7 +263,7 @@ void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine)
 			}
 
 			++i;
-			while (i < (int)line.length()) {
+			while (i < sz) {
 				locatie += line[i++];
 			}
 
@@ -335,6 +336,7 @@ Read::~Read() {
 	magazinef.close();
 	paletif.close();
 	produsef.close();
+	tranzactiif.close();
 }
 
 #endif
