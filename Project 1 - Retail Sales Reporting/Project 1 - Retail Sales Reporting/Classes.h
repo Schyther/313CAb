@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#define NumarProduse 200
+#define NumarProduse 500
 #define NumarSloturi 200
 
 //Clasa pentru categorii
