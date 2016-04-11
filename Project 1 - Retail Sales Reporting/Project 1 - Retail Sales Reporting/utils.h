@@ -54,8 +54,4 @@ struct Pair {
         return false;
     }
 
-    friend ostream& operator<<(ostream& out, const Pair<Tkey, Tvalue> &pair) {
-        out << pair.first << " " << pair.second;
-        return out;
-    }
 };

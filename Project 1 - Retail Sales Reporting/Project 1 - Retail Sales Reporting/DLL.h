@@ -52,8 +52,8 @@ public:
 
 	void clear();
 
-	template<class Y>
-	friend ostream& operator<<(ostream& out, const DLL<Y> &DLL);
+	
+	friend ostream& operator<<(ostream& out, const DLL<T> &DLL);
 };
 
 //CONSTRUCTOR

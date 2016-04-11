@@ -123,7 +123,7 @@ public:
 };
 
 
-//Clasa pentru bonuri
+/*
 
 class Bon {
 
@@ -156,7 +156,7 @@ public:
 	void AddProdus(int id);
 
 };
-
+*/
 
 //Clasa pentru magazin
 

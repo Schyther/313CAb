@@ -118,7 +118,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bon.cpp" />
     <ClCompile Include="categorie.cpp" />
     <ClCompile Include="depozit.cpp" />
     <ClCompile Include="depozitMare.cpp" />
@@ -145,6 +144,7 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="ResizableArray.h" />
     <ClInclude Include="stack.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

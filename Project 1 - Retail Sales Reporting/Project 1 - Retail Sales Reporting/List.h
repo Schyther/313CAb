@@ -261,6 +261,7 @@ int List<T>::length() const {
 	return nr_elem;
 }
 
+template <class T>
 void List<T>::clear() {
 	end = begin;
 	while (end != NULL) {
