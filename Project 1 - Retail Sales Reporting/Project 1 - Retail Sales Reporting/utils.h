@@ -8,6 +8,23 @@ T Max(T val1, T val2) {
     return val1 > val2 ? val1  : val2;
 }
 
+template <typename T1, typename T2, typename T3>
+struct Bon {
+    T1 idMag;
+    T2 idBon;
+    T3 timestamp;
+
+    bool operator<(const Bon <T1, T2, T3> &other) {
+        if (this->idMag < other.idMag) {
+            return true;
+        } else if (this->idMag == other.idMag && this->timestamp < other.timestamp) {
+            return true;
+        }
+
+        return false;
+    }
+};
+
 template <typename Tkey, typename Tvalue>
 struct Pair {
     Tkey first;

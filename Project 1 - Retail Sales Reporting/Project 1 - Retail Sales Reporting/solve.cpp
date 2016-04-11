@@ -60,21 +60,20 @@ void Solve::Task1b(Hash < string, int > &H, Produs *produse) {
 }
 
 void Solve::Task1c(Hash < string, int > &H, Produs *produse) {
-	int nrBonuri = 0;
-	int costTotal = 0;
-	int sz1, sz2;
-	for (int i = 0; i < MOD; ++i) {
-		nrBonuri += H[i].size();
-		sz1 = H[i].size();
-		for (int j = 0; j < sz1; ++j) {
-			sz2 = H[i][j].second.size();
-			for (int k = 0; k < sz2; ++k) {
-				costTotal += produse[H[i][j].second[k]].getPret();
-			}
-		}
-	}
+	ResizableArray < Bon < int, string, time_t > > &bonuri) {
+    double costTotal = 0;
+    int szBonuri = bonuri.size();
+    for (int i = 0; i < szBonuri; ++i) {
+        ResizableArray < int > continutBon = H.getValue(bonuri[i].idBon);
+        int szContinut = continutBon.size();
 
-	cout << "Valoare cosului mediu este: "<< (1.0 * costTotal / nrBonuri) <<'\n';
+        for (int j = 0; j < szContinut; ++j) {
+            costTotal += produse[ continutBon[j] ].getPret();
+        }
+    }
+
+    cout << "Valoare cosului mediu este: "<<
+    (1.0 * costTotal / (double)bonuri.size()) <<'\n';
 }
 
 void Solve::Task1e(Hash < string, int > &H, Produs *produse) {

@@ -9,7 +9,7 @@ int main() {
 	
 	Categorii categorii;
 	Produs produse[NumarProduse];  // produse[i] - produsul cu id-ul i
-	ResizableArray < Pair < string, time_t > > bonuri;
+	ResizableArray < Bon < int, string, time_t > > bonuri;
 	ResizableArray< Magazin > magazine; //magazinele vor fi tinute in RA si indexate dupa id - 1
 	Hash < string, int > hBonuri(MOD);
 	DepozitGlobal depozit;

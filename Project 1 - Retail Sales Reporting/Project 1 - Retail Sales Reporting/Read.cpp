@@ -226,7 +226,8 @@ void Read::CategoriiRead(const char *fileName, Categorii& cat) {
 
 }
 
-void Read::TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazine, ResizableArray < Pair < string, time_t > > &bonuri) {
+void Read::TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazine,
+	ResizableArray < Bon < int, string, time_t > > &bonuri) {
 	tranzactiif.open(fileName);
 
 	unsigned short zile_trecute[] = { 0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 };
@@ -275,8 +276,9 @@ void Read::TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazin
 			zi += atoi(aux);
 
 			magazine[id_magazin - 1].add_bon(id_bon, zi);
-			Pair < string, time_t > tmp;
-			tmp.first = id_bon;
+			Bon < int, string, time_t > tmp;
+			tmp.idBon = id_bon;
+			tmp.idMag = id_magazin;
 			tmp.second = ConvertTime(timestamp);
 			bonuri.push_back(tmp);
 		}

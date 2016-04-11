@@ -220,7 +220,8 @@ public:
 	void PaletiRead(const char* fileName, DepozitGlobal& d);
 	void MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine);
 	void CategoriiRead(const char* fileName, Categorii& cat);
-	void TranzactiiRead(const char* fileName, ResizableArray<Magazin> &magazine, ResizableArray < Pair < string, time_t > > &bonuri);
+	void TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazine,
+		ResizableArray < Bon < int, string, time_t > > &bonuri);
 	time_t Read::ConvertTime(char *timeToConvert);
 
 	~Read();
@@ -239,7 +240,8 @@ public:
 
 	void Task1a(ResizableArray < Magazin > &magazine, Produs *produse, Hash < string, int > &H);
 	void Task1b(Hash < string, int > &H, Produs *produse);
-	void Task1c(Hash < string, int > &H, Produs *produse);
+	void Task1c(Hash < string, int > &H, Produs *produse,
+    ResizableArray < Bon < int, string, time_t > > &bonuri);
 	void Task1e(Hash < string, int > &H, Produs *produse);
 	void Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri);
 	void Task2c(string idBon, Hash < string, int > &H, Produs *produse);
