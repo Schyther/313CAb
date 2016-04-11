@@ -200,6 +200,8 @@ public:
 
 	Stack<Palet>* GetSloturi();
 
+	int findSlot(string id_produs);
+	bool Comanda(string id_produs);
 };
 
 
