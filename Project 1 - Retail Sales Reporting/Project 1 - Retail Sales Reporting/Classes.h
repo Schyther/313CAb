@@ -103,20 +103,23 @@ public:
 // CLasa pentru depozit magazin
 
 class Depozit_Magazin {
-
-	int nrProduse[NumarProduse];
+	ResizableArray<Produs*> produse;
+	ResizableArray<int> nr_produse;
 
 public:
 
 	Depozit_Magazin();
+	Depozit_Magazin(ResizableArray<Produs*> produse, ResizableArray<int> nr_produse);
 	Depozit_Magazin(const Depozit_Magazin& other);
 	~Depozit_Magazin();
 
-	int findProdus(int id);
-	int getNProdus(int pos);
-	void addProdus(int id, int cantitate);
-	void removeProdus(int id, int cantitate);
+	int findProdus(int);
+	int getNProdus(int);
 
+	void addProdus(Produs*, int);
+	void addProdus(int, int);
+
+	Depozit_Magazin& operator= (const Depozit_Magazin& other);
 
 };
 
@@ -157,35 +160,27 @@ public:
 
 
 //Clasa pentru magazin
+
 class Magazin {
-	int id;
 	string locatie;
-	ResizableArray<Bon> bonuri;
 	Depozit_Magazin depozit;
 public:
-
+	
+	ResizableArray < string > zi[367]; // zi[ i ] contine bonurile vandute in ziua i
 	Magazin();
-	Magazin(int id, string locatie);
-	Magazin(int id, string locatie, ResizableArray<Bon> bonuri, Depozit_Magazin* depozit);
+	Magazin(string locatie);
 	Magazin(const Magazin& other);
 	~Magazin();
 
-	int getId();
 	string getLocatie();
 	int findProdus(int id);
 	int getNProdus(int id);
-	ResizableArray<Bon>& getBonuri();
-	Depozit_Magazin* getDepozit();
 
-	void setId(int id);
 	void setLocatie(string locatie);
 	void add_produs(Produs& produs, int cantitate);
 	void remove_produs(int id, int cantitate);
-	void add_bon(Bon& bon);
-
+	void add_bon(string id_bon, int zi);
 };
-
-// Depozitul mare
 
 class DepozitGlobal {
 
@@ -200,8 +195,6 @@ public:
 
 	Stack<Palet>* GetSloturi();
 
-	int findSlot(string id_produs);
-	bool Comanda(string id_produs);
 };
 
 
@@ -220,12 +213,12 @@ private:
 
 public:
 
-	void BonuriRead(const char* name, HashGen <string, Bon*>& hBonuri);
+	void BonuriRead(const char* name, HashBon <string, int>& hBonuri);
 	void ProduseRead(const char* fileName, Produs *produse, Categorii& cat);
 	void PaletiRead(const char* fileName, DepozitGlobal& d);
 	void MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine);
 	void CategoriiRead(const char* fileName, Categorii& cat);
-	void TranzactiiRead(const char* fileName, ResizableArray<Magazin> &magazine, HashGen <string, Bon*>& hBonuri);
+	void TranzactiiRead(const char* fileName, ResizableArray<Magazin> &magazine, ResizableArray < Pair < string, time_t > > &bonuri);
 	time_t Read::ConvertTime(char *timeToConvert);
 
 	~Read();

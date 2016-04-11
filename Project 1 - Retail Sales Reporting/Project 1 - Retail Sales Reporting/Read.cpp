@@ -1,21 +1,18 @@
 #include "Classes.h"
 
-void Read::BonuriRead(const char* name, HashGen <string, Bon*>& hBonuri) {
-
+void Read::BonuriRead(const char* name, HashBon <string, int>& hBonuri) {
 	bonurif.open(name);
 
 	string line;
 	string id_bon;
 	int id_produs;
+	int sz;
 	int i;
 
 	// Sar peste headerele tabelului
 	getline(bonurif, line, '\r');
-
-	
-	while (!bonurif.eof()) {
-
-		getline(bonurif, line, '\r');
+	while (getline(bonurif, line, '\r')) {
+		sz = line.size();
 
 		id_bon = "";
 		id_produs = 0;
@@ -27,19 +24,12 @@ void Read::BonuriRead(const char* name, HashGen <string, Bon*>& hBonuri) {
 		}
 
 		i++;
-		while (i < (int)line.length()) {
-		
-			id_produs= id_produs*10 + line[i++]- '0';
+		while (i < sz) {
+			id_produs = id_produs * 10 + line[i++] - '0';
 		}
-		
-		
-		Bon *b = hBonuri.getValue(id_bon);
 
-		b->AddProdus(id_produs);
-
+		hBonuri.insert(id_bon, id_produs);
 	}
-	
-
 }
 
 time_t Read::ConvertTime(char *timeToConvert) {
@@ -163,23 +153,20 @@ void Read::PaletiRead(const char* fileName, DepozitGlobal &d) {
 }
 
 void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine) {
-
 	magazinef.open(fileName);
-	
+
 	string line;
 	int id_magazin;
 	string locatie;
-	int i;
+	int i, sz;
 
 	// Sar peste headerele tabelului
 	getline(magazinef, line);
-
-
 	while (!magazinef.eof()) {
-
 		getline(magazinef, line);
 		id_magazin = 0;
 		locatie = "";
+		sz = line.size() - 1;
 		if (line != "") {
 			// Fac split caracter cu caracter la linia citita
 			i = 0;
@@ -187,15 +174,12 @@ void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine)
 				id_magazin = id_magazin * 10 + line[i++] - '0';
 			}
 
-			i++;
-			while (i < (int)line.length()) {
-
+			++i;
+			while (i < sz) {
 				locatie += line[i++];
-
 			}
 
-			Magazin m(id_magazin, locatie);
-
+			Magazin m(locatie);
 			magazine.push_back(m);
 		}
 	}
@@ -242,74 +226,61 @@ void Read::CategoriiRead(const char *fileName, Categorii& cat) {
 
 }
 
-void Read::TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazine, HashGen <string, Bon*>& hBonuri) {
-
+void Read::TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazine, ResizableArray < Pair < string, time_t > > &bonuri) {
 	tranzactiif.open(fileName);
 
-	int id;
-	char timestamp[30];
-	int id_magazin;
+	unsigned short zile_trecute[] = { 0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 };
+	char timestamp[30], *aux, tmp[30];
+	int id_magazin, i, n, zi;
 	string id_bon, line;
-	int i, n;
 
 	// Sar peste headerele tabelului
 	getline(tranzactiif, line, '\r');
-
 	while (!tranzactiif.eof()) {
-
 		getline(tranzactiif, line, '\r');
-		id = 0;
-		id_bon = "";
 		id_magazin = 0;
-		
-		if (line != "") {
+		id_bon = "";
 
+		if (line != "") {
 			// Fac split caracter cu caracter la linia citita
 			i = 0;
 			while (line[i] != ',') {
-				id = id * 10 + line[i++] - '0';
+				++i;
 			}
 
-			i++; n = 0;
+			++i; n = 0;
 			while (line[i] != ',') {
-
 				timestamp[n++] = line[i++];
-
 			}
 
+			++i;
 			timestamp[n] = '\0';
-
-			i++;
-
 			while (line[i] != ',') {
-				
 				id_bon += line[i++];
 			}
 
-			i++;
-
+			++i;
 			while (i < (int)line.length()) {
-
-				id_magazin = id_magazin*10 + line[i++] - '0';
+				id_magazin = id_magazin * 10 + line[i++] - '0';
 			}
 
-			for (i = 0; i <= (int)magazine.size(); i++) {
-
-				if (magazine[i].getId() == id_magazin)
-					break;
-
+			for (int k = 0; k < (int)strlen(timestamp); ++k) {
+				tmp[k] = timestamp[k];
 			}
 
-			Bon b(id_bon, ConvertTime(timestamp), id_magazin);
-			
-			magazine[i].add_bon(b);
-			Bon b1 = magazine[i].getBonuri().peek();
-			hBonuri.insert(id_bon, &magazine[i].getBonuri().peek());
+			aux = strtok(tmp, "-");
+			aux = strtok(NULL, "-");
+			zi = zile_trecute[10 * (aux[0] - '0') + (aux[1] - '0')];
+			aux = strtok(NULL, " ");
+			zi += atoi(aux);
 
+			magazine[id_magazin - 1].add_bon(id_bon, zi);
+			Pair < string, time_t > tmp;
+			tmp.first = id_bon;
+			tmp.second = ConvertTime(timestamp);
+			bonuri.push_back(tmp);
 		}
 	}
-
-
 }
 
 

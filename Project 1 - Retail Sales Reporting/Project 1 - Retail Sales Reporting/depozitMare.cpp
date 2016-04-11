@@ -21,7 +21,7 @@ Stack<Palet>*  DepozitGlobal::GetSloturi() {
 
 	return sloturi;
 }
-
+/*
 int DepozitGlobal::findSlot(string id_produs) {
 	for (int i = 0; i < NumarSloturi; ++i) {
 		ResizableArray <Palet> temp; //pastreaza paletii in timp ce efectuam cautarea
@@ -48,9 +48,9 @@ int DepozitGlobal::findSlot(string id_produs) {
 	return -1; //produsul cautat nu se afla in depozit
 
 
-		/* TODO: in loc sa returneze primul slot unde gaseste produsul,
+		 TODO: in loc sa returneze primul slot unde gaseste produsul,
 		sa returneze slotul unde care produsul se gaseste cat mai aproape
-		de varful stivei */
+		de varful stivei 
 }
 
 bool DepozitGlobal::Comanda(string id_produs) {
@@ -84,8 +84,9 @@ bool DepozitGlobal::Comanda(string id_produs) {
 
 	//actualizare numar produse in paletul cautat
 	sloturi[slotProdus].top().setNrItems(0);
-	/*ar trebuie sa dau pop() paletului si sa uitam ca a existat vreodata?
-	in felul asta nu mai avem history, dar e ceva mai eficient*/
+	ar trebuie sa dau pop() paletului si sa uitam ca a existat vreodata?
+	in felul asta nu mai avem history, dar e ceva mai eficient
 
 	return true; //Comanda a fost onorata!
 }
+*/
