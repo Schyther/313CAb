@@ -5,7 +5,6 @@ using namespace std;
 #include <string>
 #include <iomanip>
 #include <cstdlib>
-#include <time.h>
 
 #include "resizablearray.h"
 #include "hash.h"
@@ -13,9 +12,9 @@ using namespace std;
 #include "Magazin.h"
 #include "Read.h"
 
-Produs produse[200];
+#define MAXPROD 500
 
-void continutBon(string idBon, Hash < string, int > &H) {
+void Task2c(string idBon, Hash < string, int > &H, Produs *produse) {
     ResizableArray < int > continut = H.getValue(idBon);
 
     if (continut.size() == 0) {
@@ -31,10 +30,7 @@ void continutBon(string idBon, Hash < string, int > &H) {
     }
 }
 
-double cosMediu(Hash < string, int > &H) {
-    // presupun ca am am vectorul Produs care in Produs[ i ] are caracteristicile
-    // (pret, nume, categorie) produsului cu id-ul i si ca vectorul Produs
-    // e declarat global
+double Task1c(Hash < string, int > &H, Produs *produse) {
     int nrBonuri = 0;
     int costTotal = 0;
     int sz1, sz2;
@@ -52,12 +48,40 @@ double cosMediu(Hash < string, int > &H) {
     return (1.0 * costTotal / nrBonuri);
 }
 
+void Task1a(ResizableArray < Magazin > &magazine, Produs *produse, Hash < string, int > &H) {
+    int szBon;
+    string idBon;
+    ofstream g("task1a.txt");
+    g << "Magazin,Vanzari totale\n";
+    int magSz = magazine.size();
+
+    for (int i = 0; i < magSz; ++i) {
+        int totalVanzari = 0;
+
+        for (int j = 1; j < 367; ++j) {
+            int bonuriZi = magazine[i].zi[j].size(); // cate bonuri am vandut in ziua j
+            for (int k = 0; k < bonuriZi; ++k) {
+                idBon = magazine[i].zi[j][k];
+                ResizableArray < int > continutBon = H.getValue(idBon);
+
+                szBon = continutBon.size();
+                for (int l = 0; l < szBon; ++l) {
+                    totalVanzari += produse[ continutBon[l] ].getPret();
+                }
+            }
+        }
+        g << magazine[i].getLocatie() << ',' << totalVanzari << '\n';
+    }
+    g.close();
+}
+
 int main()
 {
     // Ordonam array-ul asta dupa time_t pentru ultimul task
     ResizableArray < Pair < string, time_t > > bonuri;
-    ResizableArray<Magazin> magazine; //magazinele vor fi tinute in RA si indexate dupa id - 1
+    ResizableArray< Magazin > magazine; //magazinele vor fi tinute in RA si indexate dupa id - 1
     Categorii cat;
+    Produs produse[MAXPROD];
     Hash < string, int > hBonuri(MOD);
 
     Read R;
@@ -66,6 +90,9 @@ int main()
     R.ProduseRead("produse.csv", produse, cat);
     R.BonuriRead("bonuri.csv", hBonuri);
     R.TranzactiiRead("tranzactii.csv", magazine, bonuri);
+
+    Task1a(magazine, produse, hBonuri);
+
     /*for(unsigned i = 0; i < magazine.size(); ++i)
     {
         cout << "locatie magazin cu id-ul " << i + 1 << ": " << magazine[i].getLocatie() << '\n';
@@ -73,9 +100,9 @@ int main()
     for(int i=0; i< 50; ++i)
     {
         cout << produse[i];
-    }*/
+    }
 
-    /*int sz1, sz2;
+    int sz1, sz2;
     for (int i = 0; i < MOD; ++i) {
         int sz1 = hBonuri[i].size();
         for (int j = 0; j < sz1; ++j) {
@@ -87,8 +114,7 @@ int main()
         }
     }*/
 
-    // continutBon("569847491688512", hBonuri);
-    // cout << fixed << setprecision(7) << cosMediu(hBonuri) << '\n';
+    //cout << fixed << setprecision(7) << Task3c(hBonuri, produse) << '\n';
 
     /*for (int i = 0; i < magazine.size(); ++i) {
         for (int j = 1; j < 367; ++j) {
@@ -102,9 +128,5 @@ int main()
     for (int i = 0; i < bonuri.size(); ++i) {
         cout << bonuri[i].first << '\n';
     }*/
-
-    magazine[1].add_produs(produse[1], 3);
-
-    cout << magazine[1].getNProdus(1) << '\n';
     return 0;
 }
