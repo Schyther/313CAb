@@ -99,6 +99,66 @@ void Task1b(Hash < string, int > &H, Produs *produse) {
     g.close();
 }
 
+void task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri){
+    int *vanzari = new int[367]();
+    int vanzareInZi;
+    string idBon;
+
+    for (int idmag = 0; idmag < magazine.size(); ++idmag){
+        for (int i = 1; i < 367; ++i){
+            vanzareInZi = 0;
+            for (int j = 0; j < magazine[idmag].zi[i].size(); ++j){
+                idBon = magazine[idmag].zi[i][j];
+                ResizableArray < int > continut = hBonuri.getValue(idBon);
+                vanzareInZi += continut.size();
+            }
+            vanzari[i] += vanzareInZi;
+        }
+    }
+
+    ofstream g("task2a.txt");
+    for (int i = 1; i < 367; ++i)
+        g << i << ',' << vanzari[i] << '\n';
+        // cout << vanzari[i] << '\n';
+
+    int max1 = vanzari[1], max2 = vanzari[2], max3 = vanzari[3];
+    for (int i = 4; i < 367; ++i){
+        if (vanzari[i] < max1)
+        {
+            if (vanzari[i] < max2)
+            {
+                if (vanzari[i] > max3)  max3 = vanzari[i];
+            }
+            else{
+                    max3 = max2;
+                    max2 = vanzari[i];
+                }
+        }
+        else{
+                max3 = max2;
+                max2 = max1;
+                max1 = vanzari[i];
+            }
+    }
+
+    for (int i = 1; i < 367; ++i){
+        if (vanzari[i] == max1) cout << i << ' ';
+    }
+    cout << max1 << '\n';
+    for (int i = 1; i < 367; ++i){
+        if (vanzari[i] == max2) cout << i << ' ';
+    }
+    cout << max2 << '\n';
+    for (int i = 1; i < 367; ++i){
+        if (vanzari[i] == max3) cout << i << ' ';
+    }
+    cout << max3 << '\n';
+
+
+    delete[] vanzari;
+    g.close();
+}
+
 int main()
 {
     // Ordonam array-ul asta dupa time_t pentru ultimul task
