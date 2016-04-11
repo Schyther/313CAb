@@ -239,6 +239,7 @@ public:
 	void Task1a(ResizableArray < Magazin > &magazine, Produs *produse, Hash < string, int > &H);
 	void Task1b(Hash < string, int > &H, Produs *produse);
 	void Task1c(Hash < string, int > &H, Produs *produse);
+	void Task1e(Hash < string, int > &H, Produs *produse);
 	void Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri);
 	void Task2c(string idBon, Hash < string, int > &H, Produs *produse);
 	void Task3a(int idProdus, DepozitGlobal& depozit);

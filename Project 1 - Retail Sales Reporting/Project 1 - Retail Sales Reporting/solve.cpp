@@ -77,6 +77,74 @@ void Solve::Task1c(Hash < string, int > &H, Produs *produse) {
 	cout << "Valoare cosului mediu este: "<< (1.0 * costTotal / nrBonuri) <<'\n';
 }
 
+void Solve::Task1e(Hash < string, int > &H, Produs *produse) {
+	//ofstream g("task1e.txt");
+    int counter[NumarProduse]; // vector de aparitii
+    // numar intr-o matrice de cate ori apare
+    // perechea (i, j) pe bonuri
+    int perechi[NumarProduse][NumarProduse] = {0};
+    int bonActual, nrBonuri, nrProduse;
+    int maxVanzari = 1; // trebuie sa fie vandute cel putin o data
+    int prod1, prod2;
+    bool inList;
+    Pair < int, int > pereche;
+    List < Pair < int, int > > bestPair;
+    ResizableArray < int > continut;
+    for (int i = 0; i < MOD; i++) { // nr hash
+        nrBonuri = H[i].size(); // nr de bonuri din H[i]
+        for (int j = 0; j < nrBonuri; j++) {
+            memset(counter, 0, sizeof(counter));
+            continut = H[i][j].second;
+            nrProduse = continut.size();
+            
+            // daca e un singur produs pe bon, nu avem ce verifica
+            if (nrProduse < 2) continue;
+
+            for (int k = 0; k < nrProduse; k++) {
+                counter[ continut[k] ]++;
+            }
+            for (int prod1 = 0; prod1 < nrProduse - 1; prod1++) {
+                for (int prod2 = prod1 + 1; prod2 < nrProduse; prod2++) {
+                    bonActual = Min(counter[prod1], counter[prod2]);
+                    perechi[prod1][prod2] += bonActual;
+                    perechi[prod2][prod1] += bonActual;
+                    pereche.makePair(prod1, prod2);
+
+                    if (perechi[prod1][prod2] == maxVanzari) {
+                        // adaug la lista cu cele mai bine vandute perechi
+                        inList = bestPair.getpos(pereche) < 0 ? 0 : 1;
+                        if (!inList) bestPair.push_back(pereche);
+                    }
+
+                    if (perechi[prod1][prod2] > maxVanzari) {
+                        // resetez lista cu cele mai bine vandute perechi
+                        bestPair.clear();
+                        maxVanzari = perechi[prod1][prod2];
+                        bestPair.push_back(pereche);
+                    }
+                }
+            }            
+        }
+    }
+    if (bestPair.empty()) {
+        cout << "Nu exista nicio pereche de produse vandute bine impreuna\n";
+        return;
+    }
+    cout << "Perechile de produse cel mai bine vandute impreuna sunt:\n";
+  	Node < Pair < int, int> > *perecheP; //pointer la pereche
+    perecheP = bestPair.first();
+    while (perecheP != NULL) {
+        prod1 = perecheP->value.first;
+        prod2 = perecheP->value.second;
+        cout << produse[prod1].getNume() << ", ";
+        cout << produse[prod2].getNume() << "\n";
+        perecheP = perecheP->next;
+    }
+    cout << "Aceste perechi au fost vandute de " << maxVanzari << " ori\n";
+    //g.close();
+}
+
+
 void Solve::Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri) {
 	int *vanzari = new int[367]();
 	int vanzareInZi;

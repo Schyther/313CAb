@@ -4,12 +4,6 @@
 // Hash pentru bonuri
 
 template <typename Tkey, typename Tvalue>
-struct Pair {
-	Tkey first;
-	Tvalue second;
-};
-
-template <typename Tkey, typename Tvalue>
 class Hash {
 private:
 	ResizableArray < Pair < Tkey, ResizableArray < Tvalue > > > *H;
