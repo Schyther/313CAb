@@ -59,7 +59,7 @@ void Solve::Task1b(Hash < string, int > &H, Produs *produse) {
 	g.close();
 }
 
-double Solve::Task1c(Hash < string, int > &H, Produs *produse) {
+void Solve::Task1c(Hash < string, int > &H, Produs *produse) {
 	int nrBonuri = 0;
 	int costTotal = 0;
 	int sz1, sz2;
@@ -74,7 +74,7 @@ double Solve::Task1c(Hash < string, int > &H, Produs *produse) {
 		}
 	}
 
-	return (1.0 * costTotal / nrBonuri);
+	cout << "Valoare cosului mediu este: "<< (1.0 * costTotal / nrBonuri) <<'\n';
 }
 
 void Solve::Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri) {
@@ -161,7 +161,7 @@ void Solve::Task3a(int idProdus, DepozitGlobal& depozit) {
 
 	idSlot = depozit.FindSlot(idProdus);
 
-	cout << idSlot <<'\n';
+	cout << "Produsul a fost gasit in slotul: "<< idSlot <<'\n';
 
 
 }

@@ -119,6 +119,7 @@
     <ClCompile Include="depozit.cpp" />
     <ClCompile Include="depozitMare.cpp" />
     <ClCompile Include="magazin.cpp" />
+    <ClCompile Include="output.cpp" />
     <ClCompile Include="paleti.cpp" />
     <ClCompile Include="produs.cpp" />
     <ClCompile Include="Read.cpp" />
