@@ -194,6 +194,7 @@ public:
 	Stack<Palet>* GetSloturi();
 
 	int FindSlot(int id_produs);
+	bool Comanda(int id_produs);
 
 };
 
@@ -241,4 +242,5 @@ public:
 	void Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri);
 	void Task2c(string idBon, Hash < string, int > &H, Produs *produse);
 	void Task3a(int idProdus, DepozitGlobal& depozit);
+	void Task3b(int idProdus, DepozitGlobal& depozit);
 };

@@ -21,8 +21,6 @@ int main() {
 	r.BonuriRead("bonuri.csv", hBonuri);
 	r.PaletiRead("paleti.csv", depozit);
 
-
-	s.Task3a(3, depozit);
 	
 	return 0;
 }
