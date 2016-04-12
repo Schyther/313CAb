@@ -279,7 +279,7 @@ void Read::TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazin
 			Bon < int, string, time_t > tmp;
 			tmp.idBon = id_bon;
 			tmp.idMag = id_magazin;
-			tmp.second = ConvertTime(timestamp);
+			tmp.timestamp= ConvertTime(timestamp);
 			bonuri.push_back(tmp);
 		}
 	}

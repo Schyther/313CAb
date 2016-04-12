@@ -124,7 +124,7 @@ public:
 
 
 //Clasa pentru bonuri
-
+/*
 class Bon {
 
 private:
@@ -156,7 +156,7 @@ public:
 	void AddProdus(int id);
 
 };
-
+*/
 
 //Clasa pentru magazin
 
