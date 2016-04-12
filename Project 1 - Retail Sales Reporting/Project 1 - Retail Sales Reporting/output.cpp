@@ -24,3 +24,17 @@ void Output::ShowTask1Menu() {
 	cout << "Tastati un numar:\n";
 
 }
+
+void Output::ShowTask2Menu() {
+
+
+	cout << "\n\n Alegeti o cerinta: \n";
+	cout << "1. Zilele cu cele mai multe produse vandute\n";
+	cout << "2. Zilele cu cei mai multi cumparatori\n";
+	cout << "3. Continutul unui bon dupa id\n";
+	cout << "4. Numatul clientilor care ar beneficia de introducerea unei a doua case de marcat\n\n";
+	cout << "5. Intoarecere la meniul principal\n\n";
+
+	cout << "Tastati un numar:\n";
+
+}
