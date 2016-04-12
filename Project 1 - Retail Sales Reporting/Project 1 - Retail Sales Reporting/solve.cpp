@@ -18,7 +18,7 @@ void Solve::Task1a(ResizableArray < Magazin > &magazine, Produs *produse, Hash <
 		int totalVanzari = 0;
 
 		for (int j = 1; j < 367; ++j) {
-			int bonuriZi = magazine[i].zi[j].size(); // cate bonuri am vandut in ziua j
+			int bonuriZi = magazine[i].zi[j].size(); // cate bonuri s-au eliberat in ziua j
 			for (int k = 0; k < bonuriZi; ++k) {
 				idBon = magazine[i].zi[j][k];
 				ResizableArray < int > continutBon = H.getValue(idBon);
