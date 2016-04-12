@@ -77,10 +77,23 @@ void Solve::Task1c(Hash < string, int > &H, Produs *produse,
 
 void Solve::Task1e(Hash < string, int > &H, Produs *produse) {
 	//ofstream g("task1e.txt");
-    int counter[NumarProduse]; // vector de aparitii
+	int *counter; // vector de aparitii
+
+	counter = new int[NumarProduse];
+
     // numar intr-o matrice de cate ori apare
     // perechea (i, j) pe bonuri
-    int perechi[NumarProduse][NumarProduse] = {0};
+	int **perechi;
+
+	perechi = new int*[NumarProduse];
+
+	int i,j ;
+	for (i = 0; i < NumarProduse; i++) {
+		perechi[i] = new int[NumarProduse];
+		for (j = 0; j < NumarProduse; j++) perechi[i][j] = 0;
+	}
+
+
     int bonActual, nrBonuri, nrProduse;
     int maxVanzari = 1; // trebuie sa fie vandute cel putin o data
     int prod1, prod2;
@@ -139,6 +152,10 @@ void Solve::Task1e(Hash < string, int > &H, Produs *produse) {
         perecheP = perecheP->next;
     }
     cout << "Aceste perechi au fost vandute de " << maxVanzari << " ori\n";
+
+	for (i = 0; i < NumarProduse; i++)
+		delete[] perechi[i];
+	delete[] perechi;
     //g.close();
 }
 

@@ -22,6 +22,8 @@ int main() {
 	r.BonuriRead("bonuri.csv", hBonuri);
 	r.PaletiRead("paleti.csv", depozit);
 
+	s.Task1e(hBonuri, produse);
+
 	// Meniu
 	while (1) {
 
@@ -53,12 +55,15 @@ int main() {
 					cout << "\nTask executat cu succes. Outputul se regaseste in fisierul...\n";
 					break;
 				case 2:
+					s.Task1b(hBonuri, produse, bonuri);
+					cout << "\nTask executat cu succes. Outputul se regaseste in fisierul...\n";
 					break;
 				case 3:
 					break;
 				case 4:
 					break;
 				case 5:
+					s.Task1e(hBonuri, produse);
 					break;
 				case 6:
 					ok = 0;
