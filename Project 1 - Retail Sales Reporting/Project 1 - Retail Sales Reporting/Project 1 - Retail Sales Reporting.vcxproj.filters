@@ -24,6 +24,9 @@
     <ClCompile Include="produs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="categorie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -83,9 +86,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="List.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

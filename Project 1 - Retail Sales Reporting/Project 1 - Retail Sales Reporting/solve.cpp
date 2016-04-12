@@ -58,7 +58,7 @@ void Solve::Task1b(Hash < string, int > &H, Produs *produse,
     g.close();
 }
 
-void Solve::Task1c(Hash < string, int > &H, Produs *produse,
+void Solve::Task1c(Hash < string, int > &H, Produs *produse) {
 	ResizableArray < Bon < int, string, time_t > > &bonuri) {
     double costTotal = 0;
     int szBonuri = bonuri.size();
