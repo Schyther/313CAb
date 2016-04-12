@@ -36,7 +36,7 @@ int main() {
 	r.PaletiRead("paleti.csv", depozit);
 
 
-	
+	string idBon;
 
 	// Meniu
 	while (1) {
@@ -73,9 +73,10 @@ int main() {
 					cout << "\nTask executat cu succes. Outputul se regaseste in fisierul...\n";
 					break;
 				case 3:
+					s.Task1c(hBonuri, produse, bonuri);
 					break;
 				case 4:
-
+					s.Task1d(magazine, hBonuri, categorii, produse);
 					break;
 				case 5:
 					s.Task1e(hBonuri, produse, bonuri);
@@ -104,12 +105,20 @@ int main() {
 				switch (selection) {
 
 				case 1:
+					s.Task2a(magazine, hBonuri);
+					cout << "\nGraficul se regaseste in fisierul...\n";
 					break;
 				case 2:
+					s.Task2b(magazine, hBonuri);
+					cout << "\nGraficul se regaseste in fisierul...\n";
 					break;
 				case 3:
+					cin >> idBon;
+					cout << '\n';
+					s.Task2c(idBon, hBonuri, produse);
 					break;
 				case 4:
+					
 					break;
 				case 5:
 					ok = 0;

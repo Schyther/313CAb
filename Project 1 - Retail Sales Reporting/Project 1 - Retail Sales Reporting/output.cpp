@@ -2,6 +2,7 @@
 
 void Output::ShowMenu() {
 
+	
 	cout << '\n';
 	cout << " Alegeti un task pentru rulare:\n\n";
 	cout << "Task1 (Directorii executivi)\n";
@@ -13,6 +14,7 @@ void Output::ShowMenu() {
 
 void Output::ShowTask1Menu() {
 
+	
 	cout << "\n\n Alegeti o cerinta: \n";
 	cout << "1. Lista cu toate magazinele si vanzarile totale facute de acestea\n";
 	cout << "2. Lista cu toate produsele si vanzarile totale facute de acestea\n";
@@ -27,6 +29,7 @@ void Output::ShowTask1Menu() {
 
 void Output::ShowTask2Menu() {
 	
+	
 	cout << "\n\n Alegeti o cerinta: \n";
 	cout << "1. Zilele cu cele mai multe produse vandute\n";
 	cout << "2. Zilele cu cei mai multi cumparatori\n";
@@ -40,6 +43,8 @@ void Output::ShowTask2Menu() {
 
 
 void Output::ShowTask3Menu() {
+
+	
 	cout << "\n\n Alegeti o cerinta: \n";
 	cout << "1. Slotul in care se gaseste un anumit tip de produs\n";
 	cout << "2. Mutari necesare pentru obtinerea unui palet\n";

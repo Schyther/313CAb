@@ -6,6 +6,8 @@ Magazin::Magazin() {
 
 Magazin::Magazin(string locatie) {
 	this->locatie = locatie;
+	for (int i = 0; i < NumarProduse; i++)
+		addProdus(i, NrProdIntial);
 
 }
 
@@ -37,6 +39,11 @@ int Magazin::getNProdus(int id) {
 }
 
 
+void Magazin::addProdus(int idProd, int cantitate) {
+
+	depozit.addProdus(idProd, cantitate);
+}
+
 void Magazin::add_produs(Produs& produs, int cantitate) {
 	int pos = depozit.findProdus(produs.getId());
 	if (pos == -1) {
@@ -49,6 +56,7 @@ void Magazin::add_produs(Produs& produs, int cantitate) {
 
 void Magazin::remove_produs(int id, int cantitate) {
 	depozit.addProdus(id, -cantitate);
+
 }
 
 void Magazin::add_bon(string id_bon, int zi) {

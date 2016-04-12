@@ -33,3 +33,17 @@ string Categorii::Get(int id) {
 	return "";
 
 }
+
+int Categorii::GetId(string categ) {
+	unsigned int i;
+
+	for (i = 0; i < vector.size(); i++) {
+		if (categ == vector[i].name)
+			return i;
+	}
+	return -1;
+}
+
+int Categorii::GetSize() {
+	return vector.size();
+}

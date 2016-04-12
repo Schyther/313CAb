@@ -15,6 +15,7 @@ using namespace std;
 
 #define NumarProduse 500
 #define NumarSloturi 200
+#define NrProdIntial 20
 
 //Clasa pentru categorii
 
@@ -39,7 +40,8 @@ public:
 	void Add(int id, string name);
 
 	string Get(int id);
-
+	int GetId(string categ);
+	int GetSize();
 
 };
 
@@ -177,6 +179,7 @@ public:
 
 	void setLocatie(string locatie);
 	void add_produs(Produs& produs, int cantitate);
+	void addProdus(int idProd, int cantitate);
 	void remove_produs(int id, int cantitate);
 	void add_bon(string id_bon, int zi);
 };
@@ -243,13 +246,21 @@ public:
     ResizableArray < Bon < int, string, time_t > > &bonuri);
 	void Task1c(Hash < string, int > &H, Produs *produse,
     ResizableArray < Bon < int, string, time_t > > &bonuri);
+	void Task1d(ResizableArray<Magazin> &magazine, Hash < string,
+		int > &hBonuri, Categorii &cat, Produs *produse);
 	void Solve::Task1e(Hash < string, int > &H, Produs *produse,
 		ResizableArray < Bon < int, string, time_t > > &bonuri);
 	void Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri);
+	void Task2b(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri);
 	void Task2c(string idBon, Hash < string, int > &H, Produs *produse);
 	void Task3a(int idProdus, DepozitGlobal& depozit);
 	void Task3b(int idProdus, DepozitGlobal& depozit);
-	void Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, ResizableArray< Magazin > &magazine, DepozitGlobal &depozit);
+	void Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, 
+		ResizableArray< Magazin > &magazine, DepozitGlobal &depozit, Hash < string, int > &hBonuri);
+	
+	
+	void ZileToData(int trecute, int &luna, int &zi);
+	void Maxime(int *v, int sz, int &max1, int &max2, int &max3);
 };
 
 // Clasa de output
