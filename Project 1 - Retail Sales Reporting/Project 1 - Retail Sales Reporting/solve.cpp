@@ -87,7 +87,7 @@ void Solve::Task1e(Hash < string, int > &H, Produs *produse) {
 
 	perechi = new int*[NumarProduse];
 
-	int i,j ;
+	int i, j;
 	for (i = 0; i < NumarProduse; i++) {
 		perechi[i] = new int[NumarProduse];
 		for (j = 0; j < NumarProduse; j++) perechi[i][j] = 0;
@@ -241,12 +241,8 @@ void Solve::Task2c(string idBon, Hash < string, int > &H, Produs *produse) {
 void Solve::Task3a(int idProdus, DepozitGlobal& depozit) {
 
 	int idSlot;
-
 	idSlot = depozit.FindSlot(idProdus);
-
 	cout << "Produsul a fost gasit in slotul: "<< idSlot <<'\n';
-
-
 }
 
 void Solve::Task3b(int idProdus,DepozitGlobal& depozit) {
@@ -255,3 +251,36 @@ void Solve::Task3b(int idProdus,DepozitGlobal& depozit) {
 	else cout << "Comanda nu a putut fi onorata" << "\n";
 
 }
+
+void Solve::Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, ResizableArray< Magazin > &magazine, DepozitGlobal &depozit) {
+	ResizableArray< Magazin > *maux; //copie la magazine
+	DepozitGlobal *daux; //copie la depozitglobal
+
+	maux = new ResizableArray< Magazin >;
+	maux = &magazine;
+
+	daux = new DepozitGlobal;
+	daux = &depozit;
+
+	
+
+
+
+}
+
+
+/*
+bool Solve::CompareTime(const Bon < int, string, time_t >& a, const Bon < int, string, time_t >& b) {
+	return a.timestamp < b.timestamp;
+}
+*/
+
+bool Solve::CompareIdMagTime(const Bon < int, string, time_t >& a, const Bon < int, string, time_t >& b) {
+	
+	if (a.idMag < b.idMag) return 1;
+	else if (a.idMag == b.idMag)
+		return a.timestamp < b.timestamp;
+	
+	return 0;
+}
+

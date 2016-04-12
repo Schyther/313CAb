@@ -1,6 +1,10 @@
 #include "Classes.h"
 
 
+bool CompareTime(const Bon < int, string, time_t >& a, const Bon < int, string, time_t >& b) {
+	return a.timestamp < b.timestamp;
+}
+
 int main() {
 	
 	Read r;
@@ -22,7 +26,8 @@ int main() {
 	r.BonuriRead("bonuri.csv", hBonuri);
 	r.PaletiRead("paleti.csv", depozit);
 
-	s.Task1e(hBonuri, produse);
+
+	bonuri.QuickSort(0, bonuri.size() - 1, CompareTime);
 
 	// Meniu
 	while (1) {
@@ -126,6 +131,10 @@ int main() {
 					s.Task3a(idProd, depozit);
 					break;
 				case 2:
+					cout << "\nIntroduceti id-ul produsului:\n";
+					cin >> idProd;
+					cout << '\n';
+					s.Task3b(idProd, depozit);
 					break;
 				case 3:
 					break;

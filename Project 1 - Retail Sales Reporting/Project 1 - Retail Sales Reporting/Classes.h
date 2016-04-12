@@ -248,7 +248,10 @@ public:
 	void Task2c(string idBon, Hash < string, int > &H, Produs *produse);
 	void Task3a(int idProdus, DepozitGlobal& depozit);
 	void Task3b(int idProdus, DepozitGlobal& depozit);
+	void Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, ResizableArray< Magazin > &magazine, DepozitGlobal &depozit);
 
+	//bool CompareTime(const Bon < int, string, time_t >& a,const Bon < int, string, time_t >& b);
+	bool CompareIdMagTime(const Bon < int, string, time_t >& a, const Bon < int, string, time_t >& b);
 };
 
 // Clasa de output
@@ -265,3 +268,4 @@ public:
 	void ShowTask3Menu();
 
 };
+

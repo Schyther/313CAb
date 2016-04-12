@@ -4,6 +4,7 @@ private:
 	T *array;
 	unsigned int _capacity;
 	unsigned int _size;
+	bool(*comp) (const T&, const T&);
 public:
 	// Constructor default
 	ResizableArray() {
@@ -82,8 +83,8 @@ public:
 	int find(T value);
 
 	T peek();
-
-	void QuickSort(int pinitial, int pfinal);
+	
+	void QuickSort(int pinitial, int pfinal, bool(*comp)(const T&, const T&));
 	int binarySearch(T value);
 };
 
@@ -179,17 +180,19 @@ int ResizableArray<T>::find(T value) {
 	return -1;
 }
 
+
 template <typename T>
-void ResizableArray<T>::QuickSort(int pinitial, int pfinal) {
+void ResizableArray<T>::QuickSort(int pinitial, int pfinal, bool(*cmp)(const T&, const T&)) {
+	comp = cmp;
 	int m = (pinitial + pfinal) >> 1;
 	int i = pinitial;
 	int j = pfinal;
 	T pivot = array[m];
 
 	while (i <= j) {
-		while (array[i] < pivot)
+		while (comp(array[i], pivot))
 			i++;
-		while (pivot < array[j])
+		while (comp(pivot, array[j]))
 			j--;
 
 		if (i <= j) {
@@ -201,13 +204,12 @@ void ResizableArray<T>::QuickSort(int pinitial, int pfinal) {
 		}
 	}
 	if (pinitial<j) {
-		QuickSort(pinitial, j);
+		QuickSort(pinitial, j, comp);
 	}
 	if (i<pfinal) {
-		QuickSort(i, pfinal);
+		QuickSort(i, pfinal, comp);
 	}
 }
-
 template < typename T >
 int ResizableArray<T>::binarySearch(T value) {
 	int position = 0, step = (1 << 30);
