@@ -130,14 +130,6 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bonuri.csv" />
-    <None Include="categorii.csv" />
-    <None Include="magazine.csv" />
-    <None Include="paleti.csv" />
-    <None Include="produse.csv" />
-    <None Include="tranzactii.csv" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Classes.h" />
     <ClInclude Include="DLL.h" />
     <ClInclude Include="HashTable.h" />
@@ -145,6 +137,14 @@
     <ClInclude Include="ResizableArray.h" />
     <ClInclude Include="stack.h" />
     <ClInclude Include="utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="input\bonuri.csv" />
+    <None Include="input\categorii.csv" />
+    <None Include="input\magazine.csv" />
+    <None Include="input\paleti.csv" />
+    <None Include="input\produse.csv" />
+    <None Include="input\tranzactii.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

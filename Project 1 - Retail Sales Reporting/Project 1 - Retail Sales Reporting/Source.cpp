@@ -28,12 +28,12 @@ int main() {
 	DepozitGlobal depozit;
 
 	// Citire date
-	r.CategoriiRead("categorii.csv", categorii);
-	r.ProduseRead("produse.csv", produse, categorii);
-	r.MagazineRead("magazine.csv", magazine, produse);
-	r.TranzactiiRead("tranzactii.csv", magazine, bonuri);
-	r.BonuriRead("bonuri.csv", hBonuri);
-	r.PaletiRead("paleti.csv", depozit);
+	r.CategoriiRead("input/categorii.csv", categorii);
+	r.ProduseRead("input/produse.csv", produse, categorii);
+	r.MagazineRead("input/magazine.csv", magazine, produse);
+	r.TranzactiiRead("input/tranzactii.csv", magazine, bonuri);
+	r.BonuriRead("input/bonuri.csv", hBonuri);
+	r.PaletiRead("input/paleti.csv", depozit);
 
 	string idBon;
 
