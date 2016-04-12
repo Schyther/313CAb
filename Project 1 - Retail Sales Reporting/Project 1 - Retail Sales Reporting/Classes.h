@@ -130,41 +130,6 @@ public:
 };
 
 
-//Clasa pentru bonuri
-/*
-class Bon {
-
-private:
-
-	string id;
-	int fcvProdus[NumarProduse];    // Vector cu frecventa fiecarui prrodus 
-	int nrProduse;
-	long long utcTime;
-	string idMagazin;
-
-
-public:
-
-	//Constructori/Destructori
-	Bon();
-	Bon(string id, long long utcTime, int idMagazin);
-	~Bon();
-	Bon(const Bon& other);
-
-	//Getteri
-	string getId();
-	int* getFcvProduse();
-	int getNrProduse();
-	long long GetTime();
-	string getIdMagazin();
-
-	//Metode
-	void AddData(string id, long long utcTime, string idMagazin);
-	void AddProdus(int id);
-
-};
-*/
-
 
 class DepozitGlobal {
 

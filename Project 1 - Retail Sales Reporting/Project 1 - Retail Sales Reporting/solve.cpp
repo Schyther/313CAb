@@ -78,7 +78,7 @@ void Solve::Task1c(Hash < string, int > &H, Produs *produse,
 
 void Solve::Task1d(ResizableArray<Magazin> &magazine, Hash < string,
 	int > &hBonuri, Categorii &cat, Produs *produse) {
-	// int *fcvCateg = new int[cat.size()]();
+
 	string idBon, categoria;
 	int szBon;
 
@@ -120,10 +120,9 @@ void Solve::Task1e(Hash < string, int > &H, Produs *produse,
 	ResizableArray < Bon < int, string, time_t > > &bonuri) {
 	Pair < int, int > pereche;
 	List < Pair < int, int > > bestPair;
-	//ofstream g("task1e.txt");
+
 	// numar intr-o matrice de cate ori apare
 	// perechea (i, j) pe bonuri
-
 	int **perechi;
 
 	perechi = new int*[NumarProduse];
@@ -189,7 +188,7 @@ void Solve::Task1e(Hash < string, int > &H, Produs *produse,
 		perecheP = perecheP->next;
 	}
 	cout << "Aceste perechi au fost vandute de " << maxVanzari << " ori\n";
-	//g.close();
+
 }
 
 // cele mai mari 3 elemente dintr-un vector
@@ -391,23 +390,12 @@ void Solve::Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri,
 	int nrBonuri = bonuri.size() - 1;
 	int i, j;
 
-	//for (int i = 0; i < magazine[1].GetDepozit().getNProduse(); i++) {
-	//	cout << magazine[3].GetDepozit().GetFcvP()[i] << '\n';
-	//	cout << "CACA" << "\n";
-	//	cout << magazine[3].getNProdus(i) << '\n';
-	//}
 
-	//cout << nrBonuri << '\n';
 
 	for (i = 0; i <= nrBonuri; i++) {
-	//	cout << i << '\n';
-	//	cout << "CACA\n";
 		produse = hBonuri.getValue(bonuri[i].idBon);
 
-		
 		for (j = 0; j < (int)produse.size(); j++) {
-
-		//	cout << j << '\n';
 			
 			int check = magazine[bonuri[i].idMag-1].removeProdus(produse[j], 1, depozit);
 

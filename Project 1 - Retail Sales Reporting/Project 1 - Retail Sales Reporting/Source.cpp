@@ -35,18 +35,9 @@ int main() {
 	r.BonuriRead("bonuri.csv", hBonuri);
 	r.PaletiRead("paleti.csv", depozit);
 
-
-	/*for (int i = 0; i < magazine[1].GetDepozit().getNProduse(); i++) {
-		cout << magazine[3].GetDepozit().GetFcvP()[i] << '\n';
-		cout << "CACA"<<"\n";
-		cout << magazine[3].GetDepozit().getNProdus(i) << '\n';
-	}*/
-
 	string idBon;
 
 	
-
-
 	// Meniu
 	while (1) {
 
