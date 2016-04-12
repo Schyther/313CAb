@@ -99,12 +99,56 @@ void Task1b(Hash < string, int > &H, Produs *produse) {
     g.close();
 }
 
-void task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri){
-    int *vanzari = new int[367]();
+// cele mai mari 3 elemente dintr-un vector
+void Maxime(int *v, int sz, int &max1, int &max2, int &max3)
+{
+    for (int i = 1; i < sz; ++i){
+        if (v[i] < max1)
+        {
+            if (v[i] < max2)
+            {
+                if (v[i] > max3)  max3 = v[i];
+            }
+            else
+            if (v[i] > max2)
+                {
+                    max3 = max2;
+                    max2 = v[i];
+                }
+        }
+        else
+            if (v[i] > max1)
+            {
+                max3 = max2;
+                max2 = max1;
+                max1 = v[i];
+            }
+    }
+}
+
+// Converteste zilele trecute in format luna, zi
+void ZileToData(int trecute, int &luna, int &zi){
+    unsigned short v[] = {1, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 367};
+
+    for (int i = 1; i < 13; ++i)
+        if (trecute >= v[i - 1] && trecute < v[i]){
+            luna = i;
+            zi = trecute - v[i - 1] + 1;
+        }
+} 
+
+void Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri){
+    int *fcvVanzari = new int[367]();
     int vanzareInZi;
     string idBon;
 
+    ofstream g("NrProdusePeZile2a.txt");
+    ofstream h("task2a.txt");
+    h << "Zilele in care au fost cele mai multe produse vandute sunt:" << '\n';
+
     for (int idmag = 0; idmag < magazine.size(); ++idmag){
+        h << "Pentru magazinul din locatia " << magazine[idmag].getLocatie() << '\n' << '\t';
+        int *fcvVanzari = new int[367]();
         for (int i = 1; i < 367; ++i){
             vanzareInZi = 0;
             for (int j = 0; j < magazine[idmag].zi[i].size(); ++j){
@@ -112,50 +156,106 @@ void task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri){
                 ResizableArray < int > continut = hBonuri.getValue(idBon);
                 vanzareInZi += continut.size();
             }
-            vanzari[i] += vanzareInZi;
+            fcvVanzari[i] += vanzareInZi;
         }
-    }
 
-    ofstream g("task2a.txt");
-    for (int i = 1; i < 367; ++i)
-        g << i << ',' << vanzari[i] << '\n';
-        // cout << vanzari[i] << '\n';
+        for (int i = 1; i < 367; ++i)
+            g << i << ',' << fcvVanzari[i] << '\n';
+            g << '%' << '\n';
 
-    int max1 = vanzari[1], max2 = vanzari[2], max3 = vanzari[3];
-    for (int i = 4; i < 367; ++i){
-        if (vanzari[i] < max1)
-        {
-            if (vanzari[i] < max2)
-            {
-                if (vanzari[i] > max3)  max3 = vanzari[i];
-            }
-            else{
-                    max3 = max2;
-                    max2 = vanzari[i];
+        int max[3] = {-1}, luna, zi;
+        Maxime(fcvVanzari, 367, max[0], max[1], max[2]);
+
+        for (int k = 0; k < 3; ++k){
+            for (int i = 1; i < 367; ++i){
+                if (fcvVanzari[i] == max[k]){
+                    ZileToData(i, luna, zi);
+                    h << "2016/" << luna << '/' << zi << ' ';
                 }
-        }
-        else{
-                max3 = max2;
-                max2 = max1;
-                max1 = vanzari[i];
             }
+            h << "-> " << max[k] << " produse" << '\n' << '\t';
+        }
+        h << '\n';
+        delete[] fcvVanzari;
     }
 
-    for (int i = 1; i < 367; ++i){
-        if (vanzari[i] == max1) cout << i << ' ';
-    }
-    cout << max1 << '\n';
-    for (int i = 1; i < 367; ++i){
-        if (vanzari[i] == max2) cout << i << ' ';
-    }
-    cout << max2 << '\n';
-    for (int i = 1; i < 367; ++i){
-        if (vanzari[i] == max3) cout << i << ' ';
-    }
-    cout << max3 << '\n';
+    g.close();
+    h.close();
+}
 
+void Task2b(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri){
 
-    delete[] vanzari;
+    ofstream g("NrCumparatoriPeZile2b.txt");
+    ofstream h("task2b.txt");
+    h << "Zilele in care au fost cei mai multi cumparatori sunt:" << '\n';
+
+    for (int idmag = 0; idmag < magazine.size(); ++idmag){
+        int *fcvBonuri = new int[367]();
+        for (int i = 1; i < 367; ++i){
+            fcvBonuri[i] += magazine[idmag].zi[i].size();
+        }
+
+    h << "Pentru magazinul din locatia " << magazine[idmag].getLocatie() << '\n' << '\t';
+
+    for (int i = 1; i < 367; ++i)
+        g << i << ',' << fcvBonuri[i] << '\n';
+    g << '%' << '\n';
+
+    int max[3] = {-1}, luna, zi;
+    Maxime(fcvBonuri, 367, max[0], max[1], max[2]);
+
+    for (int k = 0; k < 3; ++k){
+        for (int i = 1; i < 367; ++i){
+            if (fcvBonuri[i] == max[k]){
+                ZileToData(i, luna, zi);
+                h << "2016/" << luna << '/' << zi << ' ';
+            }
+        }
+        h << "-> " << max[k] << " cumparatori " << '\n' << '\t';
+    }
+    delete[] fcvBonuri;
+    h << '\n';
+    }
+    g.close();
+}
+
+void Task1d(ResizableArray<Magazin> &magazine, Hash < string,
+int > &hBonuri, Categorii &cat, Produs *produse){
+    // int *fcvCateg = new int[cat.size()]();
+    string idBon, categoria;
+    int szBon;
+
+    ofstream g("task1d.txt");
+    for (int idmag = 0; idmag < magazine.size(); ++idmag){
+        int *fcvCateg = new int[cat.GetSize()]();
+        for (int i = 1; i < 367; ++i){
+            for (int j = 0; j < magazine[idmag].zi[i].size(); ++j){
+                idBon = magazine[idmag].zi[i][j];
+                ResizableArray < int > continut = hBonuri.getValue(idBon);
+                szBon = continut.size();
+                for (int k = 0; k < szBon; ++k){
+                    categoria = produse[continut[k]].getCategorie();
+                    fcvCateg[cat.GetId(categoria)] += 1;
+                }
+            }
+        }
+        g << "Pentru magazinul din " << magazine[idmag].getLocatie();
+        g << " cele mai vandute 3 categorii au fost:" << '\n' << "\t";
+
+        int max[3] = {-1}, luna, zi;
+        Maxime(fcvCateg, cat.GetSize(), max[0], max[1], max[2]);
+
+        for (int k = 0; k < 3; ++k){
+            for (int i = 1; i < cat.GetSize(); ++i){
+                if (fcvCateg[i] == max[k])
+                    g << cat.Get(i) << ' ';
+            }
+            g << "de " << max[k] << " ori " << '\n' << '\t';
+        }
+        g << '\n';
+        delete[] fcvCateg;
+    }
+
     g.close();
 }
 
@@ -177,5 +277,8 @@ int main()
 
     Task1a(magazine, produse, hBonuri);
     Task1b(hBonuri, produse);
+    Task2b(magazine, hBonuri);
+    Task2a(magazine, hBonuri);
+    Task1d(magazine, hBonuri, cat, produse);
     return 0;
 }

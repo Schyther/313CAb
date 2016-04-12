@@ -18,6 +18,8 @@ public:
 
 	void Add(int id, string name);
 	string Get(int id);
+	int GetSize();
+	int GetId(string categ);
 };
 
 Categorii::Categorii() {
@@ -46,6 +48,19 @@ string Categorii::Get(int id) {
 	}
 
 	return "";
+}
+
+int Categorii::GetId(string categ) {
+	unsigned int i;
+
+	for (i = 0; i < vector.size(); i++) {
+		if (categ == vector[i].name)
+			return i;
+	}
+}
+
+int Categorii::GetSize(){
+	return vector.size();
 }
 
 //clasa Read
