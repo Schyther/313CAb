@@ -1,22 +1,4 @@
-
-using namespace std;
-
-template<class T>
-struct Node{
-	T value;
-	Node<T> *next, *prev;
-	Node(T value) {
-		this->value = value;
-		next = NULL;
-		prev = NULL;
-	}
-	Node() {
-		next = NULL;
-		prev = NULL;
-	}
-};
-
-// DOUBLY LINKED DLL = DLL
+// DOUBLY LINKED LIST = DLL
 
 template <class T>
 class DLL {
