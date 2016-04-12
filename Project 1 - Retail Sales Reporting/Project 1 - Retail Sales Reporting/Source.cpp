@@ -52,7 +52,7 @@ int main() {
 
 		o.ShowMenu();
 
-		char line[30];
+		char line[30], l[30];
 		int selection, ok;
 	lineread:
 		cin.getline(line, 30);
@@ -67,10 +67,16 @@ int main() {
 
 			ok = 1;
 			while (ok) {
-
+			back1:
 				o.ShowTask1Menu();
+				
+				cin >> l;
+				if (!strstr("0123456789", l)) {
+					cout << "Selectie invalida!\n";
+					goto back1;
+				}
 
-				cin >> selection;
+				selection = atoi(l);
 				switch (selection) {
 
 				case 1:
@@ -107,10 +113,17 @@ int main() {
 
 			ok = 1;
 			while (ok) {
-
+			back2:
 				o.ShowTask2Menu();
+			
+			
+				cin >> l;
+				if (!strstr("0123456789", l)) {
+					cout << "Selectie invalida!\n";
+					goto back2;
+				}
 
-				cin >> selection;
+				selection = atoi(l);
 				switch (selection) {
 
 				case 1:
@@ -146,10 +159,17 @@ int main() {
 		if (strcmp(line, "Task3") == 0) {
 			ok = 1;
 			while (ok) {
-
+			back3:
 				o.ShowTask3Menu();
+			
+				cin >> l;
+				if (!strstr("0123456789", l)) {
+					cout << "Selectie invalida!\n";
+					goto back3;
+				}
 
-				cin >> selection;
+				selection = atoi(l);
+				
 				switch (selection) {
 
 				case 1:
