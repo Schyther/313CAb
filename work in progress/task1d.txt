@@ -1,0 +1,25 @@
+Pentru magazinul din Cotrocen cele mai vandute 3 categorii au fost:
+	bags de 685 ori 
+	sports equip de 545 ori 
+	apparel de 294 ori 
+	
+Pentru magazinul din Baneas cele mai vandute 3 categorii au fost:
+	bags de 650 ori 
+	sports equip de 595 ori 
+	apparel de 285 ori 
+	
+Pentru magazinul din Vita cele mai vandute 3 categorii au fost:
+	bags de 703 ori 
+	sports equip de 548 ori 
+	apparel de 293 ori 
+	
+Pentru magazinul din Bercen cele mai vandute 3 categorii au fost:
+	bags de 702 ori 
+	sports equip de 596 ori 
+	apparel de 261 ori 
+	
+Pentru magazinul din Floreasc cele mai vandute 3 categorii au fost:
+	bags de 686 ori 
+	sports equip de 591 ori 
+	apparel de 259 ori 
+	

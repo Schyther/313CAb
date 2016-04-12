@@ -1,0 +1,50 @@
+sports trousers,209
+casual trousers,247
+cap,227
+t-shirt,234
+sweatshirt,226
+shorts,225
+swimsuit,212
+ski jacket,220
+raincoat,220
+hiking boots,236
+ski trousers,239
+socks,233
+casual shoes men,244
+hoodie,225
+running shoes,237
+slippers,229
+armband,230
+rucksack,206
+duffel bag small,256
+trolley,237
+duffel bag large,234
+casual backpack,236
+weatherproof pack,223
+skis,212
+ski poles,221
+snowboard,231
+tennis racket,229
+tennis ball,234
+football,228
+basketball,192
+handball,241
+swim glasses,223
+anti-fog ski glasses,216
+helmet,224
+tent,241
+skateboard,236
+roller skates,268
+ice skates,230
+action camera,231
+swimming nose clips,224
+thigh protector,272
+bicycle light,233
+skate wheel set,234
+drone,225
+photo tripod,216
+umbrella,239
+snorkeling kit,244
+backpack rain cover,245
+baby carrier,273
+sunglasses,239
