@@ -2,14 +2,18 @@
 
 Magazin::Magazin() {
 
+	
 }
 
-Magazin::Magazin(string locatie) {
+Magazin::Magazin(string locatie, Produs *prod) {
 	this->locatie = locatie;
-	for (int i = 0; i < NumarProduse; i++)
-		addProdus(i, NrProdIntial);
+	depozit.addStoc(prod);
+	int n = depozit.getNProduse();
+	for (int i = 0; i < depozit.getNProduse(); i++)
+		StocInitial[i] = NrProdIntial;
 
 }
+
 
 Magazin::Magazin(const Magazin& other) {
 	this->locatie = other.locatie;
@@ -38,10 +42,16 @@ int Magazin::getNProdus(int id) {
 	return depozit.getNProdus(id);
 }
 
+Depozit_Magazin& Magazin::GetDepozit() {
 
-void Magazin::addProdus(int idProd, int cantitate) {
+	return depozit;
+}
 
-	depozit.addProdus(idProd, cantitate);
+void Magazin::addProdusCant(int idProd, int cantitate) {
+
+	int pos = depozit.findProdus(idProd);
+	depozit.addProdusCant(pos, cantitate);
+
 }
 
 void Magazin::add_produs(Produs& produs, int cantitate) {
@@ -50,13 +60,25 @@ void Magazin::add_produs(Produs& produs, int cantitate) {
 		depozit.addProdus(&produs, cantitate);
 	}
 	else {
-		depozit.addProdus(pos, cantitate);
+		depozit.addProdusCant(pos, cantitate);
 	}
 }
 
-void Magazin::remove_produs(int id, int cantitate) {
-	depozit.addProdus(id, -cantitate);
 
+
+int Magazin::removeProdus(int id, int cantitate, DepozitGlobal &d) {
+	
+	int cant;
+	depozit.addProdusCant(id, -cantitate);
+	int nr = getNProdus(id);
+	if (nr <= StocInitial[id] / 10) {
+		cant = d.GetPalet(id);
+		if (cant == -1) return -1;
+		depozit.addProdusCant(id, cant);
+		nr = getNProdus(id);
+	}
+
+	return 1;
 }
 
 void Magazin::add_bon(string id_bon, int zi) {

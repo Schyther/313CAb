@@ -346,33 +346,46 @@ void Solve::Task3b(int idProdus,DepozitGlobal& depozit) {
 }
 
 void Solve::Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri,
-	ResizableArray< Magazin > &magazine, DepozitGlobal &depozit, Hash < string, int > &hBonuri) {
-	ResizableArray< Magazin > *maux; //copie la magazine
-	DepozitGlobal *daux; //copie la depozitglobal
+	ResizableArray< Magazin > magazine, DepozitGlobal depozit, Hash < string, int > &hBonuri) {
 
-	maux = new ResizableArray< Magazin >;
-	maux = &magazine;
-
-	daux = new DepozitGlobal;
-	daux = &depozit;
-
-	ResizableArray <int> *produse;
+	ResizableArray <int> produse;
 
 	int nrBonuri = bonuri.size() - 1;
 	int i, j;
 
+	//for (int i = 0; i < magazine[1].GetDepozit().getNProduse(); i++) {
+	//	cout << magazine[3].GetDepozit().GetFcvP()[i] << '\n';
+	//	cout << "CACA" << "\n";
+	//	cout << magazine[3].getNProdus(i) << '\n';
+	//}
+
+	//cout << nrBonuri << '\n';
+
 	for (i = 0; i <= nrBonuri; i++) {
+	//	cout << i << '\n';
+	//	cout << "CACA\n";
+		produse = hBonuri.getValue(bonuri[i].idBon);
 
-		produse = &hBonuri.getValue(bonuri[i].idBon);
+		
+		for (j = 0; j < (int)produse.size(); j++) {
 
+		//	cout << j << '\n';
+			
+			int check = magazine[bonuri[i].idMag-1].removeProdus(produse[j], 1, depozit);
 
+			 if (check == -1) {
+				 cout << "\nDupa realizarea tranzactiei bonului cu id-ul "
+				 << bonuri[i].idBon << ", magazinul cu id-ul " << bonuri[i].idMag << " a cerut depozitului" <<
+				 " un palet de produse cu id-ul " << produse[j]
+				 << ". Depozitul nu a putut onora aceasta comanda.\n";
+				 return;
+			}
+
+		}
 
 	}
 
 	
-
-
-
 }
 
 

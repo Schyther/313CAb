@@ -4,6 +4,19 @@ Depozit_Magazin::Depozit_Magazin() {
 	
 }
 
+void Depozit_Magazin::addStoc(Produs *prod) {
+	
+	for (int i = 0; i < NumarProduse; i++) {
+		if (prod[i].getId()!=0)
+		addProdus(&prod[i], NrProdIntial);
+		
+	}
+}
+
+ResizableArray<int>& Depozit_Magazin::GetFcvP() {
+	return nr_produse;
+}
+
 Depozit_Magazin::Depozit_Magazin(ResizableArray<Produs*> produse, ResizableArray<int> nr_produse) {
 	this->produse = produse;
 	this->nr_produse = nr_produse;
@@ -37,14 +50,20 @@ int Depozit_Magazin::getNProdus(int id)
 	return nr_produse[pos];
 }
 
+int Depozit_Magazin::getNProduse() {
+
+	return produse.size() - 1;
+}
+
 void Depozit_Magazin::addProdus(Produs* produs, int cantitate)
 {
 	produse.push_back(produs);
 	nr_produse.push_back(cantitate);
 }
 
-void Depozit_Magazin::addProdus(int pos, int cantitate)
-{
+void Depozit_Magazin::addProdusCant(int idProd, int cantitate) {
+	
+	int pos = findProdus(idProd);
 	nr_produse[pos] += cantitate;
 }
 

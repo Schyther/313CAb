@@ -24,7 +24,7 @@ Stack<Palet>*  DepozitGlobal::GetSloturi() {
 
 int DepozitGlobal::FindSlot(int id_produs) {
 
-	int min = INT_MAX, slot, poz;
+	int poz;
 
 	for (int i = 0; i < NumarSloturi; ++i) {
 		ResizableArray <Palet> temp; //pastreaza paletii in timp ce efectuam cautarea
@@ -49,16 +49,11 @@ int DepozitGlobal::FindSlot(int id_produs) {
 
 		//verifica daca a gasit produsul cautat in slotul i
 		if (palet_crt.getIdProdus() == id_produs && palet_crt.getNrItems() > 0) {
-			if (poz < min) {
-				min = poz;
-				slot = i;
-			}
+			return i;
 		}
 	}
 
-	if (min != INT_MAX) 
-		return slot;
-	 
+
 	return -1; //produsul cautat nu se afla in depozit
 
 }
@@ -101,5 +96,39 @@ bool DepozitGlobal::Comanda(int id_produs) {
 		sloturi[slotProdus].push(temp[j]);
 	}
 
+
+
 	return true; //Comanda a fost onorata!
+}
+
+
+int DepozitGlobal::GetPalet(int idProd) {
+
+	ResizableArray <Palet> temp;
+
+	int slot = FindSlot(idProd);
+	if (slot != -1) {
+
+		Palet palet_crt;
+		int poz = 0;
+
+		while (!sloturi[slot].empty()) {
+			poz++;
+			palet_crt = sloturi[slot].top();
+			sloturi[slot].pop();
+			temp.push_back(palet_crt);
+			if (palet_crt.getIdProdus() == idProd) {
+				break;
+			}
+		}
+
+		//pune paletii la loc in slotul i dupa ce a efectuat cautarea
+		for (int j = temp.size() - 2; j >= 0; --j) {
+			sloturi[slot].push(temp[j]);
+		}
+
+		return palet_crt.getNrItems();
+	}
+
+	return -1;
 }

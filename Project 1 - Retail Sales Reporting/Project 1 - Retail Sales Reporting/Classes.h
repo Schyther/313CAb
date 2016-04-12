@@ -15,7 +15,8 @@ using namespace std;
 
 #define NumarProduse 500
 #define NumarSloturi 200
-#define NrProdIntial 20
+#define NrProdIntial 10
+
 
 //Clasa pentru categorii
 
@@ -117,8 +118,12 @@ public:
 	int findProdus(int);
 	int getNProdus(int);
 
+	ResizableArray<int>& GetFcvP();
+
 	void addProdus(Produs*, int);
-	void addProdus(int, int);
+	void addProdusCant(int idProd, int cantitate);
+	void addStoc(Produs*prod);
+	int getNProduse();
 
 	Depozit_Magazin& operator= (const Depozit_Magazin& other);
 
@@ -160,29 +165,6 @@ public:
 };
 */
 
-//Clasa pentru magazin
-
-class Magazin {
-	string locatie;
-	Depozit_Magazin depozit;
-public:
-	
-	ResizableArray < string > zi[367]; // zi[ i ] contine bonurile vandute in ziua i
-	Magazin();
-	Magazin(string locatie);
-	Magazin(const Magazin& other);
-	~Magazin();
-
-	string getLocatie();
-	int findProdus(int id);
-	int getNProdus(int id);
-
-	void setLocatie(string locatie);
-	void add_produs(Produs& produs, int cantitate);
-	void addProdus(int idProd, int cantitate);
-	void remove_produs(int id, int cantitate);
-	void add_bon(string id_bon, int zi);
-};
 
 class DepozitGlobal {
 
@@ -199,8 +181,39 @@ public:
 
 	int FindSlot(int id_produs);
 	bool Comanda(int id_produs);
+	int GetPalet(int id_produs);
 
 };
+
+
+//Clasa pentru magazin
+
+class Magazin {
+	string locatie;
+	Depozit_Magazin depozit;
+	int StocInitial[NumarProduse];
+public:
+	
+	ResizableArray < string > zi[367]; // zi[ i ] contine bonurile vandute in ziua i
+	Magazin();
+	Magazin(string locatie, Produs *prod);
+	Magazin(const Magazin& other);
+	~Magazin();
+
+	string getLocatie();
+	int findProdus(int id);
+	int getNProdus(int id);
+
+	Depozit_Magazin& GetDepozit();
+
+	void setLocatie(string locatie);
+	void add_produs(Produs& produs, int cantitate);
+	void addProdusCant(int idProd, int cantitate);
+	int removeProdus(int id, int cantitate, DepozitGlobal &d);
+	void add_bon(string id_bon, int zi);
+};
+
+
 
 
 // Clasa de citire
@@ -221,7 +234,7 @@ public:
 	void BonuriRead(const char* name, Hash <string, int>& hBonuri);
 	void ProduseRead(const char* fileName, Produs *produse, Categorii& cat);
 	void PaletiRead(const char* fileName, DepozitGlobal& d);
-	void MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine);
+	void MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine, Produs *prod);
 	void CategoriiRead(const char* fileName, Categorii& cat);
 	void TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazine,
 		ResizableArray < Bon < int, string, time_t > > &bonuri);
@@ -256,7 +269,7 @@ public:
 	void Task3a(int idProdus, DepozitGlobal& depozit);
 	void Task3b(int idProdus, DepozitGlobal& depozit);
 	void Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, 
-		ResizableArray< Magazin > &magazine, DepozitGlobal &depozit, Hash < string, int > &hBonuri);
+		ResizableArray< Magazin > magazine, DepozitGlobal depozit, Hash < string, int > &hBonuri);
 	
 	
 	void ZileToData(int trecute, int &luna, int &zi);

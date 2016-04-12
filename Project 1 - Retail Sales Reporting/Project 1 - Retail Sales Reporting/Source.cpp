@@ -30,13 +30,22 @@ int main() {
 	// Citire date
 	r.CategoriiRead("categorii.csv", categorii);
 	r.ProduseRead("produse.csv", produse, categorii);
-	r.MagazineRead("magazine.csv", magazine);
+	r.MagazineRead("magazine.csv", magazine, produse);
 	r.TranzactiiRead("tranzactii.csv", magazine, bonuri);
 	r.BonuriRead("bonuri.csv", hBonuri);
 	r.PaletiRead("paleti.csv", depozit);
 
 
+	/*for (int i = 0; i < magazine[1].GetDepozit().getNProduse(); i++) {
+		cout << magazine[3].GetDepozit().GetFcvP()[i] << '\n';
+		cout << "CACA"<<"\n";
+		cout << magazine[3].GetDepozit().getNProdus(i) << '\n';
+	}*/
+
 	string idBon;
+
+	
+
 
 	// Meniu
 	while (1) {
@@ -113,6 +122,7 @@ int main() {
 					cout << "\nGraficul se regaseste in fisierul...\n";
 					break;
 				case 3:
+					cout << "\nIntroduceti id-ul bonului:\n";
 					cin >> idBon;
 					cout << '\n';
 					s.Task2c(idBon, hBonuri, produse);
@@ -157,7 +167,7 @@ int main() {
 					break;
 				case 3:
 					bonuri.QuickSort(0, bonuri.size() - 1, CompareTime);
-
+					s.Task3c(bonuri, magazine, depozit, hBonuri);
 					break;
 				case 4:
 					ok = 0;
