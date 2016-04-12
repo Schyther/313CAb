@@ -110,6 +110,8 @@ int main() {
 				case 3:
 					break;
 				case 4:
+					bonuri.QuickSort(0, bonuri.size() - 1, CompareIdMagTime);
+					s.Task2d(bonuri, hBonuri);
 					break;
 				case 5:
 					ok = 0;

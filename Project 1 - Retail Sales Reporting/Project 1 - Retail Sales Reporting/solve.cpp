@@ -229,6 +229,21 @@ void Solve::Task2c(string idBon, Hash < string, int > &H, Produs *produse) {
 	}
 }
 
+void Solve::Task2d(ResizableArray < Bon < int, string, time_t > > &bonuri, Hash < string, int > &H) {
+	int szBonuri = bonuri.size();
+	int nrClienti = 0;
+	int i;
+	for  (i = 0; i < szBonuri-1; ++i) {
+		int szContinut = H.getValue(bonuri[i].idBon).size();
+		if (bonuri[i + 1].timestamp - bonuri[i].timestamp < szContinut*TimpPerProdus && bonuri[i].idMag == bonuri[i + 1].idMag) nrClienti++;
+		if (bonuri[i].idMag != bonuri[i + 1].idMag) {
+			cout << "In magazinul " << bonuri[i].idMag << ", " << nrClienti << " clienti ar beneficia de o a doua casa." << '\n';
+			nrClienti = 0;
+		}
+	}
+	cout << "In magazinul " << bonuri[i].idMag << ", " << nrClienti << " clienti ar beneficia de o a doua casa." << '\n';
+}
+
 
 void Solve::Task3a(int idProdus, DepozitGlobal& depozit) {
 
@@ -253,6 +268,7 @@ void Solve::Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, Resiz
 
 	daux = new DepozitGlobal;
 	daux = &depozit;
+
 
 	
 
