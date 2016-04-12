@@ -73,59 +73,11 @@ int main() {
 
 		if (strcmp(line, "Task2") == 0) {
 
-			ok = 1;
-			while (ok) {
-
-				o.ShowTask2Menu();
-
-				cin >> selection;
-				switch (selection) {
-
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				case 5:
-					ok = 0;
-					break;
-	
-				default:
-					cout << "\nSelectie invalida!\n\n" << '\n';
-					break;
-				}
-
-			}
 			continue;
 		}
 
 		if (strcmp(line, "Task3") == 0) {
-			ok = 1;
-			while (ok) {
 
-				o.ShowTask3Menu();
-
-				cin >> selection;
-				switch (selection) {
-
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					ok = 0;
-					break;
-				default:
-					cout << "\nSelectie invalida!\n\n" << '\n';
-					break;
-				}
-
-			}
 			continue;
 		}
 

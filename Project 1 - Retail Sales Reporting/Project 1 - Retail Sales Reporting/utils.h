@@ -55,34 +55,3 @@ struct Pair {
     }
 
 };
-
-
-//double node
-template<class T>
-struct Node{
-    T value;
-    Node<T> *next, *prev;
-    Node(T value) {
-        this->value = value;
-        next = NULL;
-        prev = NULL;
-    }
-    Node() {
-        next = NULL;
-        prev = NULL;
-    }
-};
-
-//simple node
-template<class T>
-struct sNode{
-    T value;
-    sNode<T> *next;
-    sNode(T value) {
-        this->value = value;
-        next = NULL;
-    }
-    sNode() {
-        next = NULL;
-    }
-};

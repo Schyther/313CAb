@@ -3,7 +3,7 @@
 template <class T>
 class List {
 private:
-	sNode<T> *begin, *end;
+	Node<T> *begin, *end;
 public:
 	List();
 	~List();
@@ -16,8 +16,8 @@ public:
 	T front() const;
 	T back() const;
 
-	sNode <T> *first() const;
-	sNode <T> *last() const;
+	Node <T> *first() const;
+	Node <T> *last() const;
 
 	int getpos(T value) const;
 
@@ -28,7 +28,7 @@ public:
 	void pop();
 	void erase(int pos);
 	void remove(T value);
-	void remove_next(sNode<T> *);
+	void remove_next(Node<T> *);
 
 	int length() const;
 
@@ -56,7 +56,7 @@ List<T>::~List() {
 
 template <class T>
 List<T>::List(const List<T> &other) {
-	sNode<T> *current;
+	Node<T> *current;
 	begin = NULL;
 	end = NULL;
 	current = other.begin;
@@ -70,7 +70,7 @@ List<T>::List(const List<T> &other) {
 
 template <class T>
 List<T> & List<T>::operator=(const List<T> &other) {
-	sNode<T> *current;
+	Node<T> *current;
 	begin = NULL;
 	end = NULL;
 	current = other.begin;
@@ -108,19 +108,19 @@ T List<T>::back() const {
 }
 
 template <class T>
-sNode <T> * List<T>::first() const {
+Node <T> * List<T>::first() const {
 	return begin;
 }
 
 template <class T>
-sNode <T> * List<T>::last() const {
+Node <T> * List<T>::last() const {
 	return end;
 }
 
 template <class T>
 int List<T>::getpos(T value) const {
 	if (empty()) return -1;
-	sNode<T> *current = begin;
+	Node<T> *current = begin;
 	int pos = 0;
 	while (current) {
 		if (value == current->value) {
@@ -134,7 +134,7 @@ int List<T>::getpos(T value) const {
 
 template <class T>
 void List<T>::push_back(T value) {
-	sNode<T> *newNode = new sNode<T>;
+	Node<T> *newNode = new Node<T>;
 	newNode->value = value;
 	newNode->next = NULL;
 	if (!begin) {
@@ -147,7 +147,7 @@ void List<T>::push_back(T value) {
 }
 template <class T>
 void List<T>::push_front(T value) {
-	sNode<T> *newNode = new sNode<T>;
+	Node<T> *newNode = new Node<T>;
 	newNode->value = value;
 	newNode->next = NULL;
 	if (!end) {
@@ -161,10 +161,10 @@ void List<T>::push_front(T value) {
 
 template <class T>
 void List<T>::insert(int pos, T value) {
-	sNode<T> *newNode, *current;
+	Node<T> *newNode, *current;
 	current = begin;
 	int poscrt;
-	newNode = new sNode<T>(value);
+	newNode = new Node<T>(value);
 	while (current) {
 		if (pos == poscrt) {
 			newNode->next = current->next;
@@ -181,7 +181,7 @@ void List<T>::insert(int pos, T value) {
 
 template <class T>
 void List <T>::erase(int pos) {
-	sNode<T> *current = begin, *elemToRemove;
+	Node<T> *current = begin, *elemToRemove;
 	int poscrt = 0;
 	if (!current) return;
 	if (pos == 0) {
@@ -210,7 +210,7 @@ void List <T>::erase(int pos) {
 template <class T>
 void List<T>::remove(T value) {
 	if (empty()) return;
-	sNode<T> *current = begin, *elemToRemove;
+	Node<T> *current = begin, *elemToRemove;
 	if (value == begin->value)
 	{
 		elemToRemove = begin;
@@ -232,26 +232,26 @@ void List<T>::remove(T value) {
 }
 
 template <class T>
-void List<T>::remove_next(sNode<T> *sNode)
+void List<T>::remove_next(Node<T> *node)
 {
-	if (!sNode->next) return;
-	sNode<T> *elemToRemove = sNode->next;
-	if (elemToRemove == end) end = sNode;
-	sNode->next = sNode->next->next;
+	if (!node->next) return;
+	Node<T> *elemToRemove = node->next;
+	if (elemToRemove == end) end = node;
+	node->next = node->next->next;
 	delete elemToRemove;
 }
 
 template <class T>
 void List<T>::pop() {
 	if (empty()) return;
-	sNode<T> *elemToRemove = begin;
+	Node<T> *elemToRemove = begin;
 	begin = begin->next;
 	delete elemToRemove;
 }
 
 template <class T>
 int List<T>::length() const {
-	sNode<T> *current = begin;
+	Node<T> *current = begin;
 	int nr_elem = 0;
 	while (current)
 	{
@@ -274,7 +274,7 @@ void List<T>::clear() {
 
 template<class T>
 ostream& operator<<(ostream& out, const List<T>& list) {
-	sNode<T> *current = list.begin;
+	Node<T> *current = list.begin;
 	while (current) {
 		out << current->value << " ";
 		current = current->next;
