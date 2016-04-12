@@ -161,7 +161,7 @@ void Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri){
 
         for (int i = 1; i < 367; ++i)
             g << i << ',' << fcvVanzari[i] << '\n';
-            g << '%' << '\n';
+        //    g << '%' << '\n';
 
         int max[3] = {-1}, luna, zi;
         Maxime(fcvVanzari, 367, max[0], max[1], max[2]);
