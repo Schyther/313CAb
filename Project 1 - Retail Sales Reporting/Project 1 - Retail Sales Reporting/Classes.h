@@ -243,15 +243,13 @@ public:
     ResizableArray < Bon < int, string, time_t > > &bonuri);
 	void Task1c(Hash < string, int > &H, Produs *produse,
     ResizableArray < Bon < int, string, time_t > > &bonuri);
-	void Task1e(Hash < string, int > &H, Produs *produse);
+	void Solve::Task1e(Hash < string, int > &H, Produs *produse,
+		ResizableArray < Bon < int, string, time_t > > &bonuri);
 	void Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri);
 	void Task2c(string idBon, Hash < string, int > &H, Produs *produse);
 	void Task3a(int idProdus, DepozitGlobal& depozit);
 	void Task3b(int idProdus, DepozitGlobal& depozit);
 	void Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, ResizableArray< Magazin > &magazine, DepozitGlobal &depozit);
-
-	//bool CompareTime(const Bon < int, string, time_t >& a,const Bon < int, string, time_t >& b);
-	bool CompareIdMagTime(const Bon < int, string, time_t >& a, const Bon < int, string, time_t >& b);
 };
 
 // Clasa de output

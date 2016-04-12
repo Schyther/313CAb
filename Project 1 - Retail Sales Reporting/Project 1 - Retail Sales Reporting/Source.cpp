@@ -5,6 +5,15 @@ bool CompareTime(const Bon < int, string, time_t >& a, const Bon < int, string, 
 	return a.timestamp < b.timestamp;
 }
 
+bool CompareIdMagTime(const Bon < int, string, time_t >& a, const Bon < int, string, time_t >& b) {
+
+	if (a.idMag < b.idMag) return 1;
+	else if (a.idMag == b.idMag)
+		return a.timestamp < b.timestamp;
+
+	return 0;
+}
+
 int main() {
 	
 	Read r;
@@ -27,7 +36,7 @@ int main() {
 	r.PaletiRead("paleti.csv", depozit);
 
 
-	bonuri.QuickSort(0, bonuri.size() - 1, CompareTime);
+	
 
 	// Meniu
 	while (1) {
@@ -66,9 +75,10 @@ int main() {
 				case 3:
 					break;
 				case 4:
+
 					break;
 				case 5:
-					s.Task1e(hBonuri, produse);
+					s.Task1e(hBonuri, produse, bonuri);
 					break;
 				case 6:
 					ok = 0;
@@ -137,6 +147,8 @@ int main() {
 					s.Task3b(idProd, depozit);
 					break;
 				case 3:
+					bonuri.QuickSort(0, bonuri.size() - 1, CompareTime);
+
 					break;
 				case 4:
 					ok = 0;

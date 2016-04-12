@@ -75,88 +75,80 @@ void Solve::Task1c(Hash < string, int > &H, Produs *produse,
     (1.0 * costTotal / (double)bonuri.size()) <<'\n';
 }
 
-void Solve::Task1e(Hash < string, int > &H, Produs *produse) {
+void Solve::Task1e(Hash < string, int > &H, Produs *produse,
+	ResizableArray < Bon < int, string, time_t > > &bonuri) {
+	Pair < int, int > pereche;
+	List < Pair < int, int > > bestPair;
 	//ofstream g("task1e.txt");
-	int *counter; // vector de aparitii
+	// numar intr-o matrice de cate ori apare
+	// perechea (i, j) pe bonuri
 
-	counter = new int[NumarProduse];
-
-    // numar intr-o matrice de cate ori apare
-    // perechea (i, j) pe bonuri
 	int **perechi;
 
 	perechi = new int*[NumarProduse];
 
-	int i, j;
+	int i;
 	for (i = 0; i < NumarProduse; i++) {
-		perechi[i] = new int[NumarProduse];
-		for (j = 0; j < NumarProduse; j++) perechi[i][j] = 0;
+		perechi[i] = new int[NumarProduse]();
 	}
 
+	int bonActual=0, nrBonuri=0, nrProduse=0;
+	int maxVanzari = 1; // trebuie sa fie vandute cel putin o data
+	int prod1, prod2;
+	bool inList;
+	int szBonuri = bonuri.size();
+	for (int i = 0; i < szBonuri; ++i) {
+		int *fcvProduse = new int[NumarProduse]();
+		ResizableArray < int > continutBon = H.getValue(bonuri[i].idBon);
+		int szContinut = continutBon.size();
+		// daca e un singur produs pe bon, nu avem ce verifica
+		if (szContinut < 2) continue;
+		for (int j = 0; j < szContinut; ++j) {
+			fcvProduse[continutBon[j]]++;
+		}
+		for (int j = 0; j < szContinut - 1; ++j) {
+			for (int k = j + 1; k < szContinut; ++k) {
+				prod1 = continutBon[j];
+				prod2 = continutBon[k];
+				if (prod1 == prod2) continue;
+				bonActual = Min(fcvProduse[prod1], fcvProduse[prod2]);
+				perechi[prod1][prod2] += bonActual;
+				perechi[prod2][prod1] += bonActual;
+				pereche.makePair(prod1, prod2);
 
-    int bonActual, nrBonuri, nrProduse;
-    int maxVanzari = 1; // trebuie sa fie vandute cel putin o data
-    int prod1, prod2;
-    bool inList;
-    Pair < int, int > pereche;
-    List < Pair < int, int > > bestPair;
-    ResizableArray < int > continut;
-    for (int i = 0; i < MOD; i++) { // nr hash
-        nrBonuri = H[i].size(); // nr de bonuri din H[i]
-        for (int j = 0; j < nrBonuri; j++) {
-            memset(counter, 0, sizeof(counter));
-            continut = H[i][j].second;
-            nrProduse = continut.size();
-            
-            // daca e un singur produs pe bon, nu avem ce verifica
-            if (nrProduse < 2) continue;
+				if (perechi[prod1][prod2] == maxVanzari) {
+					// adaug la lista cu cele mai bine vandute perechi
+					inList = bestPair.getpos(pereche) < 0 ? 0 : 1;
+					if (!inList) bestPair.push_back(pereche);
+				}
 
-            for (int k = 0; k < nrProduse; k++) {
-                counter[ continut[k] ]++;
-            }
-            for (int prod1 = 0; prod1 < nrProduse - 1; prod1++) {
-                for (int prod2 = prod1 + 1; prod2 < nrProduse; prod2++) {
-                    bonActual = Min(counter[prod1], counter[prod2]);
-                    perechi[prod1][prod2] += bonActual;
-                    perechi[prod2][prod1] += bonActual;
-                    pereche.makePair(prod1, prod2);
+				if (perechi[prod1][prod2] > maxVanzari) {
+					// resetez lista cu cele mai bine vandute perechi
+					bestPair.clear();
+					maxVanzari = perechi[prod1][prod2];
+					bestPair.push_back(pereche);
+				}
+			}
+		}
+		delete[] fcvProduse;
+	}
 
-                    if (perechi[prod1][prod2] == maxVanzari) {
-                        // adaug la lista cu cele mai bine vandute perechi
-                        inList = bestPair.getpos(pereche) < 0 ? 0 : 1;
-                        if (!inList) bestPair.push_back(pereche);
-                    }
-
-                    if (perechi[prod1][prod2] > maxVanzari) {
-                        // resetez lista cu cele mai bine vandute perechi
-                        bestPair.clear();
-                        maxVanzari = perechi[prod1][prod2];
-                        bestPair.push_back(pereche);
-                    }
-                }
-            }            
-        }
-    }
-    if (bestPair.empty()) {
-        cout << "Nu exista nicio pereche de produse vandute bine impreuna\n";
-        return;
-    }
-    cout << "Perechile de produse cel mai bine vandute impreuna sunt:\n";
-  	Node < Pair < int, int> > *perecheP; //pointer la pereche
-    perecheP = bestPair.first();
-    while (perecheP != NULL) {
-        prod1 = perecheP->value.first;
-        prod2 = perecheP->value.second;
-        cout << produse[prod1].getNume() << ", ";
-        cout << produse[prod2].getNume() << "\n";
-        perecheP = perecheP->next;
-    }
-    cout << "Aceste perechi au fost vandute de " << maxVanzari << " ori\n";
-
-	for (i = 0; i < NumarProduse; i++)
-		delete[] perechi[i];
-	delete[] perechi;
-    //g.close();
+	if (bestPair.empty()) {
+		cout << "Nu exista nicio pereche de produse vandute bine impreuna\n";
+		return;
+	}
+	cout << "Perechile de produse cel mai bine vandute impreuna sunt:\n\n";
+	Node < Pair < int, int> > *perecheP; //pointer la pereche
+	perecheP = bestPair.first();
+	while (perecheP != NULL) {
+		prod1 = perecheP->value.first;
+		prod2 = perecheP->value.second;
+		cout << produse[prod1].getNume() << ", ";
+		cout << produse[prod2].getNume() << "\n";
+		perecheP = perecheP->next;
+	}
+	cout << "Aceste perechi au fost vandute de " << maxVanzari << " ori\n";
+	//g.close();
 }
 
 
@@ -269,18 +261,4 @@ void Solve::Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, Resiz
 }
 
 
-/*
-bool Solve::CompareTime(const Bon < int, string, time_t >& a, const Bon < int, string, time_t >& b) {
-	return a.timestamp < b.timestamp;
-}
-*/
-
-bool Solve::CompareIdMagTime(const Bon < int, string, time_t >& a, const Bon < int, string, time_t >& b) {
-	
-	if (a.idMag < b.idMag) return 1;
-	else if (a.idMag == b.idMag)
-		return a.timestamp < b.timestamp;
-	
-	return 0;
-}
 
