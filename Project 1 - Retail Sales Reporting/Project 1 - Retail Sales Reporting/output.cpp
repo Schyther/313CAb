@@ -24,3 +24,13 @@ void Output::ShowTask1Menu() {
 	cout << "Tastati un numar:\n";
 
 }
+
+void Output::ShowTask3Menu() {
+	cout << "\n\n Alegeti o cerinta: \n";
+	cout << "1. Slotul in care se gaseste un anumit tip de produs\n";
+	cout << "2. Mutari necesare pentru obtinerea unui palet\n";
+	cout << "3. Prima comanda ce nu se poate onora\n";
+	cout << "4. Intoarecere la meniul principal\n\n";
+
+	cout << "Tastati un numar:\n";
+}
