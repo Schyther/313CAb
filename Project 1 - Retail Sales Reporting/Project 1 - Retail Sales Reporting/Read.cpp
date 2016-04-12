@@ -166,7 +166,7 @@ void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine)
 		getline(magazinef, line);
 		id_magazin = 0;
 		locatie = "";
-		sz = line.size() - 1;
+		sz = line.size();
 		if (line != "") {
 			// Fac split caracter cu caracter la linia citita
 			i = 0;

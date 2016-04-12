@@ -308,6 +308,7 @@ void DLL<T>::clear() {
 		end = end->next;
 		delete begin;
 	}
+	begin = end = NULL;
 }
 
 template<class T>

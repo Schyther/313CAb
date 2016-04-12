@@ -49,6 +49,8 @@ int main() {
 				switch (selection) {
 
 				case 1:
+					s.Task1a(magazine, produse, hBonuri);
+					cout << "\nTask executat cu succes. Outputul se regaseste in fisierul...\n";
 					break;
 				case 2:
 					break;
@@ -112,6 +114,11 @@ int main() {
 				switch (selection) {
 
 				case 1:
+					cout << "\nIntroduceti id-ul produsului:\n";
+					int idProd;
+					cin >> idProd;
+					cout << '\n';
+					s.Task3a(idProd, depozit);
 					break;
 				case 2:
 					break;
