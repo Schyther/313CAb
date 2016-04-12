@@ -106,7 +106,7 @@ ResizableArray < Tvalue > Hash < Tkey, Tvalue >::getValue(Tkey key) {
 template <typename Tkey, typename Tvalue>
 ResizableArray < Pair < Tkey, ResizableArray < Tvalue > > >&  Hash < Tkey, Tvalue >::operator[](int position) {
 	if (position >= Hmax) {
-		cerr << "Pozitie invalida!\n";
+	cerr << "Pozitie invalida!\n";
 		return H[0];
 	}
 

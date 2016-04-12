@@ -75,6 +75,47 @@ void Solve::Task1c(Hash < string, int > &H, Produs *produse,
     (1.0 * costTotal / (double)bonuri.size()) <<'\n';
 }
 
+
+void Solve::Task1d(ResizableArray<Magazin> &magazine, Hash < string,
+	int > &hBonuri, Categorii &cat, Produs *produse) {
+	// int *fcvCateg = new int[cat.size()]();
+	string idBon, categoria;
+	int szBon;
+
+	
+	for (int idmag = 0; idmag < (int)magazine.size(); ++idmag) {
+		int *fcvCateg = new int[cat.GetSize()]();
+		for (int i = 1; i < 367; ++i) {
+			for (int j = 0; j < (int)magazine[idmag].zi[i].size(); ++j) {
+				idBon = magazine[idmag].zi[i][j];
+				ResizableArray < int > continut = hBonuri.getValue(idBon);
+				szBon = continut.size();
+				for (int k = 0; k < szBon; ++k) {
+					categoria = produse[continut[k]].getCategorie();
+					fcvCateg[cat.GetId(categoria)] += 1;
+				}
+			}
+		}
+		cout << "Pentru magazinul din " << magazine[idmag].getLocatie();
+		cout << " cele mai vandute 3 categorii au fost:" << '\n' << "\t";
+
+		int max[3] = { -1 }, luna=0, zi=0;
+		Maxime(fcvCateg, cat.GetSize(), max[0], max[1], max[2]);
+
+		for (int k = 0; k < 3; ++k) {
+			for (int i = 1; i < cat.GetSize(); ++i) {
+				if (fcvCateg[i] == max[k])
+					cout << cat.Get(i) << ' ';
+			}
+			cout << "de " << max[k] << " ori " << '\n' << '\t';
+		}
+		cout << '\n';
+		delete[] fcvCateg;
+	}
+
+
+}
+
 void Solve::Task1e(Hash < string, int > &H, Produs *produse,
 	ResizableArray < Bon < int, string, time_t > > &bonuri) {
 	Pair < int, int > pereche;
@@ -151,13 +192,57 @@ void Solve::Task1e(Hash < string, int > &H, Produs *produse,
 	//g.close();
 }
 
+// cele mai mari 3 elemente dintr-un vector
+void Solve::Maxime(int *v, int sz, int &max1, int &max2, int &max3)
+{
+	for (int i = 1; i < sz; ++i) {
+		if (v[i] < max1)
+		{
+			if (v[i] < max2)
+			{
+				if (v[i] > max3)  max3 = v[i];
+			}
+			else
+				if (v[i] > max2)
+				{
+					max3 = max2;
+					max2 = v[i];
+				}
+		}
+		else
+			if (v[i] > max1)
+			{
+				max3 = max2;
+				max2 = max1;
+				max1 = v[i];
+			}
+	}
+}
+
+// Converteste zilele trecute in format luna, zi
+void Solve::ZileToData(int trecute, int &luna, int &zi) {
+	unsigned short v[] = { 1, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 367 };
+
+	for (int i = 1; i < 13; ++i)
+		if (trecute >= v[i - 1] && trecute < v[i]) {
+			luna = i;
+			zi = trecute - v[i - 1] + 1;
+		}
+}
+
 
 void Solve::Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri) {
-	int *vanzari = new int[367]();
+	int *fcvVanzari = new int[367]();
 	int vanzareInZi;
 	string idBon;
 
+	ofstream g("NrProdusePeZile2a.txt");
+	
+	cout << "Zilele in care au fost cele mai multe produse vandute sunt:" << '\n';
+
 	for (int idmag = 0; idmag < (int)magazine.size(); ++idmag) {
+		cout << "Pentru magazinul din locatia " << magazine[idmag].getLocatie() << '\n' << '\t';
+		int *fcvVanzari = new int[367]();
 		for (int i = 1; i < 367; ++i) {
 			vanzareInZi = 0;
 			for (int j = 0; j < (int)magazine[idmag].zi[i].size(); ++j) {
@@ -165,50 +250,66 @@ void Solve::Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBon
 				ResizableArray < int > continut = hBonuri.getValue(idBon);
 				vanzareInZi += continut.size();
 			}
-			vanzari[i] += vanzareInZi;
+			fcvVanzari[i] += vanzareInZi;
 		}
-	}
 
-	ofstream g("task2a.txt");
-	for (int i = 1; i < 367; ++i)
-		g << i << ',' << vanzari[i] << '\n';
-	// cout << vanzari[i] << '\n';
+		for (int i = 1; i < 367; ++i)
+			g << i << ',' << fcvVanzari[i] << '\n';
+		//    g << '%' << '\n';
 
-	int max1 = vanzari[1], max2 = vanzari[2], max3 = vanzari[3];
-	for (int i = 4; i < 367; ++i) {
-		if (vanzari[i] < max1)
-		{
-			if (vanzari[i] < max2)
-			{
-				if (vanzari[i] > max3)  max3 = vanzari[i];
+		int max[3] = { -1 }, luna, zi;
+		Maxime(fcvVanzari, 367, max[0], max[1], max[2]);
+
+		for (int k = 0; k < 3; ++k) {
+			for (int i = 1; i < 367; ++i) {
+				if (fcvVanzari[i] == max[k]) {
+					ZileToData(i, luna, zi);
+					cout << "2016/" << luna << '/' << zi << ' ';
+				}
 			}
-			else {
-				max3 = max2;
-				max2 = vanzari[i];
+			cout << "-> " << max[k] << " produse" << '\n' << '\t';
+		}
+		cout << '\n';
+		delete[] fcvVanzari;
+	}
+
+	g.close();
+	
+}
+
+void Solve::Task2b(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri) {
+
+	ofstream g("NrCumparatoriPeZile2b.txt");
+	
+	cout << "Zilele in care au fost cei mai multi cumparatori sunt:" << '\n';
+
+	for (int idmag = 0; idmag < (int)magazine.size(); ++idmag) {
+		int *fcvBonuri = new int[367]();
+		for (int i = 1; i < 367; ++i) {
+			fcvBonuri[i] += magazine[idmag].zi[i].size();
+		}
+
+		cout << "Pentru magazinul din locatia " << magazine[idmag].getLocatie() << '\n' << '\t';
+
+		for (int i = 1; i < 367; ++i)
+			g << i << ',' << fcvBonuri[i] << '\n';
+		g << '%' << '\n';
+
+		int max[3] = { -1 }, luna, zi;
+		Maxime(fcvBonuri, 367, max[0], max[1], max[2]);
+
+		for (int k = 0; k < 3; ++k) {
+			for (int i = 1; i < 367; ++i) {
+				if (fcvBonuri[i] == max[k]) {
+					ZileToData(i, luna, zi);
+					cout << "2016/" << luna << '/' << zi << ' ';
+				}
 			}
+			cout << "-> " << max[k] << " cumparatori " << '\n' << '\t';
 		}
-		else {
-			max3 = max2;
-			max2 = max1;
-			max1 = vanzari[i];
-		}
+		delete[] fcvBonuri;
+		cout << '\n';
 	}
-
-	for (int i = 1; i < 367; ++i) {
-		if (vanzari[i] == max1) cout << i << ' ';
-	}
-	cout << max1 << '\n';
-	for (int i = 1; i < 367; ++i) {
-		if (vanzari[i] == max2) cout << i << ' ';
-	}
-	cout << max2 << '\n';
-	for (int i = 1; i < 367; ++i) {
-		if (vanzari[i] == max3) cout << i << ' ';
-	}
-	cout << max3 << '\n';
-
-
-	delete[] vanzari;
 	g.close();
 }
 
@@ -229,21 +330,6 @@ void Solve::Task2c(string idBon, Hash < string, int > &H, Produs *produse) {
 	}
 }
 
-void Solve::Task2d(ResizableArray < Bon < int, string, time_t > > &bonuri, Hash < string, int > &H) {
-	int szBonuri = bonuri.size();
-	int nrClienti = 0;
-	int i;
-	for  (i = 0; i < szBonuri-1; ++i) {
-		int szContinut = H.getValue(bonuri[i].idBon).size();
-		if (bonuri[i + 1].timestamp - bonuri[i].timestamp < szContinut*TimpPerProdus && bonuri[i].idMag == bonuri[i + 1].idMag) nrClienti++;
-		if (bonuri[i].idMag != bonuri[i + 1].idMag) {
-			cout << "In magazinul " << bonuri[i].idMag << ", " << nrClienti << " clienti ar beneficia de o a doua casa." << '\n';
-			nrClienti = 0;
-		}
-	}
-	cout << "In magazinul " << bonuri[i].idMag << ", " << nrClienti << " clienti ar beneficia de o a doua casa." << '\n';
-}
-
 
 void Solve::Task3a(int idProdus, DepozitGlobal& depozit) {
 
@@ -259,21 +345,47 @@ void Solve::Task3b(int idProdus,DepozitGlobal& depozit) {
 
 }
 
-void Solve::Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, ResizableArray< Magazin > &magazine, DepozitGlobal &depozit) {
-	ResizableArray< Magazin > *maux; //copie la magazine
-	DepozitGlobal *daux; //copie la depozitglobal
+void Solve::Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri,
+	ResizableArray< Magazin > magazine, DepozitGlobal depozit, Hash < string, int > &hBonuri) {
 
-	maux = new ResizableArray< Magazin >;
-	maux = &magazine;
+	ResizableArray <int> produse;
 
-	daux = new DepozitGlobal;
-	daux = &depozit;
+	int nrBonuri = bonuri.size() - 1;
+	int i, j;
 
+	//for (int i = 0; i < magazine[1].GetDepozit().getNProduse(); i++) {
+	//	cout << magazine[3].GetDepozit().GetFcvP()[i] << '\n';
+	//	cout << "CACA" << "\n";
+	//	cout << magazine[3].getNProdus(i) << '\n';
+	//}
+
+	//cout << nrBonuri << '\n';
+
+	for (i = 0; i <= nrBonuri; i++) {
+	//	cout << i << '\n';
+	//	cout << "CACA\n";
+		produse = hBonuri.getValue(bonuri[i].idBon);
+
+		
+		for (j = 0; j < (int)produse.size(); j++) {
+
+		//	cout << j << '\n';
+			
+			int check = magazine[bonuri[i].idMag-1].removeProdus(produse[j], 1, depozit);
+
+			 if (check == -1) {
+				 cout << "\nDupa realizarea tranzactiei bonului cu id-ul "
+				 << bonuri[i].idBon << ", magazinul cu id-ul " << bonuri[i].idMag << " a cerut depozitului" <<
+				 " un palet de produse cu id-ul " << produse[j]
+				 << ". Depozitul nu a putut onora aceasta comanda.\n";
+				 return;
+			}
+
+		}
+
+	}
 
 	
-
-
-
 }
 
 

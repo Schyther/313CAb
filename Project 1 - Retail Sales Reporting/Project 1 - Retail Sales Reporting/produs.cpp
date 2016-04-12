@@ -20,6 +20,7 @@ Produs& Produs:: operator= (const Produs &p) {
 
 Produs::Produs()
 {
+	this->id = 0;
 	this->nume = "0";
 	this->categorie = "0";
 	this->pret = 0;

@@ -152,13 +152,14 @@ void Read::PaletiRead(const char* fileName, DepozitGlobal &d) {
 
 }
 
-void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine) {
+void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine, Produs *prod) {
 	magazinef.open(fileName);
 
 	string line;
 	int id_magazin;
 	string locatie;
 	int i, sz;
+	
 
 	// Sar peste headerele tabelului
 	getline(magazinef, line);
@@ -179,7 +180,7 @@ void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine)
 				locatie += line[i++];
 			}
 
-			Magazin m(locatie);
+			Magazin m(locatie, prod);
 			magazine.push_back(m);
 		}
 	}
