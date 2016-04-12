@@ -16,7 +16,7 @@ using namespace std;
 #define NumarProduse 500
 #define NumarSloturi 200
 #define NrProdIntial 10
-
+#define TimpPerProdus 10
 
 //Clasa pentru categorii
 
@@ -266,6 +266,7 @@ public:
 	void Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri);
 	void Task2b(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri);
 	void Task2c(string idBon, Hash < string, int > &H, Produs *produse);
+	void Task2d(ResizableArray < Bon < int, string, time_t > > &bonuri, Hash < string, int > &H);
 	void Task3a(int idProdus, DepozitGlobal& depozit);
 	void Task3b(int idProdus, DepozitGlobal& depozit);
 	void Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri, 
@@ -288,6 +289,13 @@ public:
 	void ShowTask1Menu();
 	void ShowTask2Menu();
 	void ShowTask3Menu();
+
+  void copyFile(ifstream& input, ofstream& output);
+
+	void Chart(const char* h, const char* f, const char* in, const char* ch);
+
+	void chartZile(const char* h, const char* f, const char* in, const char* ch, int nr_mag);
+
 
 };
 

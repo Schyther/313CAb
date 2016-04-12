@@ -54,6 +54,7 @@ int main() {
 
 		char line[30], l[30];
 		int selection, ok;
+		int idMag;
 	lineread:
 		cin.getline(line, 30);
 
@@ -81,11 +82,15 @@ int main() {
 
 				case 1:
 					s.Task1a(magazine, produse, hBonuri);
-					cout << "\nTask executat cu succes. Outputul se regaseste in fisierul...\n";
+					cout << "\nTask executat cu succes. Outputul se regaseste in fisierul: chartVanzariMagazine.html\n";
+					o.Chart("output/VanzariMagazineHeader.htm", "output/VanzariMagazineFooter.htm", 
+						"output/task1a.txt", "output/chartVanzariMagazine.html");
 					break;
 				case 2:
 					s.Task1b(hBonuri, produse, bonuri);
-					cout << "\nTask executat cu succes. Outputul se regaseste in fisierul...\n";
+					cout << "\nTask executat cu succes. Outputul se regaseste in fisierul: chartVanzariProduse.html\n";
+					o.Chart("output/VanzariProduseHeader.htm", "output/VanzariProduseFooter.htm", "output/task1b.txt",
+						"output/chartVanzariProduse.html");
 					break;
 				case 3:
 					s.Task1c(hBonuri, produse, bonuri);
@@ -128,7 +133,11 @@ int main() {
 
 				case 1:
 					s.Task2a(magazine, hBonuri);
-					cout << "\nGraficul se regaseste in fisierul...\n";
+					cout << "\n Introduceti id-ul magazinului pentru care doriti grafic:\n";
+					cin >> idMag;
+					o.chartZile("output/VanzariZileHeader.htm", "output/VanzariZileFooter.htm", 
+						"output/NrProdusePeZile2a.txt", "output/chartVanzariZile.html", idMag);
+					cout << "\nGraficul se regaseste in fisierul: chartVanzariZile.html\n";
 					break;
 				case 2:
 					s.Task2b(magazine, hBonuri);
@@ -141,7 +150,9 @@ int main() {
 					s.Task2c(idBon, hBonuri, produse);
 					break;
 				case 4:
-					
+
+					bonuri.QuickSort(0, bonuri.size() - 1, CompareIdMagTime);
+					s.Task2d(bonuri, hBonuri);
 					break;
 				case 5:
 					ok = 0;

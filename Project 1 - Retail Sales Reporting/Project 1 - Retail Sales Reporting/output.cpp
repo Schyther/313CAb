@@ -53,3 +53,72 @@ void Output::ShowTask3Menu() {
 	
 	cout << "Tastati un numar:\n";
 }
+
+//functie luata din aplicatiile cursului 3
+void Output::copyFile(ifstream& input, ofstream& output) {
+	string buffer;
+	while (getline(input, buffer)) {
+		output << buffer << '\n';
+	}
+}
+
+void Output::Chart(const char* h, const char* f, const char* in, const char* ch)
+{
+	ifstream header;
+	ifstream footer;
+	ifstream intrare;
+	ofstream chart;
+
+	header.open(h);
+	footer.open(f);
+	intrare.open(in);
+	chart.open(ch);
+
+	copyFile(header, chart);
+
+	char line[100];
+	while (intrare.getline(line, 100))
+	{
+		char *p, *p1;
+		p = strtok(line, ",");
+		p1 = strtok(NULL, ",");
+		chart << "['" << p << "', " << p1 << "],\n";
+	}
+
+	copyFile(footer, chart);
+}
+
+void Output::chartZile(const char* h, const char* f, const char* in, const char* ch, int nr_mag)
+{
+	ifstream header;
+	ifstream footer;
+	ifstream intrare;
+	ofstream chart;
+
+	header.open(h);
+	footer.open(f);
+	intrare.open(in);
+	chart.open(ch);
+
+	copyFile(header, chart);
+
+	char line[100];
+
+	for (int i = 1; i < nr_mag; i++)
+	{
+
+		for (int j = 0; j<366; j++)
+			intrare.getline(line, 100);
+	}
+
+	for (int j = 0; j<366; j++)
+	{
+		intrare.getline(line, 100);
+		char *p, *p1;
+		p = strtok(line, ",");
+		p1 = strtok(NULL, ",");
+		chart << "['" << p << "', " << p1 << "],\n";
+	}
+
+	copyFile(footer, chart);
+}

@@ -11,7 +11,7 @@ Solve::~Solve()
 void Solve::Task1a(ResizableArray < Magazin > &magazine, Produs *produse, Hash < string, int > &H) {
 	int szBon;
 	string idBon;
-	ofstream g("task1a.txt");
+	ofstream g("output/task1a.txt");
 	int magSz = magazine.size();
 
 	for (int i = 0; i < magSz; ++i) {
@@ -36,7 +36,7 @@ void Solve::Task1a(ResizableArray < Magazin > &magazine, Produs *produse, Hash <
 
 void Solve::Task1b(Hash < string, int > &H, Produs *produse,
     ResizableArray < Bon < int, string, time_t > > &bonuri) {
-    ofstream g("task1b.txt");
+    ofstream g("output/task1b.txt");
 
     int szBonuri = bonuri.size();
     int fcvProduse[NumarProduse] = {0}; // fcvProduse[i] = de cate ori am vandut produsul cu id-ul i
@@ -236,7 +236,7 @@ void Solve::Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBon
 	int vanzareInZi;
 	string idBon;
 
-	ofstream g("NrProdusePeZile2a.txt");
+	ofstream g("output/NrProdusePeZile2a.txt");
 	
 	cout << "Zilele in care au fost cele mai multe produse vandute sunt:" << '\n';
 
@@ -279,7 +279,7 @@ void Solve::Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBon
 
 void Solve::Task2b(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri) {
 
-	ofstream g("NrCumparatoriPeZile2b.txt");
+	ofstream g("output/NrCumparatoriPeZile2b.txt");
 	
 	cout << "Zilele in care au fost cei mai multi cumparatori sunt:" << '\n';
 
@@ -328,6 +328,44 @@ void Solve::Task2c(string idBon, Hash < string, int > &H, Produs *produse) {
 	for (int i = 0; i < sz; ++i) {
 		cout << "   " << produse[continut[i]].getNume() << '\n';
 	}
+}
+
+void Solve::Task2d(ResizableArray < Bon < int, string, time_t > > &bonuri, Hash < string, int > &H) {
+	int szBonuri = bonuri.size();
+	int nrClienti = 0;
+	int i, szContinut, timpPerTranzactie;
+	time_t timp1, timp2;
+
+	for (i = 0; i < szBonuri - 1; ++i) {
+		szContinut = H.getValue(bonuri[i].idBon).size();
+
+		timpPerTranzactie = szContinut * TimpPerProdus;
+
+		timp1 = bonuri[i].timestamp;
+		timp2 = bonuri[i + 1].timestamp;
+
+		if (timp2 - timp1 < timpPerTranzactie &&
+			bonuri[i].idMag == bonuri[i + 1].idMag) {
+			nrClienti++;
+		}
+
+		if (bonuri[i].idMag != bonuri[i + 1].idMag) {
+			cout << "In magazinul " << bonuri[i].idMag;
+			if (nrClienti == 0) {
+				cout << ", niciun client nu ar beneficia de introducerea unei a doua case.\n";
+				continue;
+			}
+			cout << ", " << nrClienti << " clienti ar beneficia de o a doua casa.\n";
+			nrClienti = 0;
+		}
+	}
+
+	cout << "In magazinul " << bonuri[i].idMag;
+	if (nrClienti == 0) {
+		cout << ", niciun client nu ar beneficia de introducerea unei a doua case.\n";
+		return;
+	}
+	cout << ", " << nrClienti << " clienti ar beneficia de o a doua casa.\n";
 }
 
 
@@ -387,6 +425,8 @@ void Solve::Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri,
 
 	
 }
+
+
 
 
 
