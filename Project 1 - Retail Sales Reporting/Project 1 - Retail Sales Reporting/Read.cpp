@@ -147,7 +147,7 @@ void Read::PaletiRead(const char* fileName, DepozitGlobal &d) {
 
 		Palet p(paletId, nItems, prodType);
 		d.GetSloturi()[slot].push(p);
-		
+
 	}
 
 }
@@ -159,7 +159,7 @@ void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine,
 	int id_magazin;
 	string locatie;
 	int i, sz;
-	
+	Magazin empty;
 
 	// Sar peste headerele tabelului
 	getline(magazinef, line);
@@ -181,7 +181,14 @@ void Read::MagazineRead(const char* fileName, ResizableArray<Magazin> &magazine,
 			}
 
 			Magazin m(locatie, prod);
-			magazine.push_back(m);
+
+			while (id_magazin > (int)magazine.size())
+			{
+				magazine.push_back(empty);
+			}
+
+
+			magazine[id_magazin-1] = m;
 		}
 	}
 }
@@ -209,7 +216,7 @@ void Read::CategoriiRead(const char *fileName, Categorii& cat) {
 			// Fac split caracter cu caracter la linia citita
 			i = 0;
 			while (line[i] != ',') {
-				id_categorie = id_categorie*10 + line[i++]-'0';
+				id_categorie = id_categorie * 10 + line[i++] - '0';
 			}
 
 			i++;
@@ -280,7 +287,7 @@ void Read::TranzactiiRead(const char *fileName, ResizableArray<Magazin>& magazin
 			Bon < int, string, time_t > tmp;
 			tmp.idBon = id_bon;
 			tmp.idMag = id_magazin;
-			tmp.timestamp= ConvertTime(timestamp);
+			tmp.timestamp = ConvertTime(timestamp);
 			bonuri.push_back(tmp);
 		}
 	}

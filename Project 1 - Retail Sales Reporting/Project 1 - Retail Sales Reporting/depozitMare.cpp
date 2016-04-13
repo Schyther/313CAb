@@ -81,7 +81,7 @@ bool DepozitGlobal::Comanda(int id_produs) {
 		palet_crt = sloturi[slotProdus].top();
 		if (palet_crt.getIdProdus() == id_produs) break;
 		else {
-			cout << "Paletul de pe slotul " << slotProdus << " cu ID " << palet_crt.getIdPalet() << " ,numar de produse " 
+			cout << "Paletul de pe slotul " << slotProdus << " cu ID " << palet_crt.getIdPalet() << ", numar de produse " 
 			<< palet_crt.getNrItems() << " si ID-PRODUS " << palet_crt.getIdProdus() << " se muta pe slotul " << i << '\n';
 		}
 		sloturi[i].push(palet_crt);

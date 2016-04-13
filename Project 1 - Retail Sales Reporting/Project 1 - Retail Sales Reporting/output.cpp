@@ -20,7 +20,7 @@ void Output::ShowTask1Menu() {
 	cout << "2. Lista cu toate produsele si vanzarile totale facute de acestea\n";
 	cout << "3. Valoarea cosului mediu\n";
 	cout << "4. Categoriile cele mai bine vandute pentru fiecare magazin\n";
-	cout << "5. Perechile de de produse care se vand cel mai bine impreuna\n";
+	cout << "5. Perechile de produse care se vand cel mai bine impreuna\n";
 	cout << "6. Intoarecere la meniul principal\n\n";
 	
 	cout << "Tastati un numar:\n";

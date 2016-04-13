@@ -72,7 +72,7 @@ void Solve::Task1c(Hash < string, int > &H, Produs *produse,
     }
 
     cout << "Valoare cosului mediu este: "<<
-    (1.0 * costTotal / (double)bonuri.size()) <<'\n';
+    (1.0 * costTotal / (double)bonuri.size()) << " lei"<<'\n';
 }
 
 

@@ -16,6 +16,7 @@ bool CompareIdMagTime(const Bon < int, string, time_t >& a, const Bon < int, str
 	return 0;
 }
 
+
 int main() {
 	
 	Read r;

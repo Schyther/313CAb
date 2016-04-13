@@ -8,8 +8,8 @@ Magazin::Magazin() {
 Magazin::Magazin(string locatie, Produs *prod) {
 	this->locatie = locatie;
 	depozit.addStoc(prod);
-	int n = depozit.getNProduse();
-	for (int i = 0; i < depozit.getNProduse(); i++)
+
+	for (int i = 0; i < NumarProduse; i++)
 		StocInitial[i] = NrProdIntial;
 
 }
@@ -34,10 +34,6 @@ string Magazin::getLocatie() {
 	return locatie;
 }
 
-int Magazin::findProdus(int id) {
-	return depozit.findProdus(id);
-}
-
 int Magazin::getNProdus(int id) {
 	return depozit.getNProdus(id);
 }
@@ -49,19 +45,8 @@ Depozit_Magazin& Magazin::GetDepozit() {
 
 void Magazin::addProdusCant(int idProd, int cantitate) {
 
-	int pos = depozit.findProdus(idProd);
-	depozit.addProdusCant(pos, cantitate);
+	depozit.addProdusCant(idProd, cantitate);
 
-}
-
-void Magazin::add_produs(Produs& produs, int cantitate) {
-	int pos = depozit.findProdus(produs.getId());
-	if (pos == -1) {
-		depozit.addProdus(&produs, cantitate);
-	}
-	else {
-		depozit.addProdusCant(pos, cantitate);
-	}
 }
 
 
@@ -76,6 +61,7 @@ int Magazin::removeProdus(int id, int cantitate, DepozitGlobal &d) {
 		if (cant == -1) return -1;
 		depozit.addProdusCant(id, cant);
 		nr = getNProdus(id);
+		StocInitial[id] = nr;
 	}
 
 	return 1;

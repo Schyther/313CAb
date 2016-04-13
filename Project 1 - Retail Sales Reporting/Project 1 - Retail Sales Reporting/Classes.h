@@ -15,7 +15,7 @@ using namespace std;
 
 #define NumarProduse 500
 #define NumarSloturi 200
-#define NrProdIntial 10
+#define NrProdIntial 0
 #define TimpPerProdus 10
 
 //Clasa pentru categorii
@@ -105,25 +105,18 @@ public:
 // CLasa pentru depozit magazin
 
 class Depozit_Magazin {
-	ResizableArray<Produs*> produse;
-	ResizableArray<int> nr_produse;
+	int fcvProd[NumarProduse];
 
 public:
 
 	Depozit_Magazin();
-	Depozit_Magazin(ResizableArray<Produs*> produse, ResizableArray<int> nr_produse);
 	Depozit_Magazin(const Depozit_Magazin& other);
 	~Depozit_Magazin();
 
-	int findProdus(int);
 	int getNProdus(int);
 
-	ResizableArray<int>& GetFcvP();
-
-	void addProdus(Produs*, int);
 	void addProdusCant(int idProd, int cantitate);
 	void addStoc(Produs*prod);
-	int getNProduse();
 
 	Depozit_Magazin& operator= (const Depozit_Magazin& other);
 
@@ -166,13 +159,11 @@ public:
 	~Magazin();
 
 	string getLocatie();
-	int findProdus(int id);
 	int getNProdus(int id);
 
 	Depozit_Magazin& GetDepozit();
 
 	void setLocatie(string locatie);
-	void add_produs(Produs& produs, int cantitate);
 	void addProdusCant(int idProd, int cantitate);
 	int removeProdus(int id, int cantitate, DepozitGlobal &d);
 	void add_bon(string id_bon, int zi);
