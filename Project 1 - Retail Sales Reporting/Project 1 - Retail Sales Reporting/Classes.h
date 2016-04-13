@@ -3,6 +3,7 @@
 #include <string>
 #include <ctime>
 #include <climits>
+#include <vld.h>
 
 #include "utils.h"
 #include "DLL.h"

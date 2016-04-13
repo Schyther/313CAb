@@ -329,7 +329,8 @@ void Solve::Task2c(string idBon, Hash < string, int > &H, Produs *produse) {
 	}
 }
 
-void Solve::Task2d(ResizableArray < Bon < int, string, time_t > > &bonuri, Hash < string, int > &H) {
+void Solve::Task2d(ResizableArray < Bon < int, string, time_t > > &bonuri,
+	Hash < string, int > &H) {
 	int szBonuri = bonuri.size();
 	int nrClienti = 0;
 	int i, szContinut, timpPerTranzactie;
