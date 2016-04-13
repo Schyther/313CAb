@@ -8,7 +8,7 @@ void Output::ShowMenu() {
 	cout << "Task1 (Directorii executivi)\n";
 	cout << "Task2 (Directorii de magazine)\n";
 	cout << "Task3 (Seful depozit)\n\n";
-	cout << "Tastati alegerea dumneavostra. (Pentru iesire din program folositi comanda end)\n";
+	cout << "Tastati alegerea dumneavoastra. (Pentru iesire din program folositi comanda end)\n";
 
 }
 
