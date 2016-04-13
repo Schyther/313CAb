@@ -132,7 +132,12 @@ int main() {
 					break;
 				case 2:
 					s.Task2b(magazine, hBonuri);
-					cout << "\nGraficul se regaseste in fisierul...\n";
+					cout << "\n Introduceti id-ul magazinului pentru care doriti grafic:\n";
+					cin >> idMag;
+					o.chartZile("output/CumparatoriZileHeader.htm", 
+						"output/CumparatoriZileFooter.htm", "output/NrCumparatoriPeZile2b.txt", 
+						"output/chartCumparatoriZile.html", idMag);
+					cout << "\nGraficul se regaseste in fisierul: chartCumparatoriZile.html\n";
 					break;
 				case 3:
 					cout << "\nIntroduceti id-ul bonului:\n";

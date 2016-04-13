@@ -292,7 +292,6 @@ void Solve::Task2b(ResizableArray<Magazin> &magazine, Hash < string, int > &hBon
 
 		for (int i = 1; i < 367; ++i)
 			g << i << ',' << fcvBonuri[i] << '\n';
-		g << '%' << '\n';
 
 		int max[3] = { -1 }, luna, zi;
 		Maxime(fcvBonuri, 367, max[0], max[1], max[2]);
