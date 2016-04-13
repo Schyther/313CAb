@@ -81,8 +81,9 @@ bool DepozitGlobal::Comanda(int id_produs) {
 		palet_crt = sloturi[slotProdus].top();
 		if (palet_crt.getIdProdus() == id_produs) break;
 		else {
-			cout << "Paletul de pe slotul " << slotProdus << " cu ID " << palet_crt.getIdPalet() << ", numar de produse " 
-			<< palet_crt.getNrItems() << " si ID-PRODUS " << palet_crt.getIdProdus() << " se muta pe slotul " << i << '\n';
+			cout << "Paletul de pe slotul " << slotProdus << " cu ID " << palet_crt.getIdPalet() 
+				<< ", numar de produse " << palet_crt.getNrItems() << " si ID-PRODUS " 
+				<< palet_crt.getIdProdus() << " se muta pe slotul " << i << '\n';
 		}
 		sloturi[i].push(palet_crt);
 		sloturi[slotProdus].pop();
@@ -93,8 +94,9 @@ bool DepozitGlobal::Comanda(int id_produs) {
 	cout << "Extrag paletul cu ID-PRODUS " << id_produs << '\n';
 
 	for (int j = temp.size() - 1; j >= 0; --j) {
-		cout << "Mut inapoi paletul de pe slotul " << i << " cu ID " << temp[j].getIdPalet() << " ,numar de produse " 
-		<< temp[j].getNrItems() << " si ID-PRODUS " << temp[j].getIdProdus() << " pe slotul " << slotProdus << '\n';
+		cout << "Mut inapoi paletul de pe slotul " << i << " cu ID " << temp[j].getIdPalet() 
+			<< ", numar de produse " << temp[j].getNrItems() << " si ID-PRODUS " 
+			<< temp[j].getIdProdus() << " pe slotul " << slotProdus << '\n';
 		sloturi[slotProdus].push(temp[j]);
 	}
 

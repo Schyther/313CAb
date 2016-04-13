@@ -236,7 +236,7 @@ void Solve::ZileToData(int trecute, int &luna, int &zi) {
 
 
 void Solve::Task2a(ResizableArray<Magazin> &magazine, Hash < string, int > &hBonuri) {
-	int *fcvVanzari = new int[367]();
+	int *fcvVanzari = NULL;
 	int vanzareInZi;
 	string idBon;
 
@@ -406,8 +406,8 @@ void Solve::Task3c(ResizableArray < Bon < int, string, time_t > > &bonuri,
 
 			 if (check == -1) {
 				 cout << "\nDupa realizarea tranzactiei bonului cu id-ul "
-				 << bonuri[i].idBon << ", magazinul cu id-ul " << bonuri[i].idMag << " a cerut depozitului" <<
-				 " un palet de produse cu id-ul " << produse[j]
+				 << bonuri[i].idBon << ", magazinul cu id-ul " << bonuri[i].idMag
+				<< " a cerut depozitului" << " un palet de produse cu id-ul " << produse[j]
 				 << ". Depozitul nu a putut onora aceasta comanda.\n";
 				 return;
 			}
