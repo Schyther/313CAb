@@ -142,7 +142,10 @@ void Solve::Task1e(Hash < string, int > &H, Produs *produse,
 		ResizableArray < int > continutBon = H.getValue(bonuri[i].idBon);
 		int szContinut = continutBon.size();
 		// daca e un singur produs pe bon, nu avem ce verifica
-		if (szContinut < 2) continue;
+		if (szContinut < 2) {
+			delete[] fcvProduse;
+			continue;
+		}
 		for (int j = 0; j < szContinut; ++j) {
 			fcvProduse[continutBon[j]]++;
 		}
@@ -188,7 +191,9 @@ void Solve::Task1e(Hash < string, int > &H, Produs *produse,
 		perecheP = perecheP->next;
 	}
 	cout << "Aceste perechi au fost vandute de " << maxVanzari << " ori\n";
-
+	for (int i = 0; i < NumarProduse; i++)
+		delete[] perechi[i];
+	delete[] perechi;
 }
 
 // cele mai mari 3 elemente dintr-un vector
